@@ -10,5 +10,5 @@ $PY "$HERE/mix.py"                                                   # + client 
 cd "$LIB"
 node core/render/readcheck.mjs "$HERE" --size 1080x1920
 node core/render/video.mjs "$HERE" --fps 24 --size 1080x1920 --workers 4 --out "$HERE/out/video.mp4"
-sh core/render/mux.sh "$HERE/out/video.mp4" "$HERE/out/mix.wav" "$HERE/es-keynote.mp4" 24 0
+sh "$HERE/tools/mux.sh" "$HERE/out/video.mp4" "$HERE/out/mix.wav" "$HERE/es-keynote.mp4"
 node core/render/still.mjs "$HERE" 44 --size 1080x1920 --q nosub=1 --out "$HERE/out/still" --prefix po_ && cp "$HERE/out/still/po_44.jpg" "$HERE/poster.jpg"

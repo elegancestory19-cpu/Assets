@@ -239,9 +239,9 @@ function sceneNumber(g, t) {
   const s = '3.20', px = 380, y = 1000;
   g.save(); g.font = E.font(px, 600, 'disp'); const ws = [...s].map(c => g.measureText(c).width + -0.045 * px); g.restore();
   const total = ws.reduce((a, b) => a + b, 0) + 0.045 * px, zx = CX - total / 2 + ws.slice(0, 3).reduce((a, b) => a + b, 0) + (ws[3] + 0.045 * px) / 2, zy = y - px * 0.36;
-  const dz = t < K.dive ? 1 : Math.exp(Math.log(16) * ei(seg(t, K.dive, K.dive + 0.7)));
+  const pd = seg(t, K.dive, K.dive + 0.5), dz = t < K.dive ? 1 : Math.exp(Math.log(16) * ei(pd)), mx = lerp(zx, CX, eio(pd)), my = lerp(zy, 900, eio(pd));
   if (dz < 15.5 && t < K.facade + 0.14) {
-    g.save(); g.translate(zx, zy); g.scale(dz, dz); g.translate(-zx, -zy);
+    g.save(); g.translate(mx, my); g.scale(dz, dz); g.translate(-zx, -zy);
     E.scramble(g, s, CX, y, t, LOCKS, { px, color: PAL.accent, glowC: E.rgba(PAL.accent, 0.5) });
     const pu = seg(t, 26.3, 26.5);
     E.text(g, 'متر', CX, y + 110 - (1 - eo(pu)) * 12, { px: 64, wt: 700, color: PAL.dim, alpha: eo(pu) });
