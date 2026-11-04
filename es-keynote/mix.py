@@ -28,7 +28,8 @@ def trim(x, db=-45, pad=0.04):
 for L in TL['LINES']:
     p = os.path.join(D, 'voice', L['id'] + '.wav')
     if not os.path.exists(p): continue
-    x = trim(load(p)); s = int(L['t0'] * SR); e = min(N, s + len(x)); vox[s:e] += x[:e - s]
+    # already cut at true silence with soft fades: no second trim
+    x = load(p); s = int(L['t0'] * SR); e = min(N, s + len(x)); vox[s:e] += x[:e - s]
     over = L['t0'] + len(x) / SR - L['t1']
     placed.append((L['id'], round(len(x) / SR, 2), round(over, 2)))
 
