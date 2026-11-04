@@ -1,0 +1,2 @@
+Instruments: glockenspiel, jazz_bass, marimba, vibraphone, vibraphone_bowed, vibraphone_hard, xylophone
+Samples (CC0): Karoryfer Samples / sfzinstruments, Versilian Community Sample Library (Versilian Studios)
