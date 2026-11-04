@@ -135,6 +135,12 @@ Five of the six differ.
 
 **Retimings after the reading check:** the headline at 6.5 s, the digits locking at 25.875–26.125, the dive at 27.95, the facade at 28.5, and the L7 and L8 captions moved to fit.
 
+**After the client's voice arrived** (one take, 40.5 s, split into 11 lines at its pauses, silences trimmed only; no speed, pitch or compression change):
+- The products section is **one bar longer** (every time after 20 s moves +2 s), so the film is **48.0 s**. Line 5 runs 6.25 s and line 6 runs 4.75 s.
+- The picture now lands on the spoken words: preview switches on «لوغو / هوية / الألوان» (10.0, 11.5, 12.5, 13.5), material chips on «زجاج / خشب / جلد / معدن» (16.0, 17.0, 17.5, 18.5), and product landings on «كارطات / ستيكرز / تيشرتات» (21.0, 21.5, 23.5).
+- The captions follow the recording: line 4 is «والألوان لي توالم علامتك», line 6 is «مقصوصة على كيفك». Two Whisper models agree on both.
+- Voice vs music while speaking: +26.7 dB. Final: −14.0 LUFS, no black frames, all 11 lines transcribe back from the finished film.
+
 ## 11. Deliverables
 
 `es-keynote.mp4` (a music-only preview until the voice arrives, then the final with voice), `poster.jpg`, `es-keynote.srt`, this file, `CREDITS`, the source and a one-command `build.sh`.

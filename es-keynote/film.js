@@ -218,7 +218,7 @@ function sceneProducts(g, t) {
       if (filled) {
         E.pic(g, im(r.img), T.x - sz / 2, T.y - sz / 2, sz, sz, { r: 18 });
         const pl = seg(t, land + 0.05, land + 0.3);
-        E.text(g, r.title, 580, y + 135, { px: 44, wt: 800, align: 'right', alpha: eo(pl) });
+        const tpx = Math.min(44, 44 * 380 / E.measure(g, r.title, 44, 800)); E.text(g, r.title, 580, y + 135, { px: tpx, wt: 800, align: 'right', alpha: eo(pl) });
         E.mono(g, r.code, 580, y + 205, { px: 30, align: 'right', color: PAL.dim, alpha: eo(pl) });
         E.check(g, 130, y + 165, 34, seg(t, land + 0.22, land + 0.5));
       }
@@ -243,9 +243,9 @@ function sceneNumber(g, t) {
   if (dz < 15.5 && t < K.facade + 0.14) {
     g.save(); g.translate(mx, my); g.scale(dz, dz); g.translate(-zx, -zy);
     E.scramble(g, s, CX, y, t, LOCKS, { px, color: PAL.accent, glowC: E.rgba(PAL.accent, 0.5) });
-    const pu = seg(t, 26.3, 26.5);
+    const pu = seg(t, 28.3, 28.5);
     E.text(g, 'متر', CX, y + 110 - (1 - eo(pu)) * 12, { px: 64, wt: 700, color: PAL.dim, alpha: eo(pu) });
-    const pl = seg(t, 25.7, 25.9);
+    const pl = seg(t, 27.7, 27.9);
     E.text(g, 'طباعة بالحجم الكبير', CX, 660, { px: 36, wt: 600, color: PAL.mute, alpha: eo(pl) });
     g.restore();
   }
@@ -269,15 +269,15 @@ function sceneSigns(g, t) {
   const pout = seg(t, K.digi - 0.22, K.digi);
   squash(g, CX, 960, pout, () => {
     cam.apply(g);
-    if (t >= 29.6) {
-      const r = E.expand({ x: CX - 4, y: 860 - 2, w: 8, h: 4 }, A, eo(seg(t, 29.6, 29.95)));
+    if (t >= 31.6) {
+      const r = E.expand({ x: CX - 4, y: 860 - 2, w: 8, h: 4 }, A, eo(seg(t, 31.6, 31.95)));
       g.save(); withRect(g, A, r, () => E.lightReveal(g, im(9), A.x, A.y, A.w, A.h, seg(t, K.sign0, K.sign1), { angle: Math.PI / 2, base: 0.08, tint: '255,238,215', glint: 0.18, r: 22 })); g.restore();
     }
     if (t >= K.whip - 0.05) E.lightReveal(g, im(11), B.x, B.y, B.w, B.h, seg(t, K.whip, K.whip + 0.7), { angle: Math.PI / 2, base: 0.1, glint: 0.15, r: 22 });
     g.setTransform(1, 0, 0, 1, 0, 0);
     // labels in screen space, at the projected rect corners
     const prj = (x, y) => ({ x: E.W / 2 + (x - cam.x) * cam.zoom, y: E.H / 2 + (y - cam.y) * cam.zoom });
-    const a1 = seg(t, 30.6, 30.85), a2 = seg(t, 32.0, 32.25);
+    const a1 = seg(t, 32.6, 32.85), a2 = seg(t, 34, 34.25);
     const pa = prj(A.x + A.w, A.y), pb = prj(B.x + B.w, B.y);
     if (a1 > 0) { const w = E.measure(g, 'لافتات مضوّية', 30, 700) + 42; E.chip(g, 'لافتات مضوّية', pa.x - w / 2 - 22, pa.y + 46, { px: 30, wt: 700, a: a1, on: 1 }); }
     if (a2 > 0) { const w = E.measure(g, 'رول أب · ستاندات', 30, 700) + 42; E.chip(g, 'رول أب · ستاندات', pb.x - w / 2 - 22, pb.y + 46, { px: 30, wt: 700, a: a2, on: 1 }); }
@@ -290,18 +290,18 @@ function sceneDigital(g, t) {
   if (t < K.digi || t >= K.snapFly) return;
   const s = lerp(1, 1.05, ss(seg(t, K.digi, K.snapFly)));
   g.save(); g.translate(CX, 850); g.scale(s, s); g.translate(-CX, -850);
-  life(g, t, K.digi, 36.55, VW, () => {
+  life(g, t, K.digi, 38.55, VW, () => {
     E.windowBox(g, VW.x, VW.y, VW.w, VW.h, { title: 'موشن ديزاين', code: '4K' });
     const frames = [{ w: 300, h: 169, l: '16:9' }, { w: 132, h: 234, l: '9:16' }, { w: 200, h: 200, l: '1:1' }];
     let x = 900; const cy = 520;
     frames.forEach((f, i) => {
-      const fx = x - f.w, p = seg(t, 33.9 + i * 0.25, 34.15 + i * 0.25); x = fx - 46;
+      const fx = x - f.w, p = seg(t, 35.9 + i * 0.25, 36.15 + i * 0.25); x = fx - 46;
       if (p <= 0) return;
       g.save(); g.globalAlpha = clamp(p * 3);
       const yy = cy - f.h / 2 - 20 * (1 - E.back(p, 2));
       E.panel(g, fx, yy, f.w, f.h, { r: 12, fill: '#0B0D12', shadow: 0.5 });
       g.save(); E.rr(g, fx, yy, f.w, f.h, 12); g.clip();
-      const k = 0.55 + 0.08 * Math.sin((t - 34) * 3 + i);
+      const k = 0.55 + 0.08 * Math.sin((t - 36) * 3 + i);
       E.logo(g, LOGO, fx + f.w / 2, yy + f.h / 2, Math.min(f.w, f.h) * 1.25 * k / 0.55 * 0.62, 1);
       g.restore();
       E.mono(g, f.l, fx + f.w / 2, yy + f.h + 28, { px: 22, color: PAL.dim });
@@ -310,13 +310,13 @@ function sceneDigital(g, t) {
     // track + clips + playhead
     const ty = 730; g.fillStyle = 'rgba(255,255,255,.06)'; E.rr(g, 100, ty - 12, 800, 24, 12); g.fill();
     [[110, 300, .35], [320, 520, .2], [540, 690, .35], [710, 890, .2]].forEach(([a, b, al], i) => {
-      const p = seg(t, 34.2 + i * 0.125, 34.4 + i * 0.125); if (p <= 0) return;
+      const p = seg(t, 36.2 + i * 0.125, 36.4 + i * 0.125); if (p <= 0) return;
       g.fillStyle = E.rgba('#8A90A0', al + 0.1); E.rr(g, a, ty - 9, (b - a) * eo(p), 18, 9); g.fill();
     });
-    const ph = lerp(100, 900, seg(t, 34.4, 36.4));
-    if (t > 34.4) { g.fillStyle = PAL.accent; g.shadowColor = PAL.accent; g.shadowBlur = 14; g.fillRect(ph - 2, ty - 34, 4, 68); g.shadowBlur = 0; }
+    const ph = lerp(100, 900, seg(t, 36.4, 38.4));
+    if (t > 36.4) { g.fillStyle = PAL.accent; g.shadowColor = PAL.accent; g.shadowBlur = 14; g.fillRect(ph - 2, ty - 34, 4, 68); g.shadowBlur = 0; }
   });
-  life(g, t, K.digi + 0.15, 36.55, WW, () => {
+  life(g, t, K.digi + 0.15, 38.55, WW, () => {
     E.windowBox(g, WW.x, WW.y, WW.w, WW.h, { title: 'مواقع ويب', code: 'www' });
     const B = BLOCKS, pop = i => E.back(seg(t, B[i], B[i] + 0.22), 2), al = i => clamp(seg(t, B[i], B[i] + 0.22) * 3);
     const X = 90, Wd = 820;
@@ -381,7 +381,7 @@ function sceneEnd(g, t) {
     g.save(); g.strokeStyle = PAL.accent; g.lineWidth = 3; g.shadowColor = PAL.accent; g.shadowBlur = 22; E.rr(g, sx - ts / 2, sy - ts / 2, ts, ts, 18); g.stroke(); g.restore();
   });
   E.logo(g, LOGO, lerp(sx, CX, grow), lerp(sy, 610, grow), lerp(ts * 1.1, 600, grow), 1);
-  const row = (i, d) => seg(t, 42.0 + d, 42.22 + d);
+  const row = (i, d) => seg(t, 44 + d, 44.22 + d);
   const ptl = row(0, 0);
   E.text(g, 'إشهار و حلول طباعة ذكية', CX, 950 + (1 - eo(ptl)) * 12, { px: 40, wt: 700, color: PAL.dim, alpha: eo(ptl) });
   PHONES.forEach((n, i) => {
@@ -413,7 +413,7 @@ export function texts(t) {
   if (within(t, K.head3 + 0.2, 9.28)) out.push({ id: 'h3', text: 'حكايتك… بكل أناقة', x0: 200, y0: 1240, x1: 800, y1: 1340 });
   if (within(t, K.snap + 0.3, K.put)) out.push({ id: 'h10', text: 'كلّش تحت سقف واحد', x0: 180, y0: 190, x1: 820, y1: 290 });
   if (within(t, LOCKS[0], K.dive)) out.push({ id: 'num', text: '3.20', x0: 160, y0: 700, x1: 840, y1: 1010 });
-  if (within(t, 42.2, DUR)) out.push({ id: 'end', text: 'إشهار و حلول طباعة ذكية', x0: 200, y0: 920, x1: 800, y1: 980 });
+  if (within(t, 44.2, DUR)) out.push({ id: 'end', text: 'إشهار و حلول طباعة ذكية', x0: 200, y0: 920, x1: 800, y1: 980 });
   return out;
 }
 export function events() {

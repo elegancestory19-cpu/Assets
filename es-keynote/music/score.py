@@ -39,31 +39,30 @@ def pattern_bar(t0, n, vel=0.5, inst='marimba', oct_=0, gain=1.0):
         p = S.midi(PAT[k]) + 12 * oct_
         ev(t0 + k * 0.25, inst, p, 0.4, vel * (1.08 if k == 0 else 1.0), pan=(-0.25 + 0.5 * (k / 7)), gain=gain)
 bar = 0
-for t0 in np.arange(10.0, 25.0, 2.0):           # 10..24: additive 1→8
+for t0 in np.arange(10.0, 27.0, 2.0):           # 10..26: additive, one more note per bar
     bar += 1; pattern_bar(t0, min(8, bar + 2), 0.46 + 0.02 * bar)
 # S7 subtractive: one note left, then the digits
-ev(25.5, 'marimba', 'A4', 0.4, 0.45)
+ev(K['num'], 'marimba', 'A4', 0.4, 0.45)
 for t, p in zip(TL['LOCKS'][::-1][:3], ['A5', 'C6', 'E6']):
     ev(t, 'marimba', p, 0.4, 0.55, gain=0.9)
 ev(TL['LOCKS'][0], 'glockenspiel', 'E7', 1.2, 0.4, gain=0.7)
-ev(27.0, 'marimba', 'A4', 0.4, 0.45); ev(28.0, 'marimba', 'A4', 0.4, 0.5); ev(K['facade'], 'marimba', 'E5', 0.4, 0.55); ev(29.0, 'marimba', 'D5', 0.4, 0.5)
+ev(29.0, 'marimba', 'A4', 0.4, 0.45); ev(30.0, 'marimba', 'A4', 0.4, 0.5); ev(K['facade'], 'marimba', 'E5', 0.4, 0.55); ev(31.0, 'marimba', 'D5', 0.4, 0.5)
 # S8 returns, S9 densest (vibes double an octave up)
-for t0 in [29.5, 31.5]: pattern_bar(t0, 8, 0.6)
-for t0 in [33.5, 35.5]:
+for t0 in [31.5, 33.5]: pattern_bar(t0, 8, 0.6)
+for t0 in [35.5, 37.5]:
     pattern_bar(t0, 8, 0.62); pattern_bar(t0, 8, 0.3, 'vibraphone_hard', 1, 0.6)
-ev(35.5 + 1.0, 'marimba', 'E5', 0.3, 0.0)        # (pattern already continues to 37)
 
 # bowed vibraphone pad (real instrument, the pad's job): one soft chord per 4 s, S4–S7
-for t0, ch in [(9.5, ['A3', 'E4', 'G4', 'C5']), (13.5, ['A3', 'D4', 'F#4', 'B4']), (17.5, ['A3', 'E4', 'G4', 'C5']), (21.5, ['A3', 'D4', 'F#4', 'B4'])]:
+for t0, ch in [(9.5, ['A3', 'E4', 'G4', 'C5']), (13.5, ['A3', 'D4', 'F#4', 'B4']), (17.5, ['A3', 'E4', 'G4', 'C5']), (21.5, ['A3', 'D4', 'F#4', 'B4']), (25.5, ['A3', 'E4', 'G4', 'C5'])]:
     for p in ch: ev(t0, 'vibraphone_bowed', p, 3.9, 0.3, pan=R.uniform(-0.3, 0.3), attack=0.6, release=0.5, gain=0.55)
 for p in ['A3', 'E4', 'B4']: ev(K['num'], 'vibraphone_bowed', p, 3.8, 0.28, attack=0.5, release=0.6, gain=0.5)
 # bass (jazz double bass) from S5: A / D every two bars; walking in S8–S9
 def bass(t, p, v=0.62, d=0.5): ev(t, 'jazz_bass', p, d, v, gain=1.0)
-for t0 in np.arange(14.5, 25.0, 2.0):
+for t0 in np.arange(14.5, 27.0, 2.0):
     root = 'A2' if int((t0 - 14.5) // 4) % 2 == 0 else 'D2'
     bass(t0, root); bass(t0 + 1.0, 'E2' if root == 'A2' else 'A2', 0.55)
-for t0 in [29.5, 31.5, 33.5, 35.5]:
-    for k, p in enumerate(['A2', 'C3', 'D3', 'E3'] if t0 in (29.5, 33.5) else ['D3', 'C3', 'B2', 'G2']):
+for t0 in [31.5, 33.5, 35.5, 37.5]:
+    for k, p in enumerate(['A2', 'C3', 'D3', 'E3'] if t0 in (31.5, 35.5) else ['D3', 'C3', 'B2', 'G2']):
         bass(t0 + k * 0.5, p, 0.58)
 
 # picture hits on notes (glockenspiel, soft): tabs, chips, landings, web blocks
@@ -90,7 +89,7 @@ EN = K['end']
 ev(EN, 'marimba', 'A3', 2.5, 0.55); ev(EN, 'glockenspiel', 'A6', 3.0, 0.32, release=3.0)
 for p in ['A3', 'E4', 'C#5', 'B4']: ev(EN + 0.02, 'vibraphone_bowed', p, 3.6, 0.32, attack=0.4, release=0.8, gain=0.6)
 ev(EN, 'jazz_bass', 'A1', 2.5, 0.6, gain=1.2)
-ev(43.5, 'vibraphone', 'E5', 2.0, 0.25, gain=0.6); ev(43.5, 'vibraphone', 'A4', 2.0, 0.25, gain=0.6)
+ev(45.5, 'vibraphone', 'E5', 2.0, 0.25, gain=0.6); ev(45.5, 'vibraphone', 'A4', 2.0, 0.25, gain=0.6)
 
 EV.sort(key=lambda e: e['t'])
 mix = S.render(EV, dur=DUR, master=False)

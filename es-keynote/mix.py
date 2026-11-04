@@ -6,7 +6,7 @@ Music ducks ≥ 12 dB under every word. Without voice files it writes a music-on
 import os, sys, json, glob
 import numpy as np, soundfile as sf
 LIB = os.environ.get('LIB', '/root/lemo-opuscar'); sys.path.insert(0, LIB)
-from core.audio.sfx import SR, compress, limit
+from core.audio.sfx import SR
 from scipy.signal import resample_poly
 from scipy.ndimage import maximum_filter1d, uniform_filter1d
 
@@ -33,13 +33,15 @@ for L in TL['LINES']:
     placed.append((L['id'], round(len(x) / SR, 2), round(over, 2)))
 
 if placed:
-    vox = compress(vox, thresh=-20, ratio=3.0) if 'thresh' in compress.__code__.co_varnames else compress(vox)
+    # no compression or EQ on the client's voice: one overall gain only
     vox = vox / (np.sqrt(np.mean(vox[np.abs(vox) > 1e-4] ** 2)) + 1e-9) * 10 ** (-18 / 20)
     # duck: music −14 dB wherever a word is (attack 40 ms, release 250 ms)
     env = maximum_filter1d((np.abs(vox) > 10 ** (-45 / 20)).astype(float), int(0.12 * SR))
     env = uniform_filter1d(env, int(0.25 * SR)); g = 10 ** (-14 * np.clip(env * 1.5, 0, 1) / 20)
     mus = mus * g[:, None] * 10 ** (-6 / 20)
     out = mus + vox[:, None]
+    sp = np.abs(vox) > 10 ** (-40 / 20); vr = np.sqrt(np.mean(vox[sp] ** 2)); mr = np.sqrt(np.mean(mus[sp] ** 2))
+    print(f'voice vs music while speaking: {20*np.log10(vr/mr):.1f} dB')
     for i, d, o in placed: print(f'{i}: {d}s' + (f'  ⚠ {o}s longer than its slot' if o > 0.05 else ''))
 else:
     out = mus * 10 ** (-3 / 20); print('no voice files yet → music-only preview')
