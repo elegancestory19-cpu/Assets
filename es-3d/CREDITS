@@ -1,0 +1,14 @@
+ELEGANCE STORY · «مدينة Elegance Story» (Low-poly Isometric Island)
+
+Client material (used with the client's rights): the Elegance Story colour logo (img/logo3d.jpg)
+and the colour logo with tagline (img/logo_tag.jpg), used unchanged as prints on surfaces.
+Voice-over: recorded by the client (voice/raw/take1.wav), cut at silences only.
+
+Music: original event-driven score, written in code. Real recorded instruments only, no sound effects.
+Samples (CC0 1.0): Versilian Community Sample Library (Versilian Studios): marimba, vibraphone, bowed vibraphone,
+  glockenspiel. github.com/sgossner/VCSL
+Samples (CC0 1.0): FreePats: kalimba, world percussion (darbuka). freepats.zenvoid.org
+Samples (CC0 1.0): Karoryfer Samples (Sneakybass jazz double bass). github.com/sfzinstruments
+
+Fonts (SIL Open Font License 1.1, files in fonts/): Cairo, JetBrains Mono (Google Fonts).
+3D: three.js (MIT). Post and sea shaders adapted from the Lemo-Opuscar "Low-poly Isometric Island" style (MIT).

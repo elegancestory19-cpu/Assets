@@ -1,0 +1,2 @@
+Instruments: glockenspiel, jazz_bass, kalimba, marimba, vibraphone, vibraphone_bowed, world_perc
+Samples (CC0): FreePats project (freepats.zenvoid.org), Karoryfer Samples / sfzinstruments, Versilian Community Sample Library (Versilian Studios)
