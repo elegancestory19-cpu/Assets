@@ -1,8 +1,9 @@
 // timeline.js: the single source of truth (picture, score, captions, checks).
 export const BPM = 120, BEAT = 0.5, BAR = 2.0, S16 = 0.125;
-export const DUR = 48.0;
-// the products section is one bar longer (2 s) to fit the client's voice: every time after 20 s moves +2
-const SH = x => (x > 20.0 ? +(x + 2).toFixed(4) : x);
+export const DUR = 50.0;
+// to fit the client's voice (take 2): the design and the print sections are one bar longer each.
+// times written in the 46 s layout move +2 s from 14.5 s and +2 s more from 20 s
+const SH = x => +(x + (x >= 14.5 ? 2 : 0) + (x >= 20.0 ? 2 : 0)).toFixed(4);
 
 // key times (s)
 export const K = {
@@ -19,12 +20,12 @@ export const STORM = [];
 
 // S4 design: tab arrivals and preview switches (beats)
 export const TABS = [10.0, 10.5, 11.0, 11.5];
-export const PREV = [10.0, 11.5, 12.5, 13.5];   // on «لوغو» «هوية» «الألوان»
+export const PREV = [10.0, 11.5, 13.5, 15.0];   // on «التصميم» «هوية» «الألوان»
 // S5 print: material chips land on beats
-export const CHIPS = [16.0, 17.0, 17.5, 18.5, 19.0];   // on «زجاج» «خشب» «جلد» «معدن»
-export const CODES = 19.5;
+export const CHIPS = [18.5, 19.5, 20.5, 21.0, 21.5];   // on «زجاج» «خشب» «جلد» «معدن»
+export const CODES = 22.5;
 // S6 products: three flights land on downbeats
-export const LAND = [21.0, 21.5, 23.5];      // on the words «كارطات» «ستيكرز» «تيشرتات»
+export const LAND = [24.5, 25.5, 27.0];      // on the words «كارطات» «ستيكرز» «تيشرتات»
 export const PUTROW = [24.5, 24.75, 25.0].map(SH);
 // S7 number: digits lock right to left on sixteenths ("3.20": 3 . 2 0)
 export const LOCKS = [26.125, 26.125, 26.0, 25.875].map(SH);
@@ -36,15 +37,15 @@ export const RETRACT = Array.from({ length: 11 }, (_, i) => +(K.put + i * 0.125)
 // voice-over script (client records; I only trim silences). cap: on-screen caption (null = carried by a headline, .srt only)
 // placed from the client's recording (voice/L*.wav); captions follow what is said
 export const LINES = [
-  {"id": "L1", "t0": 0.4, "t1": 3.74, "say": "لوغو هنا، طباعة لهيه، لافتة في بلاصة أخرى…", "cap": [0.4, 3.75]},
-  {"id": "L2", "t0": 3.8, "t1": 4.67, "say": "تعبت تحوّس؟", "cap": [3.8, 5.6]},
-  {"id": "L3", "t0": 5.6, "t1": 8.45, "say": "إيليغانس ستوري… حكايتك بكل أناقة.", "srt": "Elegance Story… حكايتك بكل أناقة.", "cap": null},
-  {"id": "L4", "t0": 9.5, "t1": 14.49, "say": "نبداو بالتصميم: لوغو، هوية بصرية، والألوان لي توالم علامتك.", "cap": [9.5, 14.57]},
-  {"id": "L5", "t0": 14.62, "t1": 20.9, "say": "نطبعو على أي سطح: زجاج، خشب، جلد، معدن… وحتى القارورات والكؤوس.", "cap": [14.62, 20.95]},
-  {"id": "L6", "t0": 21.0, "t1": 25.79, "say": "كارطات فيزيت، ستيكرز مقصوصة على كيفك، تيشرتات وكاسكيطات بشعارك.", "cap": [21.0, 26.14]},
-  {"id": "L7", "t0": 27.6, "t1": 30.69, "say": "واجهات كبيرة… حتى ثلاثة متر وعشرين.", "srt": "واجهات كبيرة… حتى 3.20 متر.", "cap": [30.5, 32.25]},
-  {"id": "L8", "t0": 32.3, "t1": 35.52, "say": "لافتات مضوّية، رول أب، وستاندات للمعارض.", "cap": [32.3, 35.75]},
-  {"id": "L9", "t0": 35.8, "t1": 39.2, "say": "وزيد: فيديوهات موشن ديزاين، ومواقع ويب.", "cap": [35.8, 39.55]},
-  {"id": "L10", "t0": 39.3, "t1": 41.99, "say": "كلّش تحت سقف واحد… في سطيف.", "cap": null},
-  {"id": "L11", "t0": 43.8, "t1": 45.71, "say": "عيّطلنا ولا ابعثلنا في الواتساب.", "cap": [43.8, 46.06]},
+  {"id": "L1", "t0": 0.15, "t1": 4.1, "say": "لوغو هنا، أمبريسيون لهيه، لافتة في بلاصة أخرى…", "cap": [0.15, 4.1]},
+  {"id": "L2", "t0": 4.15, "t1": 5.09, "say": "تعبت تحوّس؟", "cap": [4.15, 5.95]},
+  {"id": "L3", "t0": 5.6, "t1": 9.54, "say": "إيليغانس ستوري… حكايتك بكل أناقة.", "srt": "Elegance Story… حكايتك بكل أناقة.", "cap": null},
+  {"id": "L4", "t0": 9.65, "t1": 15.85, "say": "نبداو بالتصميم: لوغو، هوية بصرية، والألوان اللي تليق بعلامتك.", "cap": [9.65, 16.2]},
+  {"id": "L5", "t0": 16.55, "t1": 23.73, "say": "نطبعو على أي سطح: زجاج، خشب، جلد، معدن… وحتى القارورات والكؤوس.", "cap": [16.55, 24.0]},
+  {"id": "L6", "t0": 24.05, "t1": 29.06, "say": "كارطات فيزيت، ستيكرز مقصوصة على كيفك، تيشرتات وكاسكيطات بشعارك.", "cap": [24.05, 29.41]},
+  {"id": "L7", "t0": 29.15, "t1": 32.88, "say": "واجهات كبيرة… حتى لثلاث ميطرات وعشرين.", "srt": "واجهات كبيرة… حتى لـ 3.20 متر.", "cap": [31.95, 33.7]},
+  {"id": "L8", "t0": 33.6, "t1": 37.52, "say": "لافتات مضوّية، رول أب، وستاندات للمعارض.", "cap": [33.75, 37.8]},
+  {"id": "L9", "t0": 37.85, "t1": 41.15, "say": "وزيد: فيديوهات موشن ديزاين، ومواقع ويب.", "cap": [37.85, 41.5]},
+  {"id": "L10", "t0": 41.3, "t1": 44.13, "say": "كلّش تحت سقف واحد… في سطيف.", "cap": null},
+  {"id": "L11", "t0": 45.8, "t1": 48.6, "say": "عيّطلنا ولا ابعثلنا في الواتساب.", "cap": [45.8, 48.95]},
 ];
