@@ -393,21 +393,25 @@ def image_plaque(x, y, s, png):
     b = io.BytesIO(); Image.open(png).convert('RGB').save(b, 'PNG'); href = 'data:image/png;base64,' + base64.b64encode(b.getvalue()).decode()
     return cut, f'{clip(cid, bl)}<g clip-path="url(#{cid})"><image href="{href}" x="{x - BLEED}" y="{y - BLEED}" width="{s + 2 * BLEED}" height="{s + 2 * BLEED}" preserveAspectRatio="none"/></g>'
 FLOW = os.path.join(ROOT, 'flow_results')
-def plate6():   # 600×300, from the last offcut: 3 WhatsApp plaques 150×150 + 5 small door signs 100×100
-    P, gp = 150, (600 - 3 * 150) / 4
-    fx = [os.path.join(FLOW, f'fixed_{n}_bleed.png') for n in ('elegance_1', 'elegance_2', 'amine')]
-    if all(os.path.exists(p) for p in fx):
-        it = [image_plaque(gp + i * (P + gp), 12, P, p) for i, p in enumerate(fx)]
-    else: it = [wa_plaque(gp, 12, P, 'es1', ['Elegance Story', '·', '0772 65 83 01']),
-          wa_plaque(gp * 2 + P, 12, P, 'es2', ['Elegance Story', '·', '0668 89 79 07']),
-          wa_plaque(gp * 3 + 2 * P, 12, P, 'amine', ['أمين بن لكحل', '·', '+213 655 60 32 14'], ['استوديو تصوير احترافي', '·', 'Studio photo professionnel'])]
-    S, g = 100, (600 - 5 * 100) / 6
-    signs = [('push', 'ادفع', 'Poussez'), ('pull', 'اسحب', 'Tirez'), ('open', 'مفتوح', 'Ouvert'), ('closed', 'مغلق', 'Fermé'), ('noentry', 'ممنوع الدخول', 'Accès interdit')]
-    it += [mini_sign(g + i * (S + g), 182, S, *signs[i]) for i in range(5)]
+PLATE6_SLOTS = [   # row 1: Elegance Story · row 2: TikTok + Amine (BLACKBOX)
+    ('elegance_1', ['واتساب', 'Elegance Story 1']), ('elegance_2', ['واتساب', 'Elegance Story 2']), ('fb_elegance', ['فيسبوك', 'Elegance Story']), ('ig_elegance', ['إنستغرام', 'Elegance Story']),
+    ('tiktok_elegance', ['تيكتوك', 'Elegance Story']), ('amine', ['واتساب', 'BLACKBOX']), ('fb_amine', ['فيسبوك', 'BLACKBOX']), ('ig_amine', ['إنستغرام أمين'])
+]
+MISSING = []
+def placeholder(x, y, s, label):
+    cut = rrect(x, y, s, s, 6); MISSING.append(' '.join(label))
+    return cut, (f'<path d="{dpath(cut)}" fill="#E6E6E6" stroke="#999" stroke-width=".6" stroke-dasharray="4 3"/>'
+                 + TR(label, s * .075, x + s / 2, y + s * .46, '#777', 700) + T('في انتظار التصميم', s * .06, x + s / 2, y + s * .58, '#999', 600))
+def plate6():   # 600×301, from the last offcut: 8 social plaques 135×135 (client's Flow designs, real QR and logos composited in)
+    P, gx = 135, (600 - 4 * 135) / 5; gy = (PH - 2 * P) / 3
+    it = []
+    for i, (key, label) in enumerate(PLATE6_SLOTS):
+        x, y = gx + (i % 4) * (P + gx), gy + (i // 4) * (P + gy); png = os.path.join(FLOW, f'fixed_{key}_bleed.png')
+        it.append(image_plaque(x, y, P, png) if os.path.exists(png) else placeholder(x, y, P, label))
     return it
 PLATES = [('1', 'لافتات الأبواب (12)', plate1), ('2', 'السلامة والاتجاهات (11 + 2 حوامل)', plate2), ('3', 'إطارات الصور 1-6', plate3),
-          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 24 حامل', plate5), ('6', '3 لوحات واتساب QR/NFC 15×15 + 5 لافتات صغيرة', plate6)]
-SIZE = {'6': (600, 300)}
+          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 24 حامل', plate5), ('6', '8 لوحات QR/NFC 13.5×13.5 (واتساب، فيسبوك، إنستغرام، تيكتوك)', plate6)]
+SIZE = {'6': (600, 301)}
 
 # ───────────── checks + writers
 def check(items, name):
@@ -442,7 +446,7 @@ def write_plate(pid, title, items):
     print(f'plate {pid}: {len(items)} pieces · {title}')
 def write_sheet_plan():
     SW, SH, K = 2440, 1220, 4   # 4 mm saw kerf
-    rects = [(0, 0, 900, 600), (0, 600 + K, 900, 600), (900 + K, 0, 900, 600), (900 + K, 600 + K, 900, 600), (1800 + 2 * K, 0, 600, 900), (1800 + 2 * K, 900 + K, 600, 300)]
+    rects = [(0, 0, 900, 600), (0, 600 + K, 900, 600), (900 + K, 0, 900, 600), (900 + K, 600 + K, 900, 600), (1800 + 2 * K, 0, 600, 900), (1800 + 2 * K, 900 + K, 600, 301)]
     w = 1800
     head = f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}px" height="{w * (SH + 160) / (SW + 80):.0f}px" viewBox="-40 -60 {SW + 80} {SH + 160}">'
     body = [f'<rect x="-40" y="-60" width="{SW + 80}" height="{SH + 160}" fill="#fff"/>', f'<rect x="0" y="0" width="{SW}" height="{SH}" fill="#fff" stroke="#000" stroke-width="3"/>']
@@ -454,7 +458,7 @@ def write_sheet_plan():
     used = sum(rw * rh for _, _, rw, rh in rects) / (SW * SH) * 100
     body.append(TR(['المستعمل:', f'{used:.1f}%', 'من اللوح · الباقي غير خطوط المنشار والحواف'], 40, SW / 2, SH + 70, '#23262E', 700))
     print(f'sheet use: {used:.1f}%')
-    body.append(TR(['لوح فوركس', '2440 × 1220 mm', ':', '5', 'قطع', '600 × 900 mm', '+', '1', 'قطعة', '600 × 300 mm'], 52, SW / 2, -14, '#23262E', 800))
+    body.append(TR(['لوح فوركس', '2440 × 1220 mm', ':', '5', 'قطع', '600 × 900 mm', '+', '1', 'قطعة', '600 × 301 mm'], 52, SW / 2, -14, '#23262E', 800))
     svg = head + ''.join(body) + '</svg>'
     cairosvg.svg2pdf(bytestring=svg.encode(), write_to=os.path.join(OUT, 'sheet_plan.pdf')); cairosvg.svg2png(bytestring=svg.encode(), write_to=os.path.join(OUT, 'sheet_plan.png'), output_width=1600)
     doc = ezdxf.new('R2010', setup=False); doc.units = ezdxf.units.MM; msp = doc.modelspace()
@@ -470,4 +474,5 @@ if __name__ == '__main__':
         if only and pid not in only: continue
         globals()['PW'], globals()['PH'] = SIZE.get(pid, (600, 900))
         items = fn(); check(items, pid); write_plate(pid, title, items)
+        if pid == '6' and MISSING: print('  ⚠ plate 6 is not ready to print: waiting for', ', '.join(MISSING))
     if not only: write_sheet_plan()
