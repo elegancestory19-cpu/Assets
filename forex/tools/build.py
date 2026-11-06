@@ -308,8 +308,26 @@ def plate5():
     it = [name_plate(14 + (i % 2) * 292, 16 + (i // 2) * 98, 280, 82, *names[i]) for i in range(6)]
     it += [stand(16 + i * 72, 330 + r * 185) for r in range(3) for i in range(8)]
     return it
+def mini_sign(x, y, s, kind, ar, fr):
+    cut = rrect(x, y, s, s, 10); bl = offset(cut, BLEED); cid = uid(); cx = x + s / 2; iy = y + s * .3
+    svg = [clip(cid, bl), f'<g clip-path="url(#{cid})"><path d="{dpath(bl)}" fill="{INK}"/><rect x="{x}" y="{y + s - 7}" width="{s}" height="7" fill="{CYAN}"/>']
+    if kind in ('push', 'pull'): svg.append(arrow(cx - s * .2, iy - s * .2, s * .4, WHITE, kind == 'push'))
+    elif kind == 'open': svg.append(f'<circle cx="{cx}" cy="{iy}" r="{s * .13}" fill="#2BD47A"/>')
+    elif kind == 'closed': svg.append(f'<circle cx="{cx}" cy="{iy}" r="{s * .13}" fill="{RED}"/>')
+    elif kind == 'noentry': svg += [f'<circle cx="{cx}" cy="{iy}" r="{s * .16}" fill="{RED}"/>', f'<rect x="{cx - s * .1}" y="{iy - s * .03}" width="{s * .2}" height="{s * .06}" rx="2" fill="{WHITE}"/>']
+    elif kind == 'step': svg += [f'<path d="{dpath(round_poly([(cx, iy - s * .16), (cx + s * .18, iy + s * .15), (cx - s * .18, iy + s * .15)], 4))}" fill="{YEL}"/>', T('!', s * .2, cx, iy + s * .12, BLK, 800)]
+    elif kind == 'cash': svg += [f'<rect x="{cx - s * .17}" y="{iy - s * .1}" width="{s * .34}" height="{s * .2}" rx="3" fill="{WHITE}"/>', f'<circle cx="{cx}" cy="{iy}" r="{s * .05}" fill="{INK}"/>']
+    elif kind == 'thanks': svg.append(f'<path d="{dpath(heart(cx, iy, s * .3, s * .27))}" fill="#DA43AE"/>')
+    svg += [T(ar, s * .14, cx, y + s * .69, WHITE, 800, maxw=s * .86), T(fr, s * .085, cx, y + s * .83, '#C9CED8', 600, maxw=s * .86), '</g>']
+    return cut, ''.join(svg)
+def plate6():   # 600×300, from the last offcut of the sheet
+    S, g = 130, (600 - 4 * 130) / 5
+    signs = [('push', 'ادفع', 'Poussez'), ('pull', 'اسحب', 'Tirez'), ('open', 'مفتوح', 'Ouvert'), ('closed', 'مغلق', 'Fermé'),
+             ('noentry', 'ممنوع الدخول', 'Accès interdit'), ('step', 'انتبه للدرجة', 'Attention à la marche'), ('cash', 'الدفع هنا', 'Caisse'), ('thanks', 'شكراً لزيارتكم', 'Merci de votre visite')]
+    return [mini_sign(g + (i % 4) * (S + g), 13 + (i // 4) * (S + 14), S, *signs[i]) for i in range(8)]
 PLATES = [('1', 'لافتات الأبواب (12)', plate1), ('2', 'السلامة والاتجاهات (11 + 2 حوامل)', plate2), ('3', 'إطارات الصور 1-6', plate3),
-          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 24 حامل', plate5)]
+          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 24 حامل', plate5), ('6', 'لافتات صغيرة للأبواب (8) من البقية', plate6)]
+SIZE = {'6': (600, 300)}
 
 # ───────────── checks + writers
 def check(items, name):
@@ -325,8 +343,8 @@ def check(items, name):
                 # bounding boxes may touch for curved shapes; check true polygon distance coarsely
                 da = min(math.hypot(p[0] - q[0], p[1] - q[1]) for p in items[i][0][::3] for q in items[j][0][::3])
                 if da < GAP_MIN: sys.exit(f'plate {name}: items {i} and {j} are only {da:.1f} mm apart (need ≥ {GAP_MIN})')
-REG = [(8, 8), (PW - 8, 8), (8, PH - 8), (PW - 8, PH - 8)]
-def reg_svg(): return ''.join(f'<path d="M{x - 5},{y} H{x + 5} M{x},{y - 5} V{y + 5}" stroke="#000" stroke-width=".3"/><circle cx="{x}" cy="{y}" r="2.5" fill="none" stroke="#000" stroke-width=".3"/>' for x, y in REG)
+def REGS(): return [(8, 8), (PW - 8, 8), (8, PH - 8), (PW - 8, PH - 8)]
+def reg_svg(): return ''.join(f'<path d="M{x - 5},{y} H{x + 5} M{x},{y - 5} V{y + 5}" stroke="#000" stroke-width=".3"/><circle cx="{x}" cy="{y}" r="2.5" fill="none" stroke="#000" stroke-width=".3"/>' for x, y in REGS())
 def write_plate(pid, title, items):
     head = f'<svg xmlns="http://www.w3.org/2000/svg" width="{PW}mm" height="{PH}mm" viewBox="0 0 {PW} {PH}">'
     art = ''.join(s for _, s in items)
@@ -339,22 +357,24 @@ def write_plate(pid, title, items):
     doc.layers.add('CUT', color=6); doc.layers.add('REG', color=7)
     for c, _ in items: msp.add_lwpolyline([(x, PH - y) for x, y in c], close=True, dxfattribs={'layer': 'CUT'})
     msp.add_lwpolyline([(0, 0), (PW, 0), (PW, PH), (0, PH)], close=True, dxfattribs={'layer': 'REG'})
-    for x, y in REG: msp.add_circle((x, PH - y), 2.5, dxfattribs={'layer': 'REG'})
+    for x, y in REGS(): msp.add_circle((x, PH - y), 2.5, dxfattribs={'layer': 'REG'})
     doc.saveas(os.path.join(OUT, f'plate_{pid}_cut.dxf'))
     print(f'plate {pid}: {len(items)} pieces · {title}')
 def write_sheet_plan():
     SW, SH, K = 2440, 1220, 4   # 4 mm saw kerf
-    rects = [(0, 0, 900, 600), (0, 600 + K, 900, 600), (900 + K, 0, 900, 600), (900 + K, 600 + K, 900, 600), (1800 + 2 * K, 0, 600, 900)]
+    rects = [(0, 0, 900, 600), (0, 600 + K, 900, 600), (900 + K, 0, 900, 600), (900 + K, 600 + K, 900, 600), (1800 + 2 * K, 0, 600, 900), (1800 + 2 * K, 900 + K, 600, 300)]
     w = 1800
-    head = f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}px" height="{w * SH / SW:.0f}px" viewBox="-40 -60 {SW + 80} {SH + 160}">'
+    head = f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}px" height="{w * (SH + 160) / (SW + 80):.0f}px" viewBox="-40 -60 {SW + 80} {SH + 160}">'
     body = [f'<rect x="-40" y="-60" width="{SW + 80}" height="{SH + 160}" fill="#fff"/>', f'<rect x="0" y="0" width="{SW}" height="{SH}" fill="#fff" stroke="#000" stroke-width="3"/>']
     for i, (x, y, rw, rh) in enumerate(rects):
         body.append(f'<rect x="{x}" y="{y}" width="{rw}" height="{rh}" fill="#e8f9fc" stroke="#1CCEE9" stroke-width="3"/>')
-        body.append(T(f'{i + 1}', 120, x + rw / 2, y + rh / 2 + 20, '#23262E', 800))
-        body.append(T(f'{rw} × {rh} mm', 48, x + rw / 2, y + rh / 2 + 90, '#555', 600))
-    body.append(f'<rect x="{1800 + 2 * K}" y="{900 + K}" width="{SW - 1800 - 2 * K}" height="{SH - 900 - K}" fill="#f3f3f3" stroke="#999" stroke-width="2" stroke-dasharray="12 8"/>')
-    body.append(TR(['بقية', '632 × 316 mm', 'للعينات'], 34, 1800 + 2 * K + 316, 900 + K + 170, '#777', 700))
-    body.append(TR(['لوح فوركس', '2440 × 1220 mm', ':', '5', 'قطع', '600 × 900 mm', '· منشار', '4 mm'], 52, SW / 2, -14, '#23262E', 800))
+        big = rh > 400
+        body.append(T(f'{i + 1}', 120 if big else 80, x + rw / 2, y + rh / 2 + (20 if big else 0), '#23262E', 800))
+        body.append(T(f'{rw} × {rh} mm', 48 if big else 38, x + rw / 2, y + rh / 2 + (90 if big else 60), '#555', 600))
+    used = sum(rw * rh for _, _, rw, rh in rects) / (SW * SH) * 100
+    body.append(TR(['المستعمل:', f'{used:.1f}%', 'من اللوح · الباقي غير خطوط المنشار والحواف'], 40, SW / 2, SH + 70, '#23262E', 700))
+    print(f'sheet use: {used:.1f}%')
+    body.append(TR(['لوح فوركس', '2440 × 1220 mm', ':', '5', 'قطع', '600 × 900 mm', '+', '1', 'قطعة', '600 × 300 mm'], 52, SW / 2, -14, '#23262E', 800))
     svg = head + ''.join(body) + '</svg>'
     cairosvg.svg2pdf(bytestring=svg.encode(), write_to=os.path.join(OUT, 'sheet_plan.pdf')); cairosvg.svg2png(bytestring=svg.encode(), write_to=os.path.join(OUT, 'sheet_plan.png'), output_width=1600)
     doc = ezdxf.new('R2010', setup=False); doc.units = ezdxf.units.MM; msp = doc.modelspace()
@@ -368,5 +388,6 @@ if __name__ == '__main__':
     only = sys.argv[1:]
     for pid, title, fn in PLATES:
         if only and pid not in only: continue
+        globals()['PW'], globals()['PH'] = SIZE.get(pid, (600, 900))
         items = fn(); check(items, pid); write_plate(pid, title, items)
     if not only: write_sheet_plan()
