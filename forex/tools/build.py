@@ -387,9 +387,18 @@ def wa_plaque(x, y, s, key, ident, sub=None):
     svg.append(f'<rect x="{qx - pad:.3f}" y="{qy - pad:.3f}" width="{qs + 2 * pad:.3f}" height="{qs + 2 * pad:.3f}" rx="{3 * u:.2f}" fill="#FFFFFF"/>')
     q, n = qr_svg(QR[key], qx, qy, qs, '#111111'); svg.append(q)
     svg.append('</g>'); return cut, ''.join(svg)
+def image_plaque(x, y, s, png):
+    """the client's own design (Flow image, with the real QR and logo composited in), printed edge to edge with a 2 mm bleed"""
+    cut = rrect(x, y, s, s, 6); bl = offset(cut, BLEED); cid = uid()
+    b = io.BytesIO(); Image.open(png).convert('RGB').save(b, 'PNG'); href = 'data:image/png;base64,' + base64.b64encode(b.getvalue()).decode()
+    return cut, f'{clip(cid, bl)}<g clip-path="url(#{cid})"><image href="{href}" x="{x - BLEED}" y="{y - BLEED}" width="{s + 2 * BLEED}" height="{s + 2 * BLEED}" preserveAspectRatio="none"/></g>'
+FLOW = os.path.join(ROOT, 'flow_results')
 def plate6():   # 600×300, from the last offcut: 3 WhatsApp plaques 150×150 + 5 small door signs 100×100
     P, gp = 150, (600 - 3 * 150) / 4
-    it = [wa_plaque(gp, 12, P, 'es1', ['Elegance Story', '·', '0772 65 83 01']),
+    fx = [os.path.join(FLOW, f'fixed_{n}_bleed.png') for n in ('elegance_1', 'elegance_2', 'amine')]
+    if all(os.path.exists(p) for p in fx):
+        it = [image_plaque(gp + i * (P + gp), 12, P, p) for i, p in enumerate(fx)]
+    else: it = [wa_plaque(gp, 12, P, 'es1', ['Elegance Story', '·', '0772 65 83 01']),
           wa_plaque(gp * 2 + P, 12, P, 'es2', ['Elegance Story', '·', '0668 89 79 07']),
           wa_plaque(gp * 3 + 2 * P, 12, P, 'amine', ['أمين بن لكحل', '·', '+213 655 60 32 14'], ['استوديو تصوير احترافي', '·', 'Studio photo professionnel'])]
     S, g = 100, (600 - 5 * 100) / 6
