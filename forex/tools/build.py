@@ -14,7 +14,7 @@ from fontTools.ttLib import TTFont
 from fontTools.varLib.instancer import instantiateVariableFont
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
-import cairosvg, ezdxf
+import cairosvg, ezdxf, segno
 from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE); REPO = os.path.dirname(ROOT)
@@ -320,13 +320,37 @@ def mini_sign(x, y, s, kind, ar, fr):
     elif kind == 'thanks': svg.append(f'<path d="{dpath(heart(cx, iy, s * .3, s * .27))}" fill="#DA43AE"/>')
     svg += [T(ar, s * .14, cx, y + s * .69, WHITE, 800, maxw=s * .86), T(fr, s * .085, cx, y + s * .83, '#C9CED8', 600, maxw=s * .86), '</g>']
     return cut, ''.join(svg)
+QR = {   # links read from the client's WhatsApp Business codes; the partner's from the link the client sent
+    'es1': 'https://wa.me/message/D7IV4T2U45F5K1?src=qr',
+    'es2': 'https://wa.me/message/CYXJM5PYXULSM1?src=qr',
+    'amine': 'https://wa.me/213655603214',
+}
+def qr_svg(url, x, y, size, dark=INK):
+    q = segno.make(url, error='m', micro=False); m = q.matrix; n = len(m); u = size / n
+    d = ''.join(f'M{x + c * u:.3f},{y + r * u:.3f}h{u:.3f}v{u:.3f}h{-u:.3f}z' for r, row in enumerate(m) for c, v in enumerate(row) if v)
+    return f'<path d="{d}" fill="{dark}"/>', n
+def qr_sign(x, y, s, key, ar, num, sub=None):
+    cut = rrect(x, y, s, s, 10); bl = offset(cut, BLEED); cid = uid(); cx = x + s / 2
+    qs = s * .56; qx, qy = cx - qs / 2, y + s * .07; pad = qs / 29 * 2.2   # white quiet zone around the code
+    svg = [clip(cid, bl), f'<g clip-path="url(#{cid})"><path d="{dpath(bl)}" fill="{INK}"/><rect x="{x}" y="{y + s - 7}" width="{s}" height="7" fill="#2BD47A"/>',
+           f'<rect x="{qx - pad:.3f}" y="{qy - pad:.3f}" width="{qs + 2 * pad:.3f}" height="{qs + 2 * pad:.3f}" rx="4" fill="{WHITE}"/>']
+    q, n = qr_svg(QR[key], qx, qy, qs); svg.append(q)
+    svg.append(TR(ar, s * .09, cx, y + s * .76, WHITE, 800) if isinstance(ar, list) else T(ar, s * .095, cx, y + s * .76, WHITE, 800, maxw=s * .88))
+    svg.append(T(num, s * .078, cx, y + s * .86 if not sub else y + s * .855, '#C9CED8', 700, 'middle', maxw=s * .86))
+    if sub: svg.append(T(sub, s * .06, cx, y + s * .925, '#9AA0AC', 600, maxw=s * .86))
+    svg.append('</g>'); return cut, ''.join(svg)
 def plate6():   # 600×300, from the last offcut of the sheet
     S, g = 130, (600 - 4 * 130) / 5
     signs = [('push', 'ادفع', 'Poussez'), ('pull', 'اسحب', 'Tirez'), ('open', 'مفتوح', 'Ouvert'), ('closed', 'مغلق', 'Fermé'),
              ('noentry', 'ممنوع الدخول', 'Accès interdit'), ('step', 'انتبه للدرجة', 'Attention à la marche'), ('cash', 'الدفع هنا', 'Caisse'), ('thanks', 'شكراً لزيارتكم', 'Merci de votre visite')]
-    return [mini_sign(g + (i % 4) * (S + g), 13 + (i // 4) * (S + 14), S, *signs[i]) for i in range(8)]
+    pos = lambda i: (g + (i % 4) * (S + g), 13 + (i // 4) * (S + 14))
+    it = [mini_sign(*pos(i), S, *signs[i]) for i in range(5)]
+    it.append(qr_sign(*pos(5), S, 'es1', ['واتساب', 'Elegance Story'], '0772 65 83 01'))
+    it.append(qr_sign(*pos(6), S, 'es2', ['واتساب', 'Elegance Story'], '0668 89 79 07'))
+    it.append(qr_sign(*pos(7), S, 'amine', 'أمين بن لكحل · استوديو تصوير', '+213 655 60 32 14', 'Studio photo professionnel'))
+    return it
 PLATES = [('1', 'لافتات الأبواب (12)', plate1), ('2', 'السلامة والاتجاهات (11 + 2 حوامل)', plate2), ('3', 'إطارات الصور 1-6', plate3),
-          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 24 حامل', plate5), ('6', 'لافتات صغيرة للأبواب (8) من البقية', plate6)]
+          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 24 حامل', plate5), ('6', 'لافتات صغيرة (5) + 3 لافتات QR واتساب', plate6)]
 SIZE = {'6': (600, 300)}
 
 # ───────────── checks + writers
