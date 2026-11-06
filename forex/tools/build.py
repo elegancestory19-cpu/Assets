@@ -339,18 +339,65 @@ def qr_sign(x, y, s, key, ar, num, sub=None):
     svg.append(T(num, s * .078, cx, y + s * .86 if not sub else y + s * .855, '#C9CED8', 700, 'middle', maxw=s * .86))
     if sub: svg.append(T(sub, s * .06, cx, y + s * .925, '#9AA0AC', 600, maxw=s * .86))
     svg.append('</g>'); return cut, ''.join(svg)
-def plate6():   # 600×300, from the last offcut of the sheet
-    S, g = 130, (600 - 4 * 130) / 5
-    signs = [('push', 'ادفع', 'Poussez'), ('pull', 'اسحب', 'Tirez'), ('open', 'مفتوح', 'Ouvert'), ('closed', 'مغلق', 'Fermé'),
-             ('noentry', 'ممنوع الدخول', 'Accès interdit'), ('step', 'انتبه للدرجة', 'Attention à la marche'), ('cash', 'الدفع هنا', 'Caisse'), ('thanks', 'شكراً لزيارتكم', 'Merci de votre visite')]
-    pos = lambda i: (g + (i % 4) * (S + g), 13 + (i // 4) * (S + 14))
-    it = [mini_sign(*pos(i), S, *signs[i]) for i in range(5)]
-    it.append(qr_sign(*pos(5), S, 'es1', ['واتساب', 'Elegance Story'], '0772 65 83 01'))
-    it.append(qr_sign(*pos(6), S, 'es2', ['واتساب', 'Elegance Story'], '0668 89 79 07'))
-    it.append(qr_sign(*pos(7), S, 'amine', 'أمين بن لكحل · استوديو تصوير', '+213 655 60 32 14', 'Studio photo professionnel'))
+def wa_plaque(x, y, s, key, ident, sub=None):
+    """1:1 WhatsApp contact plaque (QR + NFC): generic chat bubble (not the WhatsApp trademark glyph), floating icons"""
+    u = s / 150; X = lambda v: x + v * u; Y = lambda v: y + v * u
+    cut = rrect(x, y, s, s, 12 * u); bl = offset(cut, BLEED); cid, gid = uid(), uid('g')
+    svg = [f'<linearGradient id="{gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2BD97A"/><stop offset="1" stop-color="#0B7F68"/></linearGradient>',
+           clip(cid, bl), f'<g clip-path="url(#{cid})"><path d="{dpath(bl)}" fill="#FFFFFF"/>',
+           f'<path d="{dpath(rrect(X(4), Y(4), 142 * u, 142 * u, 9 * u))}" fill="url(#{gid})"/>']
+    # floating icons (top band), deterministic
+    def smiley(cx, cy, r):
+        return (f'<circle cx="{X(cx)}" cy="{Y(cy)}" r="{r * u}" fill="#FFD23F"/><circle cx="{X(cx - r * .35)}" cy="{Y(cy - r * .2)}" r="{r * .13 * u}" fill="#5A3A00"/>'
+                f'<circle cx="{X(cx + r * .35)}" cy="{Y(cy - r * .2)}" r="{r * .13 * u}" fill="#5A3A00"/>'
+                f'<path d="M{X(cx - r * .5)},{Y(cy + r * .15)} Q{X(cx)},{Y(cy + r * .7)} {X(cx + r * .5)},{Y(cy + r * .15)}" fill="none" stroke="#5A3A00" stroke-width="{r * .14 * u}" stroke-linecap="round"/>')
+    def heart_i(cx, cy, w, col): return f'<path d="{dpath([(X(px), Y(py)) for px, py in heart(cx, cy, w, w * .92, 60)])}" fill="{col}"/>'
+    def bubble(cx, cy, w):
+        h = w * .72; p = rrect(X(cx - w / 2), Y(cy - h / 2), w * u, h * u, h * .3 * u)
+        tail = f'<path d="M{X(cx - w * .3)},{Y(cy + h * .4)} l{-w * .14 * u},{w * .22 * u} l{w * .3 * u},{-w * .12 * u} z" fill="#FFFFFF"/>'
+        ticks = f'<path d="M{X(cx - w * .26)},{Y(cy)} l{w * .1 * u},{w * .1 * u} l{w * .17 * u},{-w * .2 * u} M{X(cx - w * .04)},{Y(cy + w * .1)} l{w * .17 * u},{-w * .2 * u}" fill="none" stroke="#2BAE66" stroke-width="{w * .07 * u}" stroke-linecap="round" stroke-linejoin="round"/>'
+        return f'<path d="{dpath(p)}" fill="#FFFFFF"/>' + tail + ticks
+    for kind, cx, cy, k in [('s', 18, 18, 7), ('h', 33, 13, 9), ('b', 47, 26, 14), ('h', 20, 36, 7), ('s', 36, 40, 5), ('h', 10, 50, 5),
+                            ('b', 103, 19, 13), ('s', 124, 14, 6), ('h', 136, 28, 8), ('s', 116, 38, 7), ('h', 101, 42, 6), ('b', 138, 48, 9)]:
+        svg.append(smiley(cx, cy, k) if kind == 's' else heart_i(cx, cy, k * 1.6, '#FFFFFF' if (cx + cy) % 2 else '#FF5A7A') if kind == 'h' else bubble(cx, cy, k * 1.4))
+    # main chat bubble (generic: circle + tail + typing dots)
+    svg.append(f'<circle cx="{X(75)}" cy="{Y(30)}" r="{17 * u}" fill="#FFFFFF"/><path d="M{X(61)},{Y(38)} l{-5 * u},{12 * u} l{13 * u},{-6 * u} z" fill="#FFFFFF"/>')
+    svg += [f'<circle cx="{X(75 + d)}" cy="{Y(30)}" r="{2.6 * u}" fill="#1FAF5E"/>' for d in (-7, 0, 7)]
+    # texts
+    svg.append(T('WhatsApp', 13 * u, X(75), Y(63), '#FFFFFF', 800))
+    svg.append(T('تواصل معنا على الواتساب', 9 * u, X(75), Y(75), '#FFFFFF', 800, maxw=128 * u))
+    svg.append(TR(ident, 6.4 * u, X(75), Y(85), '#E8FFF2', 700) if isinstance(ident, list) else T(ident, 6.4 * u, X(75), Y(85), '#E8FFF2', 700, maxw=128 * u))
+    if sub: svg.append(TR(sub, 4.6 * u, X(75), Y(91.5), '#D2F7E2', 600) if isinstance(sub, list) else T(sub, 4.6 * u, X(75), Y(91.5), '#D2F7E2', 600, maxw=120 * u))
+    svg.append(T('قرّب تليفونك ولا امسح الكود', 5.4 * u, X(75), Y(97.5 if sub else 94.5), '#FFFFFF', 700, maxw=128 * u))
+    svg.append(T('Approchez votre téléphone ou scannez le QR code', 3.9 * u, X(75), Y(102.5 if sub else 100), '#D2F7E2', 600, maxw=130 * u))
+    # hand + phone with NFC waves (bottom left)
+    svg.append(f'<path d="M{X(22)},{Y(146)} L{X(21)},{Y(131)} Q{X(20)},{Y(125)} {X(26)},{Y(123)} L{X(47)},{Y(121)} Q{X(53)},{Y(122)} {X(53)},{Y(128)} L{X(52)},{Y(146)} Z" fill="#FFFFFF"/>')
+    svg.append(f'<path d="{dpath(rrect(X(26), Y(108), 22 * u, 34 * u, 3.5 * u))}" fill="#FFFFFF" stroke="#0B7F68" stroke-width="{1.1 * u}"/>')
+    svg.append(f'<path d="{dpath(rrect(X(28), Y(111), 18 * u, 27 * u, 2 * u))}" fill="#0E9C73"/>')
+    svg.append(T('NFC', 4.6 * u, X(37), Y(128), '#FFFFFF', 800))
+    for r in (3, 5.5): svg.append(f'<path d="M{X(37 - r * .8)},{Y(120.5 - r * .1)} A{r * u},{r * u} 0 0,1 {X(37 + r * .8)},{Y(120.5 - r * .1)}" fill="none" stroke="#FFFFFF" stroke-width="{.9 * u}" stroke-linecap="round"/>')
+    for side in (-1, 1):
+        for k, r in enumerate((8, 12, 16)):
+            a0, a1 = (math.radians(150), math.radians(210)) if side < 0 else (math.radians(-30), math.radians(30))
+            cx_, cy_ = X(37), Y(125)
+            svg.append(f'<path d="M{cx_ + r * u * math.cos(a0):.3f},{cy_ + r * u * math.sin(a0):.3f} A{r * u},{r * u} 0 0,1 {cx_ + r * u * math.cos(a1):.3f},{cy_ + r * u * math.sin(a1):.3f}" fill="none" stroke="#FFFFFF" stroke-opacity="{.85 - k * .22:.2f}" stroke-width="{1.4 * u}" stroke-linecap="round"/>') if side > 0 else \
+            svg.append(f'<path d="M{cx_ + r * u * math.cos(a1):.3f},{cy_ + r * u * math.sin(a1):.3f} A{r * u},{r * u} 0 0,1 {cx_ + r * u * math.cos(a0):.3f},{cy_ + r * u * math.sin(a0):.3f}" fill="none" stroke="#FFFFFF" stroke-opacity="{.85 - k * .22:.2f}" stroke-width="{1.4 * u}" stroke-linecap="round"/>')
+    # QR (bottom right) in a white rounded box with a quiet zone
+    qs = 34 * u; qx, qy = X(97), Y(107); pad = 3 * u
+    svg.append(f'<rect x="{qx - pad:.3f}" y="{qy - pad:.3f}" width="{qs + 2 * pad:.3f}" height="{qs + 2 * pad:.3f}" rx="{3 * u:.2f}" fill="#FFFFFF"/>')
+    q, n = qr_svg(QR[key], qx, qy, qs, '#111111'); svg.append(q)
+    svg.append('</g>'); return cut, ''.join(svg)
+def plate6():   # 600×300, from the last offcut: 3 WhatsApp plaques 150×150 + 5 small door signs 100×100
+    P, gp = 150, (600 - 3 * 150) / 4
+    it = [wa_plaque(gp, 12, P, 'es1', ['Elegance Story', '·', '0772 65 83 01']),
+          wa_plaque(gp * 2 + P, 12, P, 'es2', ['Elegance Story', '·', '0668 89 79 07']),
+          wa_plaque(gp * 3 + 2 * P, 12, P, 'amine', ['أمين بن لكحل', '·', '+213 655 60 32 14'], ['استوديو تصوير احترافي', '·', 'Studio photo professionnel'])]
+    S, g = 100, (600 - 5 * 100) / 6
+    signs = [('push', 'ادفع', 'Poussez'), ('pull', 'اسحب', 'Tirez'), ('open', 'مفتوح', 'Ouvert'), ('closed', 'مغلق', 'Fermé'), ('noentry', 'ممنوع الدخول', 'Accès interdit')]
+    it += [mini_sign(g + i * (S + g), 182, S, *signs[i]) for i in range(5)]
     return it
 PLATES = [('1', 'لافتات الأبواب (12)', plate1), ('2', 'السلامة والاتجاهات (11 + 2 حوامل)', plate2), ('3', 'إطارات الصور 1-6', plate3),
-          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 24 حامل', plate5), ('6', 'لافتات صغيرة (5) + 3 لافتات QR واتساب', plate6)]
+          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 24 حامل', plate5), ('6', '3 لوحات واتساب QR/NFC 15×15 + 5 لافتات صغيرة', plate6)]
 SIZE = {'6': (600, 300)}
 
 # ───────────── checks + writers
