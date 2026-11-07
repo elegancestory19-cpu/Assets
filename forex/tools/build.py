@@ -291,7 +291,7 @@ def plate2():
           exit_sign(12, 470, 283, 140, 'مخرج', 'Sortie', True), exit_sign(305, 470, 283, 140, 'مخرج نجدة', 'Sortie de secours', False),
           dir_sign(12, 640, 283, 100, 'man', 'مراحيض', 'Toilettes', True), dir_sign(305, 640, 283, 100, 'reception', 'الاستقبال', 'Accueil', False),
           dir_sign(12, 770, 283, 100, 'prayer', 'مصلى', 'Salle de prière', True), dir_sign(305, 770, 283, 100, 'exit', 'مخرج', 'Sortie', False)]
-    it += [stand(450 + i * 70, 222) for i in range(2)]
+    it.append(photo_frame(rrect(446, 236, 140, 140, 14), 8, border=10))   # small frame where the stands were
     return it
 def plate3():
     return [photo_frame(arch(20, 14, 265, 345), 1), photo_frame(arch(315, 14, 265, 345), 2),
@@ -306,7 +306,8 @@ def plate5():
     names = [('مكتب المدير', 'Direction'), ('المحاسبة', 'Comptabilité'), ('قاعة الانتظار', "Salle d'attente"),
              ('الأمانة', 'Secrétariat'), ('خاص', 'Privé'), ('الأرشيف', 'Archives')]
     it = [name_plate(14 + (i % 2) * 292, 16 + (i // 2) * 98, 280, 82, *names[i]) for i in range(6)]
-    it += [stand(16 + i * 72, 330 + r * 185) for r in range(3) for i in range(8)]
+    it += [photo_frame(circle(154, 452, 138), 9), photo_frame(heart(446, 452, 276, 256), 4, scaled=True),
+           photo_frame(rrect(16, 610, 276, 276, 22), 7), photo_frame(arch(308, 610, 276, 276), 12)]   # 4 frames instead of the 24 stands
     return it
 def mini_sign(x, y, s, kind, ar, fr):
     cut = rrect(x, y, s, s, 10); bl = offset(cut, BLEED); cid = uid(); cx = x + s / 2; iy = y + s * .3
@@ -409,8 +410,8 @@ def plate6():   # 600×301, from the last offcut: 8 social plaques 135×135 (cli
         x, y = gx + (i % 4) * (P + gx), gy + (i // 4) * (P + gy); png = os.path.join(FLOW, f'fixed_{key}_bleed.png')
         it.append(image_plaque(x, y, P, png) if os.path.exists(png) else placeholder(x, y, P, label))
     return it
-PLATES = [('1', 'لافتات الأبواب (12)', plate1), ('2', 'السلامة والاتجاهات (11 + 2 حوامل)', plate2), ('3', 'إطارات الصور 1-6', plate3),
-          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 24 حامل', plate5), ('6', '8 لوحات QR/NFC 13.5×13.5 (واتساب، فيسبوك، إنستغرام، تيكتوك)', plate6)]
+PLATES = [('1', 'لافتات الأبواب (12)', plate1), ('2', 'السلامة والاتجاهات (11) + إطار صغير', plate2), ('3', 'إطارات الصور 1-6', plate3),
+          ('4', 'إطارات الصور 7-12', plate4), ('5', 'لوحات المكاتب (6) + 4 إطارات صور', plate5), ('6', '8 لوحات QR/NFC 13.5×13.5 (واتساب، فيسبوك، إنستغرام، تيكتوك)', plate6)]
 SIZE = {'6': (600, 301)}
 
 # ───────────── checks + writers
