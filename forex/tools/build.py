@@ -268,7 +268,6 @@ def photo_frame(cut, n, border=14, scaled=False):
     stops = ''.join(f'<stop offset="{i / (len(GRAD) - 1):.2f}" stop-color="{c}"/>' for i, c in enumerate(GRAD))
     svg = [f'<linearGradient id="{gid}" x1="0" y1="0" x2="1" y2="1">{stops}</linearGradient>', clip(cid, bl), clip(iid, inner),
            f'<g clip-path="url(#{cid})"><path d="{dpath(bl)}" fill="{INK}"/></g>',
-           f'<path d="{dpath(line)}" fill="none" stroke="url(#{gid})" stroke-width="2.2"/>',
            f'<g clip-path="url(#{iid})"><image href="{img_href(n)}" x="{(x0 + x1) / 2 - s / 2:.3f}" y="{(y0 + y1) / 2 - s / 2:.3f}" width="{s:.3f}" height="{s:.3f}" preserveAspectRatio="xMidYMid slice"/></g>']
     return cut, ''.join(svg)
 def stand(x, y, w=60, h=160):   # easel back-leg, glued behind a frame; the angled foot sets ~15°
