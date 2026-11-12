@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Elegance Story — UV Flatbed Promo</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:400;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-400-normal.woff2) format("woff2"),url(node_modules/@fontsource/alexandria/files/alexandria-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:400;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Amiri;font-weight:700;src:url(node_modules/@fontsource/amiri/files/amiri-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:400;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+:root{--ink:#0a0a12;--uv:#2a3bff;--mag:#ff2d8a;--yel:#ffd60a;--cy:#12c8f4;--wh:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;height:100%;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:100vw;aspect-ratio:9/16;container-type:inline-size;overflow:hidden;background:var(--ink);font-family:Alexandria,AlexLat,sans-serif;color:#fff}
+#stage > *,#fimg,#hud > *,#brk i,#stripes i,#end > *,.ul svg{position:absolute}
+#chip em,.h1 span span{position:relative}
+.fill{inset:0}
+#bgA{background:var(--uv)} #bgB{background:var(--mag)}
+#foot{inset:0;overflow:hidden;background:#000}
+#fimg{inset:0;width:100%;height:100%;object-fit:cover}
+#scrim{inset:0;background:linear-gradient(180deg,rgba(6,6,14,.72) 0%,rgba(6,6,14,0) 22%,rgba(6,6,14,0) 48%,rgba(6,6,14,.9) 86%,rgba(6,6,14,.96) 100%)}
+#uv{left:0;right:0;top:0;height:26cqw;background:linear-gradient(180deg,rgba(42,59,255,0),rgba(70,90,255,.85) 45%,#fff 50%,rgba(70,90,255,.85) 55%,rgba(42,59,255,0));mix-blend-mode:screen}
+#flash{inset:0;background:#dfe4ff}
+/* HUD */
+#hud{left:6cqw;right:6cqw;top:6.5cqw;height:10cqw;direction:ltr}
+#hud .brand{left:0;top:0;font-family:AlexLat;font-weight:900;font-size:3.3cqw;letter-spacing:.32em;white-space:nowrap}
+#hud .tag{right:0;top:.2cqw;font-family:Mono;font-size:2.6cqw;letter-spacing:.08em;white-space:nowrap;opacity:.85}
+#prog{left:0;right:0;top:7cqw;height:.8cqw;display:flex;gap:1.4cqw;direction:rtl}
+#prog i{position:relative;flex:1;height:100%;background:rgba(255,255,255,.25);overflow:hidden}
+#prog b{position:absolute;inset:0;background:var(--yel);transform-origin:right center}
+/* text blocks */
+.sc{left:7cqw;right:7cqw;bottom:13cqw;text-align:right}
+.sc > *{position:relative;display:block}
+.ln{overflow:hidden;padding:.12em 0 .2em;margin:-.12em 0 -.2em}
+.ln > span{position:relative;display:inline-block;white-space:nowrap}
+.mono{margin-bottom:2.4cqw!important;font-family:Mono;direction:ltr;text-align:right;font-size:3cqw;letter-spacing:.06em;color:var(--yel)}
+.h1{font-weight:900;font-size:21cqw;line-height:1.12}
+.h2{font-weight:900;font-size:16cqw;line-height:1.15}
+.sub{font-weight:400;font-size:5cqw;line-height:1.5;margin-top:2.2cqw!important}
+.amiri{font-family:Amiri;font-weight:700;font-size:9.4cqw;color:var(--yel);line-height:1.35}
+.num{font-family:Mono;font-weight:700;direction:ltr;text-align:right;font-size:7cqw;color:var(--yel);letter-spacing:.02em}
+.ul{position:relative;display:block;width:44cqw;height:3cqw;margin:-.6cqw 0 0 auto}
+.ul svg{inset:0;width:100%;height:100%}
+#s2,#s3{bottom:15cqw}
+#s2 .num,#s3 .num{color:#fff}
+#s3 .h2,#s2 .h2{font-size:17cqw}
+#inks{position:relative;display:flex;gap:2.2cqw;justify-content:flex-start;margin-top:3.4cqw;direction:rtl;height:9cqw}
+#inks i{position:relative;width:9cqw;height:9cqw;border-radius:50%;font-family:Mono;font-style:normal;font-weight:700;font-size:3.6cqw;display:flex;align-items:center;justify-content:center;color:#0a0a12}
+/* results */
+#chip{right:7cqw;top:21cqw;background:var(--yel);color:var(--ink);padding:1.4cqw 3.4cqw;font-weight:700;font-size:3.8cqw;white-space:nowrap;border-radius:99cqw}
+#chip em{font-family:Mono;font-style:normal;font-weight:700;margin-left:1.6cqw}
+#brk{left:7cqw;right:7cqw;top:31cqw;bottom:54cqw}
+#brk i{width:8cqw;height:8cqw;border:0 solid #fff}
+#brk i:nth-child(1){left:0;top:0;border-left-width:.8cqw;border-top-width:.8cqw}
+#brk i:nth-child(2){right:0;top:0;border-right-width:.8cqw;border-top-width:.8cqw}
+#brk i:nth-child(3){left:0;bottom:0;border-left-width:.8cqw;border-bottom-width:.8cqw}
+#brk i:nth-child(4){right:0;bottom:0;border-right-width:.8cqw;border-bottom-width:.8cqw}
+.res{left:7cqw;right:7cqw;bottom:14cqw;text-align:right}
+.res > *{position:relative;display:block}
+.res .k{font-family:Mono;direction:ltr;text-align:right;font-size:3cqw;color:var(--yel);letter-spacing:.06em;margin-bottom:1cqw}
+.res .t{font-weight:900;font-size:13.5cqw;line-height:1.2}
+.res .bar{width:18cqw;height:1.2cqw;background:var(--mag);margin:2.4cqw 0 0 auto;transform-origin:right center}
+/* end card */
+#end{inset:0;background:var(--ink)}
+#stripes{inset:0}
+#stripes i{left:0;right:0;height:25%}
+#stripes i:nth-child(1){top:0;background:var(--cy)}
+#stripes i:nth-child(2){top:25%;background:var(--mag)}
+#stripes i:nth-child(3){top:50%;background:var(--yel)}
+#stripes i:nth-child(4){top:75%;background:var(--uv)}
+#word{left:0;right:0;top:50cqw;direction:ltr;text-align:center;font-family:AlexLat;font-weight:900;line-height:1}
+#word > *{position:relative;display:block}
+#word .w1{font-size:15.5cqw;letter-spacing:.02em}
+#word .w2{font-size:15.5cqw;letter-spacing:.34em;margin-right:-.34em;color:var(--yel)}
+#dots{left:0;right:0;top:36cqw;height:5cqw;display:flex;justify-content:center;gap:2.4cqw}
+#dots i{position:relative;width:5cqw;height:5cqw;border-radius:50%}
+#etag{left:6cqw;right:6cqw;top:96cqw;text-align:center}
+#etag > *{position:relative;display:block}
+#etag .a{font-weight:700;font-size:8.2cqw;line-height:1.4}
+#etag .b{font-family:Amiri;font-weight:700;font-size:13cqw;color:var(--yel);line-height:1.25}
+#cta{left:50%;top:139cqw;transform:translateX(-50%);background:var(--yel);color:var(--ink);font-weight:900;font-size:6.2cqw;padding:3cqw 8cqw;border-radius:99cqw;white-space:nowrap}
+#efoot{left:0;right:0;bottom:9cqw;text-align:center;direction:ltr;font-family:Mono;font-size:2.8cqw;letter-spacing:.14em;opacity:.7}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bgA" class="fill"></div>
+  <div id="bgB" class="fill"></div>
+  <div id="foot"><img id="fimg" alt=""></div>
+  <div id="scrim"></div>
+  <div id="uv"></div>
+
+  <div id="s1" class="sc">
+    <div class="ln mono"><span>// UV FLATBED PRINTING</span></div>
+    <div class="ln h1"><span>طباعة <span style="position:relative;font-family:AlexLat;color:var(--yel)">UV</span></span></div>
+    <div class="ln h2"><span>المسطّحة</span></div>
+    <div class="ln amiri"><span>من داخل ورشتنا</span></div>
+    <div class="ul"><svg viewBox="0 0 440 30" preserveAspectRatio="none"><path id="ul1" d="M6 18 C 90 4, 170 28, 250 14 S 400 8, 434 16" fill="none" stroke="#ffd60a" stroke-width="5" stroke-linecap="round"/></svg></div>
+  </div>
+
+  <div id="s2" class="sc">
+    <div class="ln num"><span>01 —</span></div>
+    <div class="ln h2"><span>التصميم</span></div>
+    <div class="ln sub"><span>كل قطعة تبدأ بفكرة على الشاشة</span></div>
+  </div>
+
+  <div id="s3" class="sc">
+    <div class="ln num"><span>02 —</span></div>
+    <div class="ln h2"><span>التحضير</span></div>
+    <div class="ln sub"><span>قصّ دقيق لكل شكل قبل الطباعة</span></div>
+  </div>
+
+  <div id="s4" class="sc">
+    <div class="ln num"><span>03 —</span></div>
+    <div class="ln h2"><span>الطباعة</span></div>
+    <div class="ln sub"><span>حبر يثبت بضوء UV في لحظته</span></div>
+    <div id="inks">
+      <i style="background:#12c8f4">C</i><i style="background:#ff2d8a">M</i><i style="background:#ffd60a">Y</i><i style="background:#0a0a12;color:#fff;outline:.5cqw solid #fff;outline-offset:-.5cqw">K</i><i style="background:#fff">W</i>
+    </div>
+  </div>
+
+  <div id="chip"><em>04</em>النتيجة</div>
+  <div id="brk"><i></i><i></i><i></i><i></i></div>
+  <div class="res" id="r1"><div class="ln k"><span>// HOME DECOR</span></div><div class="ln t"><span>ديكور منزلي</span></div><div class="bar"></div></div>
+  <div class="res" id="r2"><div class="ln k"><span>// VIVID COLOR</span></div><div class="ln t"><span>ألوان نابضة</span></div><div class="bar"></div></div>
+  <div class="res" id="r3"><div class="ln k"><span>// GIFTS</span></div><div class="ln t"><span>هدايا التخرّج</span></div><div class="bar"></div></div>
+  <div class="res" id="r4"><div class="ln k"><span>// SIGNAGE</span></div><div class="ln t"><span>لوحات إعلانية</span></div><div class="bar"></div></div>
+  <div class="res" id="r5"><div class="ln k"><span>// BRANDING</span></div><div class="ln t"><span>وهويّة علامتك</span></div><div class="bar"></div></div>
+
+  <div id="hud">
+    <div class="brand">ELEGANCE STORY</div>
+    <div class="tag">UV · FLATBED</div>
+    <div id="prog"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+  </div>
+
+  <div id="end">
+    <div id="dots"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div>
+    <div id="word"><div class="ln w1"><span>ELEGANCE</span></div><div class="ln w2"><span>STORY</span></div></div>
+    <div id="etag"><div class="ln a"><span>قصّتك… نطبعها</span></div><div class="ln b"><span>بأناقة</span></div></div>
+    <div id="cta">اطلب تصميمك الآن</div>
+    <div id="efoot">UV FLATBED PRINTING</div>
+  </div>
+  <div id="stripes"><i></i><i></i><i></i><i></i></div>
+  <div id="flash"></div>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+const FPS=30, B=60/124, T=b=>b*B, FOOT=581, DUR=726/FPS;
+const CUTS=[0,4,8,10,12,14,16,18,20,24,28,32,36].map(T);
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const fimg=$('#fimg');
+const pad=n=>String(n).padStart(4,'0');
+let tl, cur=-1;
+
+function fit(){ // shrink any single-line text wider than its block
+  $$('.ln > span').forEach(s=>{
+    const box=s.parentElement.getBoundingClientRect().width, w=s.getBoundingClientRect().width;
+    if(w>box){ const fs=parseFloat(getComputedStyle(s.parentElement).fontSize); s.parentElement.style.fontSize=(fs*box/w*0.98)+'px'; }
+  });
+}
+
+function lines(sel,t,o={}){ // masked line reveal
+  tl.fromTo(sel+' .ln > span',{yPercent:125},{yPercent:0,duration:.5,ease:'power4.out',stagger:o.stagger??.07,immediateRender:false},t);
+}
+function linesOut(sel,t){
+  tl.to(sel+' .ln > span',{yPercent:-125,duration:.28,ease:'power3.in',stagger:.03},t);
+}
+function show(sel,t0,t1){ tl.set(sel,{autoAlpha:1},t0); if(t1!=null) tl.set(sel,{autoAlpha:0},t1); }
+
+function build(){
+  if(tl) return;
+  tl=gsap.timeline({paused:true});
+  const CARD='inset(15% 7% 39% 7% round 4cqw)', FULL='inset(0% 0% 0% 0% round 0cqw)';
+  gsap.set('.sc,.res,#chip,#brk,#end,#stripes',{autoAlpha:0});
+  gsap.set('#flash',{opacity:0}); gsap.set('#uv',{yPercent:-120});
+  gsap.set('#bgB',{clipPath:'circle(0% at 85% 80%)'});
+  gsap.set('#foot',{clipPath:FULL});
+  gsap.set('#prog b',{scaleX:0});
+  gsap.set('#stripes i',{xPercent:105});
+
+  // camera push on every cut + UV sweep + flash
+  CUTS.forEach((t,i)=>{
+    const t1=CUTS[i+1]??T(40);
+    tl.fromTo(fimg,{scale:1},{scale:1.09,duration:t1-t,ease:'none',immediateRender:false},t);
+    if(i){ tl.fromTo('#flash',{opacity:.55},{opacity:0,duration:.16,ease:'power1.out',immediateRender:false},t);
+           tl.fromTo('#uv',{yPercent:-120},{yPercent:720,duration:.5,ease:'power2.in',immediateRender:false},t-.18); }
+  });
+
+  // HUD progress: design 4-8, prep 8-12, print 12-20, result 20-40
+  const pb=$$('#prog b');
+  [[4,8],[8,12],[12,20],[20,40]].forEach(([a,b],i)=>tl.to(pb[i],{scaleX:1,duration:T(b-a),ease:'none'},T(a)));
+  tl.fromTo('#hud',{y:'-14cqw'},{y:0,duration:.6,ease:'power3.out'},.15);
+
+  // S1 hook
+  show('#s1',0,T(4)); lines('#s1',.12,{stagger:.1});
+  tl.fromTo('#ul1',{strokeDasharray:460,strokeDashoffset:460},{strokeDashoffset:0,duration:.5,ease:'power2.out'},.75);
+  linesOut('#s1',T(4)-.3); tl.to('#ul1',{opacity:0,duration:.15},T(4)-.3);
+
+  // S2 design — footage shrinks into a card on UV blue
+  tl.to('#foot',{clipPath:CARD,duration:.55,ease:'expo.inOut'},T(4)-.28);
+  tl.to('#scrim',{opacity:0,duration:.3},T(4)-.2);
+  show('#s2',T(4),T(8)); lines('#s2',T(4)+.12); linesOut('#s2',T(8)-.3);
+
+  // S3 prep — magenta circle wipe behind the card
+  tl.to('#bgB',{clipPath:'circle(150% at 85% 80%)',duration:.6,ease:'power3.inOut'},T(8)-.3);
+  show('#s3',T(8),T(12)); lines('#s3',T(8)+.12); linesOut('#s3',T(12)-.3);
+
+  // S4 print — card opens back to full bleed
+  tl.to('#foot',{clipPath:FULL,duration:.5,ease:'expo.inOut'},T(12)-.25);
+  tl.to('#scrim',{opacity:1,duration:.3},T(12)-.1);
+  show('#s4',T(12),T(20)); lines('#s4',T(12)+.12);
+  $$('#inks i').forEach((d,i)=>{
+    tl.fromTo(d,{scale:0},{scale:1,duration:.4,ease:'back.out(2.2)',immediateRender:false},T(13+i));
+    tl.to(d,{y:'-2.2cqw',duration:B/2,ease:'power2.out',yoyo:true,repeat:1},T(18)+i*.06);
+  });
+  linesOut('#s4',T(20)-.3); tl.to('#inks i',{scale:0,duration:.2,stagger:.03},T(20)-.32);
+
+  // Results 20-40
+  show('#chip',T(20),T(40)); tl.fromTo('#chip',{x:'60cqw'},{x:0,duration:.5,ease:'power4.out',immediateRender:false},T(20)+.05);
+  show('#brk',T(20),T(40));
+  [[1,20,24],[2,24,28],[3,28,32],[4,32,36],[5,36,40]].forEach(([n,a,b])=>{
+    const s='#r'+n; show(s,T(a),T(b)); lines(s,T(a)+.1);
+    tl.fromTo(s+' .bar',{scaleX:0},{scaleX:1,duration:.45,ease:'power3.out',immediateRender:false},T(a)+.3);
+    linesOut(s,T(b)-.28); tl.to(s+' .bar',{scaleX:0,duration:.2},T(b)-.28);
+    tl.fromTo('#brk',{scale:1.22,opacity:0},{scale:1,opacity:1,duration:.45,ease:'power3.out',immediateRender:false},T(a)+.02);
+    tl.to('#brk',{scale:.97,duration:T(b-a)-.5,ease:'none'},T(a)+.47);
+  });
+  tl.to('#chip',{x:'60cqw',duration:.25,ease:'power2.in'},T(40)-.3);
+
+  // End card — ink stripes curtain
+  show('#stripes',T(40)-.45);
+  tl.to('#stripes i',{xPercent:0,duration:.4,ease:'power3.in',stagger:.05},T(40)-.45);
+  show('#end',T(40)+.1); tl.set('#hud',{autoAlpha:0},T(40)+.1);
+  tl.to('#stripes i',{xPercent:-105,duration:.45,ease:'power3.out',stagger:.05},T(40)+.12);
+  tl.fromTo('#dots i',{scale:0},{scale:1,duration:.4,ease:'back.out(2.5)',stagger:.07},T(40)+.45);
+  tl.fromTo('#word .ln > span',{yPercent:125},{yPercent:0,duration:.6,ease:'power4.out',stagger:.12},T(40)+.5);
+  tl.fromTo('#etag .ln > span',{yPercent:125},{yPercent:0,duration:.55,ease:'power4.out',stagger:.14},T(42)+.1);
+  tl.fromTo('#cta',{scale:0},{scale:1,duration:.5,ease:'back.out(1.8)'},T(44));
+  tl.fromTo('#efoot',{opacity:0},{opacity:.7,duration:.4},T(44)+.3);
+  tl.to('#cta',{scale:1.06,duration:B/2,ease:'power2.out',yoyo:true,repeat:5},T(46));
+  tl.to('#dots i',{y:'-1.6cqw',duration:B/2,ease:'power2.out',yoyo:true,repeat:5,stagger:.06},T(46));
+  tl.set({}, {}, DUR);
+}
+
+function frameIndex(t){ return Math.min(FOOT-1, Math.max(0, Math.floor(t*FPS+1e-4))); }
+async function setFrame(t, wait){
+  const i=frameIndex(t); if(i===cur) return; cur=i;
+  fimg.src='frames/f'+pad(i)+'.jpg';
+  if(wait){ try{ await fimg.decode(); }catch(e){} }
+}
+window.__seek=async t=>{ build(); tl.pause(t,false); await setFrame(t,true); };
+window.__dur=DUR;
+window.__ready=(async()=>{ await document.fonts.ready; await Promise.all([...document.fonts].map(f=>f.load())); fit(); build(); await window.__seek(0); })();
+
+if(new URLSearchParams(location.search).has('play')){
+  window.__ready.then(()=>{ const t0=performance.now();
+    (function loop(){ const t=((performance.now()-t0)/1000)%DUR; tl.pause(t,false); setFrame(t,false); requestAnimationFrame(loop); })(); });
+}
+</script>
+</body>
+</html>
