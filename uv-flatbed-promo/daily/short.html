@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Elegance Story — Daily Short</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:400;src:url(../node_modules/@fontsource/alexandria/files/alexandria-arabic-400-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:700;src:url(../node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(../node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:900;src:url(../node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:400;src:url(../node_modules/@fontsource/alexandria/files/alexandria-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:700;src:url(../node_modules/@fontsource/alexandria/files/alexandria-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Amiri;font-weight:700;src:url(../node_modules/@fontsource/amiri/files/amiri-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:400;src:url(../node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(../node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+:root{--ink:#0a0a12;--uv:#2a3bff;--mag:#ff2d8a;--yel:#ffd60a;--cy:#12c8f4;--acc:#2a3bff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;height:100%;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:100vw;aspect-ratio:9/16;container-type:inline-size;overflow:hidden;background:var(--ink);font-family:Alexandria,AlexLat,sans-serif;color:#fff}
+#stage > *,#fimg,#hud > *,#brk i,#stripes i,#end > *{position:absolute}
+#bgA{inset:0;background:var(--acc)}
+#foot{inset:0;overflow:hidden;background:#000}
+#fimg{inset:0;width:100%;height:100%;object-fit:cover}
+#scrim{inset:0;background:linear-gradient(180deg,rgba(6,6,14,.95) 0%,rgba(6,6,14,.9) 30%,rgba(6,6,14,.78) 46%,rgba(6,6,14,.45) 56%,rgba(6,6,14,0) 68%,rgba(6,6,14,0) 88%,rgba(6,6,14,.45) 100%)}
+#uv{left:0;right:0;top:0;height:26cqw;background:linear-gradient(180deg,rgba(42,59,255,0),rgba(70,90,255,.85) 45%,#fff 50%,rgba(70,90,255,.85) 55%,rgba(42,59,255,0));mix-blend-mode:screen}
+#flash{inset:0;background:#dfe4ff}
+#hud{left:6cqw;right:6cqw;top:26cqw;height:10cqw;direction:ltr}
+#hud .brand{left:0;top:0;font-family:AlexLat;font-weight:900;font-size:3.3cqw;letter-spacing:.32em;white-space:nowrap}
+#hud .tag{right:0;top:.2cqw;font-family:Mono;font-size:2.6cqw;letter-spacing:.08em;white-space:nowrap;opacity:.85}
+#prog{left:0;right:0;top:7cqw;height:.8cqw;background:rgba(255,255,255,.25);overflow:hidden}
+#prog b{position:absolute;inset:0;background:var(--yel);transform-origin:left center}
+#chip{right:7cqw;top:38cqw;background:var(--yel);color:var(--ink);padding:1.4cqw 3.4cqw;font-weight:700;font-size:3.8cqw;white-space:nowrap;border-radius:99cqw}
+#chip em{font-family:Mono;font-style:normal;font-weight:700;margin-right:1.6cqw}
+#txt{left:7cqw;right:7cqw;top:48cqw;text-align:right}
+#txt > *{position:relative;display:block}
+.ln{overflow:hidden;padding:.14em 0 .24em;margin:-.14em 0 -.24em}
+.ln > span{position:relative;display:inline-block;white-space:nowrap}
+.k{font-family:Mono;direction:ltr;text-align:right;font-size:3cqw;color:var(--yel);letter-spacing:.06em;margin-bottom:1.6cqw!important}
+.t{font-weight:900;font-size:14.5cqw;line-height:1.22}
+#t2{color:var(--yel)}
+#stage.card .t{font-size:12cqw}
+#stage.full #txt{text-shadow:0 .3cqw 1.6cqw rgba(4,4,12,.85)}
+#subs{height:9cqw;margin-top:2.4cqw!important}
+#subs .ln{position:absolute;right:0;left:0;top:0;font-size:5.2cqw;line-height:1.5}
+#fact{font-weight:700}
+#bar{width:18cqw;height:1.2cqw;background:var(--mag);margin:1cqw 0 0 auto;transform-origin:right center}
+/* widgets (all inside the safe band) */
+#w{left:7cqw;right:7cqw;top:101cqw;height:12cqw}
+#w > *{position:absolute}
+#inks{right:0;top:0;display:flex;gap:2.2cqw;direction:rtl}
+#inks i{width:9cqw;height:9cqw;border-radius:50%;font-family:Mono;font-style:normal;font-weight:700;font-size:3.6cqw;display:flex;align-items:center;justify-content:center;color:#0a0a12}
+#uvbar{left:0;right:0;top:1cqw;height:9cqw;direction:ltr}
+#uvbar > *{position:absolute}
+#uvbar .l{left:0;top:0;font-family:Mono;font-size:2.8cqw;letter-spacing:.1em;color:#fff}
+#uvbar .p{right:0;top:-.6cqw;font-family:Mono;font-weight:700;font-size:4.4cqw;color:var(--yel)}
+#uvbar .tr{left:0;right:0;top:5.6cqw;height:1.6cqw;background:rgba(255,255,255,.22);overflow:hidden}
+#uvbar .tr b{position:absolute;inset:0;background:linear-gradient(90deg,#2a3bff,#7f8cff 70%,#fff);transform-origin:left center}
+#brk{left:7cqw;right:7cqw;top:118cqw;bottom:20cqw}
+#brk i{width:8cqw;height:8cqw;border:0 solid #fff}
+#brk i:nth-child(1){left:0;top:0;border-left-width:.8cqw;border-top-width:.8cqw}
+#brk i:nth-child(2){right:0;top:0;border-right-width:.8cqw;border-top-width:.8cqw}
+#brk i:nth-child(3){left:0;bottom:0;border-left-width:.8cqw;border-bottom-width:.8cqw}
+#brk i:nth-child(4){right:0;bottom:0;border-right-width:.8cqw;border-bottom-width:.8cqw}
+#mq{left:-10cqw;right:-10cqw;top:101cqw;height:8cqw;background:var(--yel);transform:rotate(-3deg);overflow:hidden;direction:ltr}
+#mq div{position:absolute;left:0;top:0;height:100%;white-space:nowrap;font-family:AlexLat;font-weight:900;font-size:3.6cqw;line-height:8cqw;letter-spacing:.2em;color:var(--ink)}
+/* end card */
+#end{inset:0;background:var(--ink)}
+#stripes{inset:0}
+#stripes i{left:0;right:0;height:25%}
+#stripes i:nth-child(1){top:0;background:var(--cy)}
+#stripes i:nth-child(2){top:25%;background:var(--mag)}
+#stripes i:nth-child(3){top:50%;background:var(--yel)}
+#stripes i:nth-child(4){top:75%;background:var(--uv)}
+#dots{left:0;right:0;top:27cqw;height:5cqw;display:flex;justify-content:center;gap:2.4cqw}
+#dots i{position:relative;width:5cqw;height:5cqw;border-radius:50%}
+#word{left:0;right:0;top:36cqw;direction:ltr;text-align:center;font-family:AlexLat;font-weight:900;line-height:1}
+#word > *{position:relative;display:block}
+#word .w1{font-size:15.5cqw;letter-spacing:.02em}
+#word .w2{font-size:15.5cqw;letter-spacing:.34em;margin-right:-.34em;color:var(--yel)}
+#etag{left:6cqw;right:6cqw;top:73cqw;text-align:center}
+#etag > *{position:relative;display:block}
+#etag .a{font-weight:700;font-size:7cqw;line-height:1.4}
+#etag .b{font-family:Amiri;font-weight:700;font-size:11cqw;color:var(--yel);line-height:1.25}
+#cta{left:50%;top:101cqw;transform:translateX(-50%);background:var(--yel);color:var(--ink);font-weight:900;font-size:6.2cqw;padding:3cqw 8cqw;border-radius:99cqw;white-space:nowrap}
+#edeco{left:7cqw;right:7cqw;bottom:0;height:52cqw;display:flex;gap:2.5cqw;align-items:flex-end}
+#edeco i{position:relative;flex:1;height:100%;transform-origin:center bottom}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bgA"></div>
+  <div id="foot"><img id="fimg" alt=""></div>
+  <div id="scrim"></div>
+  <div id="uv"></div>
+  <div id="mq"><div></div></div>
+  <div id="brk"><i></i><i></i><i></i><i></i></div>
+  <div id="chip">يوميات الورشة<em id="epn"></em></div>
+  <div id="txt">
+    <div class="ln k"><span id="tag"></span></div>
+    <div class="ln t"><span id="t1"></span></div>
+    <div class="ln t"><span id="t2"></span></div>
+    <div id="subs"><div class="ln" id="subl"><span id="sub"></span></div><div class="ln" id="factl"><span id="fact"></span></div></div>
+    <div id="bar"></div>
+  </div>
+  <div id="w">
+    <div id="inks"><i style="background:#12c8f4">C</i><i style="background:#ff2d8a">M</i><i style="background:#ffd60a">Y</i><i style="background:#0a0a12;color:#fff;outline:.5cqw solid #fff;outline-offset:-.5cqw">K</i><i style="background:#fff">W</i></div>
+    <div id="uvbar"><div class="l">UV CURING</div><div class="p" id="pct">0%</div><div class="tr"><b></b></div></div>
+  </div>
+  <div id="hud"><div class="brand">ELEGANCE STORY</div><div class="tag">UV · FLATBED</div><div id="prog"><b></b></div></div>
+  <div id="end">
+    <div id="dots"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div>
+    <div id="word"><div class="ln w1"><span>ELEGANCE</span></div><div class="ln w2"><span>STORY</span></div></div>
+    <div id="etag"><div class="ln a"><span>قصّتك… نطبعها</span></div><div class="ln b"><span>بأناقة</span></div></div>
+    <div id="cta">اطلب تصميمك الآن</div>
+    <div id="edeco"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div>
+  </div>
+  <div id="stripes"><i></i><i></i><i></i><i></i></div>
+  <div id="flash"></div>
+</div>
+<script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+const FPS=30, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const EPN=+(new URLSearchParams(location.search).get('ep')||1);
+const fimg=$('#fimg'), pad=(n,w=4)=>String(n).padStart(w,'0');
+let E, tl, cur=-1, B, FD, DUR;
+
+function fit(){
+  $$('.ln > span').forEach(s=>{
+    const box=s.parentElement.getBoundingClientRect().width, w=s.getBoundingClientRect().width;
+    if(w>box){ const fs=parseFloat(getComputedStyle(s.parentElement).fontSize); s.parentElement.style.fontSize=(fs*box/w*0.98)+'px'; }
+  });
+}
+function build(){
+  if(tl) return;
+  tl=gsap.timeline({paused:true});
+  const T=b=>b*B, still=('still' in E), card=E.layout==='card', W=E.widget;
+  const CARD='inset(61% 7% 5% 7% round 4cqw)', FULL='inset(0% 0% 0% 0% round 0cqw)';
+  gsap.set('#end,#stripes',{autoAlpha:0}); gsap.set('#flash',{opacity:0}); gsap.set('#uv',{yPercent:-120});
+  gsap.set('#stripes i',{xPercent:105}); gsap.set('#prog b',{scaleX:0});
+  gsap.set('#inks,#uvbar,#brk,#mq',{autoAlpha:0});
+  gsap.set('#scrim',{opacity:card?0:1});
+  gsap.set('#foot',{clipPath:FULL});
+  // camera
+  gsap.set(fimg,{transformOrigin:E.origin||(card?'50% 78%':'50% 60%')});
+  const z0=E.z0||1, z1=E.z1||(still?1.24:1.1);
+  tl.fromTo(fimg,{scale:z0,xPercent:0},{scale:z1,xPercent:still?-3:0,duration:FD,ease:still?'sine.inOut':'none'},0);
+  if(card) tl.fromTo(fimg,{yPercent:0},{yPercent:E.shift??20,duration:.7,ease:'expo.inOut'},.2);
+  // open
+  tl.fromTo('#flash',{opacity:.6},{opacity:0,duration:.25,ease:'power1.out'},0);
+  tl.fromTo('#uv',{yPercent:-120},{yPercent:720,duration:.7,ease:'power2.in'},.05);
+  if(card) tl.fromTo('#foot',{clipPath:FULL},{clipPath:CARD,duration:.7,ease:'expo.inOut'},.2);
+  tl.fromTo('#hud',{y:'-40cqw'},{y:0,duration:.6,ease:'power3.out'},.1);
+  tl.to('#prog b',{scaleX:1,duration:FD,ease:'none'},0);
+  tl.fromTo('#chip',{x:'60cqw'},{x:0,duration:.5,ease:'power4.out'},.25);
+  tl.fromTo('#txt .k span,#txt .t span,#subl span',{yPercent:130},{yPercent:0,duration:.55,ease:'power4.out',stagger:.09},.4);
+  tl.fromTo('#bar',{scaleX:0},{scaleX:1,duration:.45,ease:'power3.out'},.95);
+  // caption swap on a beat near the middle
+  const mid=T(Math.round(E.beats*0.5));
+  gsap.set('#fact',{yPercent:130});
+  tl.to('#sub',{yPercent:-130,duration:.3,ease:'power3.in'},mid-.3);
+  tl.to('#fact',{yPercent:0,duration:.5,ease:'power4.out'},mid);
+  tl.fromTo('#bar',{scaleX:1},{scaleX:2.2,duration:.5,ease:'power3.out',immediateRender:false},mid);
+  tl.fromTo('#flash',{opacity:.3},{opacity:0,duration:.2,immediateRender:false},mid);
+  tl.fromTo('#t2',{scale:1},{scale:1.06,duration:B/2,ease:'power2.out',yoyo:true,repeat:1,transformOrigin:'100% 50%',immediateRender:false},mid);
+  // widgets
+  if(W==='inks'){ tl.set('#inks',{autoAlpha:1},T(2));
+    $$('#inks i').forEach((d,i)=>{ tl.fromTo(d,{scale:0},{scale:1,duration:.4,ease:'back.out(2.2)'},T(2)+i*B/2);
+      tl.to(d,{y:'-2cqw',duration:B/2,ease:'power2.out',yoyo:true,repeat:1},mid+B+i*.06); }); }
+  if(W==='uvbar'){ tl.set('#uvbar',{autoAlpha:1},T(2));
+    tl.fromTo('#uvbar',{y:'3cqw',opacity:0},{y:0,opacity:1,duration:.4,ease:'power3.out'},T(2));
+    tl.fromTo('#uvbar .tr b',{scaleX:0},{scaleX:1,duration:FD-T(2)-.5,ease:'power1.inOut'},T(2)); }
+  if(W==='brackets'){ tl.set('#brk',{autoAlpha:1},T(1));
+    for(let b=1;b<E.beats;b+=4){ tl.fromTo('#brk',{scale:1.18,opacity:0},{scale:1,opacity:1,duration:.45,ease:'power3.out',immediateRender:false},T(b));
+      tl.to('#brk',{scale:.96,duration:Math.max(.2,T(4)-.5),ease:'none'},T(b)+.47); } }
+  if(W==='marquee'){ tl.set('#mq',{autoAlpha:1},.5);
+    tl.fromTo('#mq',{xPercent:110},{xPercent:0,duration:.6,ease:'power4.out'},.5);
+    tl.fromTo('#mq div',{x:'-60cqw'},{x:'0cqw',duration:FD,ease:'none'},0); }
+  // outro of footage text
+  tl.to('#txt .k span,#txt .t span,#fact',{yPercent:-130,duration:.28,ease:'power3.in',stagger:.03},FD-.4);
+  // end card
+  tl.set('#stripes',{autoAlpha:1},FD-.45);
+  tl.to('#stripes i',{xPercent:0,duration:.4,ease:'power3.in',stagger:.05},FD-.45);
+  tl.set('#end',{autoAlpha:1},FD+.1); tl.set('#hud,#chip,#mq,#brk,#w',{autoAlpha:0},FD+.1);
+  tl.to('#stripes i',{xPercent:-105,duration:.45,ease:'power3.out',stagger:.05},FD+.12);
+  tl.fromTo('#dots i',{scale:0},{scale:1,duration:.4,ease:'back.out(2.5)',stagger:.07},FD+.35);
+  tl.fromTo('#word .ln > span',{yPercent:125},{yPercent:0,duration:.6,ease:'power4.out',stagger:.12},FD+.4);
+  tl.fromTo('#etag .ln > span',{yPercent:125},{yPercent:0,duration:.55,ease:'power4.out',stagger:.14},FD+T(1.5));
+  tl.fromTo('#cta',{scale:0},{scale:1,duration:.5,ease:'back.out(1.8)'},FD+T(2.5));
+  [.35,.7,.5,.9].forEach((h,i)=>{ const s='#edeco i:nth-child('+(i+1)+')';
+    tl.fromTo(s,{scaleY:0},{scaleY:h,duration:.6,ease:'power4.out'},FD+.5+i*.08);
+    tl.to(s,{scaleY:h*.6+.25*((i+1)%2),duration:B,ease:'sine.inOut',yoyo:true,repeat:3},FD+T(1.5)+i*.1); });
+  tl.to('#cta',{scale:1.06,duration:B/2,ease:'power2.out',yoyo:true,repeat:3},FD+T(3.5));
+  tl.set({}, {}, DUR);
+}
+function frame(t){ if(E.widget==='uvbar'){ const a=B*2, p=Math.max(0,Math.min(1,(t-a)/(FD-a-.5))); $('#pct').textContent=Math.round((p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2)*100)+'%'; } }
+async function setFrame(t, wait){
+  const i=('still' in E)?0:Math.min(E.nFoot-1, Math.max(0, Math.floor(t*FPS+1e-4))); if(i===cur) return; cur=i;
+  fimg.src='frames/'+pad(E.ep,2)+'/f'+pad(i)+'.jpg';
+  if(wait){ try{ await fimg.decode(); }catch(e){} }
+}
+window.__seek=async t=>{ tl.pause(t,false); frame(t); await setFrame(t,true); };
+window.__ready=(async()=>{
+  const all=await (await fetch('build.json')).json(); E=all.find(e=>e.ep===EPN);
+  B=60/E.bpm; FD=E.nFoot/FPS; DUR=Math.round((FD+E.endBeats*B)*FPS)/FPS; window.__dur=DUR;
+  $('#stage').classList.add(E.layout);
+  if(E.accent) document.documentElement.style.setProperty('--acc',E.accent);
+  $('#epn').textContent='#'+pad(E.ep,2);
+  for(const k of ['tag','t1','t2','sub','fact']) $('#'+k).textContent=E[k];
+  $('#mq div').textContent=Array(14).fill(E.tag.replace('// ','')+'  ✦  ELEGANCE STORY  ✦  ').join('');
+  await document.fonts.ready; await Promise.all([...document.fonts].map(f=>f.load()));
+  fit(); build(); await window.__seek(0);
+})();
+</script>
+</body>
+</html>
