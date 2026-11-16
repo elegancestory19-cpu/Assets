@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+import path from 'node:path';
+const here = path.dirname(new URL(import.meta.url).pathname);
+const name = process.argv[2];
+const b = await chromium.launch({ args: ['--allow-file-access-from-files'] });
+const p = await b.newPage({ viewport: { width: 794, height: 1123 }, deviceScaleFactor: 2 });
+await p.goto(`file://${here}/${name}.html`);
+await p.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.fonts].map(f => f.load())); });
+await p.pdf({ path: `${here}/${name}.pdf`, format: 'A4', printBackground: true, preferCSSPageSize: true });
+await p.screenshot({ path: `${here}/${name}.png` });
+await b.close();

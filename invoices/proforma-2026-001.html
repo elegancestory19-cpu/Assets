@@ -1,0 +1,116 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>فاتورة شكلية PF-2026-001</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:400;src:url(../uv-flatbed-promo/node_modules/@fontsource/alexandria/files/alexandria-arabic-400-normal.woff2) format("woff2"),url(../uv-flatbed-promo/node_modules/@fontsource/alexandria/files/alexandria-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:700;src:url(../uv-flatbed-promo/node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2"),url(../uv-flatbed-promo/node_modules/@fontsource/alexandria/files/alexandria-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(../uv-flatbed-promo/node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2"),url(../uv-flatbed-promo/node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:400;src:url(../uv-flatbed-promo/node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(../uv-flatbed-promo/node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+@page{size:A4;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0a0a12;--uv:#2a3bff;--mag:#ff2d8a;--yel:#ffd60a;--cy:#12c8f4;--mute:#6b6b7b;--line:#e4e4ec}
+body{width:210mm;height:297mm;font-family:Alexandria,sans-serif;color:var(--ink);background:#fff;font-size:10pt;position:relative;overflow:hidden}
+.bar{display:flex;height:6mm}.bar i{flex:1}
+header{display:flex;justify-content:space-between;align-items:flex-start;padding:12mm 16mm 0}
+.brand .n{direction:ltr;font-weight:900;font-size:20pt;letter-spacing:.06em;line-height:1}
+.brand .n b{color:var(--uv)}
+.brand .s{direction:ltr;text-align:right;font-family:Mono;font-size:7.5pt;letter-spacing:.14em;color:var(--mute);margin-top:2mm}
+.brand .c{margin-top:4mm;font-size:8.5pt;line-height:1.75;color:#333}
+.brand .c span{font-family:Mono;direction:ltr;unicode-bidi:embed}
+.doc{text-align:left}
+.doc h1{font-weight:900;font-size:24pt;line-height:1.1}
+.doc .fr{direction:ltr;font-family:Mono;font-size:8.5pt;letter-spacing:.16em;color:var(--mag);margin-top:1mm}
+.doc table{margin-top:4mm;margin-right:auto;border-collapse:collapse;font-size:9pt}
+.doc td{padding:1mm 0 1mm 4mm}.doc td:first-child{color:var(--mute)}
+.doc td.m{font-family:Mono;direction:ltr;text-align:left;font-weight:700}
+.parties{display:flex;gap:6mm;padding:9mm 16mm 0}
+.box{flex:1;border:1px solid var(--line);border-radius:3mm;padding:4mm 5mm}
+.box h3{font-size:8pt;color:var(--mute);font-weight:700;margin-bottom:2mm}
+.box p{line-height:1.75;font-size:9pt}
+.ph{color:#9a9aab}
+.items{padding:8mm 16mm 0}
+.items table{width:100%;border-collapse:collapse}
+.items th{background:var(--ink);color:#fff;font-weight:700;font-size:8.5pt;padding:3mm 3mm;text-align:right}
+.items th:first-child{border-radius:0 2mm 2mm 0}.items th:last-child{border-radius:2mm 0 0 2mm}
+.items td{padding:4mm 3mm;border-bottom:1px solid var(--line);vertical-align:top;font-size:9.5pt}
+.items td .d{font-size:8pt;color:var(--mute);margin-top:1mm;line-height:1.6}
+.num{font-family:Mono;direction:ltr;text-align:left!important;white-space:nowrap}
+.c1{width:7mm;color:var(--mute)}.cq{width:16mm;text-align:center!important}
+.free{display:inline-block;background:var(--yel);font-weight:700;font-size:8pt;padding:.6mm 2.6mm;border-radius:9mm}
+.sum{display:flex;justify-content:space-between;align-items:flex-start;padding:7mm 16mm 0;gap:10mm}
+.words{flex:1;font-size:9pt;line-height:1.8;border-right:1.2mm solid var(--uv);padding-right:4mm}
+.words b{display:block;font-size:10.5pt}
+.tot{width:88mm;border-collapse:collapse}
+.tot td{white-space:nowrap;padding:2mm 0;font-size:9.5pt}.tot td.num{font-weight:700}
+.tot tr.g td{background:var(--uv);color:#fff;font-weight:900;font-size:13pt;padding:3.5mm 4mm}
+.tot tr.g td:first-child{border-radius:0 2mm 2mm 0}.tot tr.g td:last-child{border-radius:2mm 0 0 2mm}
+.unit{font-size:8pt;color:var(--mute)}
+.terms{padding:7mm 16mm 0;display:flex;gap:6mm}
+.terms .box p{font-size:8.5pt}
+.terms ul{list-style:none;font-size:8.5pt;line-height:1.9}
+.terms li::before{content:"•";color:var(--mag);margin-left:2mm;font-weight:900}
+.sign{width:62mm;margin:6mm auto 0 16mm;text-align:center;font-size:8.5pt;color:var(--mute)}
+.sign .l{border-top:1px dashed #b8b8c6;margin-top:12mm;padding-top:2mm}
+footer{position:absolute;left:0;right:0;bottom:0}
+footer .t{direction:ltr;text-align:center;font-family:Mono;font-size:7.5pt;letter-spacing:.18em;color:var(--mute);padding-bottom:3mm}
+</style></head><body>
+<div class="bar"><i style="background:var(--cy)"></i><i style="background:var(--mag)"></i><i style="background:var(--yel)"></i><i style="background:var(--uv)"></i></div>
+<header>
+  <div class="brand">
+    <div class="n">ELEGANCE <b>STORY</b></div>
+    <div class="s">ADVERTISING &amp; SMART PRINTING SOLUTIONS</div>
+    <div class="c">
+      الهاتف: <span>0772 65 83 01</span> · <span>0668 89 79 07</span> · <span>0553 04 54 07</span><br>
+      العنوان: <span class="ph">[عنوان الورشة]</span><br>
+      <span class="ph">RC: [ــــــ] · NIF: [ــــــ] · NIS: [ــــــ] · AI: [ــــــ]</span>
+    </div>
+  </div>
+  <div class="doc">
+    <h1>فاتورة شكلية</h1>
+    <div class="fr">FACTURE PROFORMA</div>
+    <table>
+      <tr><td>الرقم</td><td class="m">PF-2026-001</td></tr>
+      <tr><td>التاريخ</td><td class="m">16/11/2026</td></tr>
+      <tr><td>صالحة إلى غاية</td><td class="m">01/12/2026</td></tr>
+    </table>
+  </div>
+</header>
+
+<section class="parties">
+  <div class="box"><h3>العميل</h3><p>الاسم: <span class="ph">[اسم العميل]</span><br>الهاتف: <span class="ph">[ــــــ]</span><br>العنوان: سيدي بلعباس</p></div>
+  <div class="box"><h3>موضوع الفاتورة</h3><p>طباعة كتاب — <b>25 نسخة</b><br>طباعة بأعلى جودة ممكنة مع إخراج فني احترافي</p></div>
+</section>
+
+<section class="items">
+<table>
+  <thead><tr><th class="c1">#</th><th>البيان</th><th class="cq">الكمية</th><th class="num">سعر الوحدة (دج)</th><th class="num">المبلغ (دج)</th></tr></thead>
+  <tbody>
+    <tr><td class="c1 num">01</td><td>طباعة الصفحات الداخلية<div class="d">24 ورقة داخلية لكل نسخة · ورق 80غ · طباعة بأعلى دقة</div></td><td class="cq num">25</td><td class="num">480,00</td><td class="num">12 000,00</td></tr>
+    <tr><td class="c1 num">02</td><td>طباعة الغلاف<div class="d">3 أوراق خارجية لكل نسخة · ورق كوشي 160غ</div></td><td class="cq num">25</td><td class="num">192,00</td><td class="num">4 800,00</td></tr>
+    <tr><td class="c1 num">03</td><td>الإخراج الفني والتصميم الاحترافي<div class="d">تنسيق الصفحات وتصميم الغلاف وتجهيز الملف للطباعة</div></td><td class="cq num">1</td><td class="num">—</td><td style="text-align:left"><span class="free">مشمول</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section class="sum">
+  <div class="words"><span class="unit">حُرّرت هذه الفاتورة بمبلغ:</span><b>ستة عشر ألفاً وثمانمائة دينار جزائري</b><span class="unit">سعر النسخة الواحدة: 672 دج</span></div>
+  <table class="tot">
+    <tr><td>المجموع الفرعي</td><td class="num">16 800,00 دج</td></tr>
+    <tr><td>الإخراج الفني</td><td class="num">0,00 دج</td></tr>
+    <tr class="g"><td>المجموع الصافي</td><td class="num">16 800,00 دج</td></tr>
+  </table>
+</section>
+
+<section class="terms">
+  <div class="box"><h3>شروط الخدمة</h3>
+    <ul>
+      <li>تُعتمد الطباعة بعد موافقة العميل على النموذج النهائي.</li>
+      <li>دفع مسبق بنسبة <span class="ph">[50%]</span> عند تأكيد الطلب، والباقي عند الاستلام.</li>
+      <li>مدة الإنجاز: <span class="ph">[ـــ]</span> أيام عمل من تاريخ الموافقة.</li>
+      <li>الأسعار لا تشمل تكاليف الشحن إلى سيدي بلعباس.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="sign">الختم والإمضاء<div class="l">Elegance Story</div></div>
+<footer><div class="t">ELEGANCE STORY · قصّتك… نطبعها بأناقة</div><div class="bar"><i style="background:var(--cy)"></i><i style="background:var(--mag)"></i><i style="background:var(--yel)"></i><i style="background:var(--uv)"></i></div></footer>
+</body></html>
