@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>L'Adresse Packaging — Design Case Study</title>
+<style>
+@font-face{font-family:Corm;font-weight:500;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Corm;font-weight:600;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Corm;font-weight:500;font-style:italic;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-italic.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:400;src:url(node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:600;src:url(node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:JB;font-weight:400;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:JB;font-weight:500;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2) format("woff2")}
+:root{--cream:#f4ebe1;--paper:#fbf6f0;--esp:#3b2416;--brown:#5a3a28;--gold:#b08d57;--ink:#2a1a10;--mute:#8a7666;--line:#e2d5c6;--cut:#c4473a;--crease:#2f8f5b}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;height:100%;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:100vw;aspect-ratio:4/5;container-type:inline-size;overflow:hidden;background:var(--cream);font-family:Inter,sans-serif;color:var(--ink)}
+#stage > *,.sc > *,#hud > *{position:absolute}
+.sc{inset:0}
+.ln{overflow:hidden;padding:.08em 0 .16em;margin:-.08em 0 -.16em}
+.ln > span{position:relative;display:inline-block;white-space:nowrap}
+.mono{font-family:JB;letter-spacing:.08em}
+.serif{font-family:Corm;font-weight:500}
+
+/* HUD */
+#hud{left:7cqw;right:7cqw;top:6cqw;height:118cqw;z-index:20;pointer-events:none}
+#hud .tl{left:0;top:0;font-family:JB;font-size:2.1cqw;letter-spacing:.16em;color:var(--esp);white-space:nowrap}
+#hud .tr{right:0;top:0;font-family:JB;font-size:2.1cqw;letter-spacing:.16em;color:var(--mute);white-space:nowrap}
+#hud .rule{left:0;right:0;top:4.2cqw;height:1px;background:var(--line)}
+#steps{left:0;right:0;bottom:0;height:5cqw}
+#steps .bar{position:absolute;left:0;right:22cqw;top:2.2cqw;height:.45cqw;display:flex;gap:1.2cqw}
+#steps .bar i{position:relative;flex:1;background:var(--line);overflow:hidden}
+#steps .bar b{position:absolute;inset:0;background:var(--esp);transform-origin:left center;transform:scaleX(0)}
+#steps .cnt{position:absolute;right:0;top:.6cqw;font-family:JB;font-size:2.4cqw;color:var(--esp);letter-spacing:.1em}
+
+/* step header */
+.sh{left:7cqw;top:16cqw;right:7cqw}
+.sh > *{position:relative;display:block}
+.sh .n{font-family:JB;font-size:2.4cqw;letter-spacing:.18em;color:var(--gold)}
+.sh .t{font-family:Corm;font-weight:500;font-size:9.4cqw;line-height:1.05;color:var(--esp);margin-top:1cqw}
+.sh .d{font-size:2.9cqw;line-height:1.5;color:var(--mute);margin-top:1.6cqw;max-width:74cqw}
+.sh .d span{white-space:normal}
+
+/* intro */
+#s0{background:var(--esp);color:var(--cream)}
+#s0 .k{left:7cqw;top:30cqw;font-family:JB;font-size:2.4cqw;letter-spacing:.22em;color:var(--gold)}
+#s0 .h{left:7cqw;right:7cqw;top:38cqw}
+#s0 .h > *{position:relative;display:block;font-family:Corm;font-weight:500;font-size:15cqw;line-height:1.02}
+#s0 .h em{font-style:italic;color:var(--gold)}
+#s0 .r{left:7cqw;top:76cqw;height:1px;width:86cqw;background:var(--gold);transform-origin:left center}
+#s0 .s{left:7cqw;top:80cqw;font-size:3.2cqw;color:#d9c8b6;line-height:1.5}
+#s0 .s > *{position:relative;display:block}
+#s0 .s b{color:var(--cream);font-weight:500}
+
+/* step 1 brand */
+#logoBox{left:7cqw;top:52cqw;width:48cqw;height:38cqw;background:var(--paper);border:1px solid var(--line)}
+#logoBox > *{position:absolute}
+#pin{left:21.2cqw;top:4.4cqw;width:5.6cqw;color:var(--gold)}
+#word{left:5cqw;top:15.6cqw;width:38cqw;color:var(--esp)}
+#subl{left:7.4cqw;top:24.4cqw;width:33.2cqw;color:var(--brown)}
+#pin svg,#word svg,#subl svg,#tagl svg{display:block;width:100%;height:auto}
+#wordMask{left:0;top:14cqw;width:48cqw;height:9cqw;overflow:hidden}
+#word{position:absolute;top:0!important}
+#logoBox .lab{left:2.4cqw;bottom:2cqw;font-family:JB;font-size:1.8cqw;color:var(--mute);letter-spacing:.1em}
+#grid1{left:0;top:0;width:100%;height:100%;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:4cqw 4cqw;opacity:.55}
+#pal{left:59cqw;top:52cqw;width:34cqw;display:flex;flex-direction:column;gap:2cqw}
+#pal > div{position:relative;height:11.3cqw;border-radius:1.2cqw;padding:2cqw 2.4cqw;display:flex;flex-direction:column;justify-content:space-between}
+#pal .nm{font-size:2.6cqw;font-weight:500}
+#pal .hx{font-family:JB;font-size:2cqw;letter-spacing:.06em;opacity:.8}
+#tagBox{left:7cqw;top:94cqw;width:86cqw;height:13cqw;border-top:1px solid var(--line);display:flex;align-items:center;gap:4cqw}
+#tagBox .lab{position:relative;font-family:JB;font-size:2cqw;color:var(--mute);letter-spacing:.12em;white-space:nowrap}
+#tagl{position:relative;width:36cqw;color:var(--esp)}
+
+/* step 2 dielines */
+#dlMain{left:7cqw;top:47cqw;width:52cqw;height:64cqw}
+#dlMain svg,.dlT svg{width:100%;height:100%;display:block;overflow:visible}
+.cutp{stroke:var(--cut)!important;stroke-width:2.2px!important;vector-effect:non-scaling-stroke;fill:none}
+.crp{stroke:var(--crease)!important;stroke-width:1.6px!important;vector-effect:non-scaling-stroke;stroke-dasharray:6 4!important;fill:none}
+#dlInfo{left:62cqw;top:50cqw;width:31cqw}
+#dlInfo > *{position:relative;display:block}
+.kv{border-top:1px solid var(--line);padding:1.6cqw 0}
+.kv .k{display:block;font-family:JB;font-size:1.9cqw;letter-spacing:.12em;color:var(--mute)}
+.kv .v{display:block;font-size:3.1cqw;font-weight:500;color:var(--esp);margin-top:.6cqw;line-height:1.3}
+.leg{display:flex!important;align-items:center;gap:1.6cqw;font-family:JB;font-size:2cqw;color:var(--esp);margin-top:1.2cqw}
+.leg i{display:inline-block;width:6cqw;height:0;border-top:.5cqw solid var(--cut)}
+.leg i.cr{border-top:.45cqw dashed var(--crease)}
+#dimH{left:7cqw;width:52cqw;top:112.5cqw;height:3cqw}
+#dimH > *{position:absolute}
+#dimH .l{left:0;right:0;top:1.3cqw;height:1px;background:var(--esp)}
+#dimH .l::before,#dimH .l::after{content:"";position:absolute;top:-1cqw;width:1px;height:2.2cqw;background:var(--esp)}
+#dimH .l::before{left:0}#dimH .l::after{right:0}
+#dimH .t{left:50%;top:-.2cqw;transform:translateX(-50%);background:var(--cream);padding:0 1.2cqw;font-family:JB;font-size:2cqw;color:var(--esp);white-space:nowrap}
+#dlGrid{left:7cqw;right:7cqw;top:46cqw;height:66cqw;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:2.4cqw}
+.dlT{position:relative;background:var(--paper);border:1px solid var(--line);padding:2cqw 2cqw 6.4cqw}
+.dlT .svgw{position:absolute;left:2cqw;right:2cqw;top:2cqw;bottom:7cqw}
+.dlT .cap{position:absolute;left:2cqw;right:2cqw;bottom:1.6cqw}
+.dlT .cap b{display:block;font-size:2.2cqw;font-weight:600;color:var(--esp);white-space:nowrap}
+.dlT .cap span{display:block;font-family:JB;font-size:1.7cqw;color:var(--mute);margin-top:.4cqw;white-space:nowrap}
+
+/* step 3 flat -> folded */
+#flat{left:7cqw;top:47cqw;width:86cqw;height:44cqw;background:var(--paper);border:1px solid var(--line)}
+#flat .svgw{position:absolute;inset:2.4cqw}
+#flat svg{width:100%;height:100%;display:block}
+.mk{fill:var(--esp)!important}
+#flat .lab{position:absolute;left:2.4cqw;top:1.6cqw;font-family:JB;font-size:1.8cqw;color:var(--mute);letter-spacing:.1em}
+#fold{left:7cqw;top:47cqw;width:86cqw;height:66cqw;overflow:hidden;background:#fff}
+#fold img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#fold .tag{position:absolute;left:2.4cqw;top:2.4cqw;background:var(--esp);color:var(--cream);font-family:JB;font-size:1.9cqw;letter-spacing:.1em;padding:1cqw 1.8cqw;border-radius:9cqw}
+#s3notes{left:7cqw;right:7cqw;top:94cqw;display:flex;gap:2.4cqw}
+#s3notes > div{position:relative;flex:1}
+
+/* step 4 mockups carousel */
+#car{left:7cqw;top:47cqw;width:86cqw;height:58cqw;overflow:hidden;background:#fff}
+.slide{position:absolute;inset:0}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
+#carCap{left:7cqw;right:7cqw;top:107cqw;height:8cqw}
+#carCap > div{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:baseline}
+#carCap .nm{font-family:Corm;font-weight:500;font-size:5.4cqw;color:var(--esp);white-space:nowrap}
+#carCap .dm{font-family:JB;font-size:2.2cqw;color:var(--mute);white-space:nowrap}
+#carIdx{right:7cqw;top:47cqw;z-index:3;transform:translateY(-120%);font-family:JB;font-size:2cqw;color:var(--mute)}
+
+/* step 5 specs */
+#spec{left:7cqw;right:7cqw;top:47cqw}
+#spec > .row{position:relative;display:grid;grid-template-columns:24cqw 1fr;align-items:baseline;padding:2.3cqw 0;border-top:1px solid var(--line)}
+#spec .row:last-child{border-bottom:1px solid var(--line)}
+#spec .k{font-family:JB;font-size:2.1cqw;letter-spacing:.12em;color:var(--mute)}
+#spec .v{font-size:3.6cqw;font-weight:500;color:var(--esp);line-height:1.3}
+#spec .v small{display:block;font-size:2.4cqw;font-weight:400;color:var(--mute);margin-top:.5cqw}
+#spec .rl{position:absolute;left:0;top:-1px;height:1px;width:100%;background:var(--esp);transform-origin:left center}
+
+/* range */
+#range{left:7cqw;right:7cqw;top:42cqw;height:72cqw;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:1.6cqw}
+#range > div{position:relative;overflow:hidden;background:#fff}
+#range img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#rangeT{left:7cqw;right:7cqw;top:16cqw}
+#rangeT > *{position:relative;display:block}
+
+/* end */
+#s7{background:var(--esp);color:var(--cream)}
+#s7 .k{left:7cqw;top:30cqw;font-family:JB;font-size:2.4cqw;letter-spacing:.22em;color:var(--gold)}
+#s7 .h{left:7cqw;right:7cqw;top:37cqw}
+#s7 .h > *{position:relative;display:block;font-family:Corm;font-weight:500;font-size:13cqw;line-height:1.04}
+#s7 .h em{font-style:italic;color:var(--gold)}
+#s7 .r{left:7cqw;top:68cqw;height:1px;width:86cqw;background:var(--gold);transform-origin:left center}
+#s7 .svc{left:7cqw;right:7cqw;top:72cqw;display:flex;gap:2.4cqw;flex-wrap:wrap}
+#s7 .svc span{position:relative;border:1px solid rgba(244,235,225,.35);border-radius:9cqw;padding:1.2cqw 2.6cqw;font-size:2.6cqw;white-space:nowrap}
+#s7 .brand{left:7cqw;top:90cqw;font-family:Inter;font-weight:600;font-size:5cqw;letter-spacing:.32em}
+#s7 .brand2{left:7cqw;top:97cqw;font-family:JB;font-size:2.1cqw;letter-spacing:.2em;color:#cdb9a5}
+#s7 .ph{left:7cqw;top:105cqw;font-family:JB;font-size:2.7cqw;color:var(--cream);letter-spacing:.06em;white-space:nowrap}
+#s7 .ph b{color:var(--gold);font-weight:400}
+#wipe{inset:0;background:var(--esp);z-index:30}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 0 intro -->
+  <div class="sc" id="s0">
+    <div class="k ln"><span>ELEGANCE STORY — DESIGN DEPARTMENT</span></div>
+    <div class="h"><div class="ln"><span>From brief</span></div><div class="ln"><span>to <em>box.</em></span></div></div>
+    <div class="r"></div>
+    <div class="s"><div class="ln"><span>A packaging case study for <b>L’Adresse</b></span></div><div class="ln"><span>Coffee · Brunch · Kitchen — 6 custom boxes</span></div></div>
+  </div>
+
+  <!-- 1 brand -->
+  <div class="sc" id="s1">
+    <div class="sh"><div class="n ln"><span>STEP 01</span></div><div class="t ln"><span>Brand system</span></div><div class="d ln"><span>Logo, palette and signature line, locked first.</span></div></div>
+    <div id="logoBox"><div id="grid1"></div><div id="pin"></div><div id="wordMask"><div id="word"></div></div><div id="subl"></div><div class="lab">LOGO · VECTOR</div></div>
+    <div id="pal">
+      <div style="background:#f3e3d3;color:#3b2416;border:1px solid var(--line)"><span class="nm">Cream</span><span class="hx">#F3E3D3</span></div>
+      <div style="background:#3b2416;color:#f4ebe1"><span class="nm">Espresso</span><span class="hx">#3B2416</span></div>
+      <div style="background:#b08d57;color:#2a1a10"><span class="nm">Gold</span><span class="hx">#B08D57</span></div>
+    </div>
+    <div id="tagBox"><span class="lab">SIGNATURE LINE</span><div id="tagl"></div></div>
+  </div>
+
+  <!-- 2 dielines -->
+  <div class="sc" id="s2">
+    <div class="sh"><div class="n ln"><span>STEP 02</span></div><div class="t ln"><span>Structural dielines</span></div><div class="d ln"><span>Every box drawn to scale, 1:1 in millimetres.</span></div></div>
+    <div id="dlMain"></div>
+    <div id="dimH"><div class="l"></div><div class="t">FLAT 305 × 386 mm</div></div>
+    <div id="dlInfo">
+      <div class="kv"><span class="k">FORMAT</span><span class="v">Long cookie box with window</span></div>
+      <div class="kv"><span class="k">DIMENSIONS</span><span class="v">240 × 90 × 55 mm</span></div>
+      <div class="kv"><span class="k">LAYERS</span><span class="v">Cut · Crease</span>
+        <span class="leg"><i></i>CUT</span><span class="leg"><i class="cr"></i>CREASE</span></div>
+    </div>
+    <div id="dlGrid"></div>
+  </div>
+
+  <!-- 3 flat -> folded -->
+  <div class="sc" id="s3">
+    <div class="sh"><div class="n ln"><span>STEP 03</span></div><div class="t ln"><span>Artwork on structure</span></div><div class="d ln"><span>Logo and copy placed panel by panel on the flat.</span></div></div>
+    <div id="flat"><div class="svgw"></div><div class="lab">03 · GABLE PASTRY BOX · FLAT</div></div>
+    <div id="fold"><img src="assets/photo_03_gable.jpg" alt=""><div class="tag">FOLDED · 220 × 160 × 150 mm</div></div>
+    <div id="s3notes">
+      <div class="kv"><span class="k">FRONT PANEL</span><span class="v">Logo + signature</span></div>
+      <div class="kv"><span class="k">SIDE PANELS</span><span class="v">Tagline in espresso</span></div>
+      <div class="kv"><span class="k">HANDLE</span><span class="v">Interlocking top</span></div>
+    </div>
+  </div>
+
+  <!-- 4 mockups -->
+  <div class="sc" id="s4">
+    <div class="sh"><div class="n ln"><span>STEP 04</span></div><div class="t ln"><span>Mockups &amp; review</span></div><div class="d ln"><span>Each format visualised before anything is printed.</span></div></div>
+    <div id="car"></div>
+    <div id="carIdx">01 / 06</div>
+    <div id="carCap"></div>
+  </div>
+
+  <!-- 5 specs -->
+  <div class="sc" id="s5">
+    <div class="sh"><div class="n ln"><span>STEP 05</span></div><div class="t ln"><span>Print-ready files</span></div><div class="d ln"><span>Production specs handed over with every file.</span></div></div>
+    <div id="spec">
+      <div class="row"><div class="rl"></div><span class="k">BOARD</span><span class="v">350 GSM food-grade<small>Recyclable folding board</small></span></div>
+      <div class="row"><div class="rl"></div><span class="k">FINISH</span><span class="v">Matte lamination<small>Spot UV / gold hot-stamp accents</small></span></div>
+      <div class="row"><div class="rl"></div><span class="k">PRINT</span><span class="v">4-colour process<small>CMYK, brand colours matched</small></span></div>
+      <div class="row"><div class="rl"></div><span class="k">FILES</span><span class="v">Vector dielines, 1:1<small>Cut + crease layers · PDF &amp; SVG</small></span></div>
+    </div>
+  </div>
+
+  <!-- 6 range -->
+  <div class="sc" id="s6">
+    <div id="rangeT" class="sh" style="top:16cqw"><div class="n ln"><span>THE RANGE</span></div><div class="t ln"><span>Six formats. <em style="font-style:italic;color:var(--gold)">One identity.</em></span></div></div>
+    <div id="range"></div>
+  </div>
+
+  <!-- 7 end -->
+  <div class="sc" id="s7">
+    <div class="k ln"><span>DESIGN DEPARTMENT</span></div>
+    <div class="h"><div class="ln"><span>Your brand,</span></div><div class="ln"><span><em>beautifully boxed.</em></span></div></div>
+    <div class="r"></div>
+    <div class="svc"><span>Packaging design</span><span>Dielines</span><span>Branding</span><span>Print-ready files</span></div>
+    <div class="brand">ELEGANCE STORY</div>
+    <div class="brand2">ADVERTISING &amp; SMART PRINTING SOLUTIONS</div>
+    <div class="ph">0772 65 83 01 <b>·</b> 0668 89 79 07 <b>·</b> 0553 04 54 07</div>
+  </div>
+
+  <div id="hud">
+    <div class="tl">ELEGANCE STORY · DESIGN DEPT.</div>
+    <div class="tr">L’ADRESSE — PACKAGING</div>
+    <div class="rule"></div>
+    <div id="steps"><div class="bar"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div><div class="cnt">01 / 05</div></div>
+  </div>
+  <div id="wipe"></div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+const DUR=40, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const BOXES=[
+ ['01','Long cookie box','240 × 90 × 55 mm','photo_01_cookie','01_boite-cookies-longue'],
+ ['02','Mailer box','240 × 240 × 140 mm','photo_02_mailer','02_boite-carree-24x24x14'],
+ ['03','Gable pastry box','220 × 160 × 150 mm','photo_03_gable','03_boite-gable-patisserie'],
+ ['04','Verrine box + insert','270 × 110 × 85 mm','photo_04_verrine','04_boite-verrines'],
+ ['05','Low pastry box','180 × 180 × 75 mm','photo_05_square','05_boite-carree-basse-18x18x7.5'],
+ ['06','Two-cup carrier','195 × 95 × 210 mm','photo_06_cups','06_porte-gobelets-2-cafes']];
+let tl;
+const txt=u=>fetch(u).then(r=>r.text());
+function styleDie(host){ // colour layers of an inline dieline svg
+  host.querySelectorAll('#DECOUPE path').forEach(p=>p.setAttribute('class','cutp'));
+  host.querySelectorAll('#RAINAGE path').forEach(p=>p.setAttribute('class','crp'));
+  host.querySelectorAll('#MARQUAGE path').forEach(p=>p.setAttribute('class','mk'));
+  const inf=host.querySelector('#INFOS'); if(inf) inf.remove();
+  const svg=host.querySelector('svg'); svg.removeAttribute('width'); svg.removeAttribute('height'); svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+}
+function prepDraw(paths){ paths.forEach(p=>{ const L=p.getTotalLength(); p.dataset.len=L; p.style.strokeDasharray=L+' '+L; }); }
+async function load(){
+  for(const [id,f] of [['#pin','pin'],['#word','wordmark'],['#subl','subline'],['#tagl','tagline']]) $(id).innerHTML=await txt('assets/'+f+'.svg');
+  $('#dlMain').innerHTML=await txt('assets/dielines/01_boite-cookies-longue_production.svg'); styleDie($('#dlMain'));
+  for(const b of BOXES){
+    const d=document.createElement('div'); d.className='dlT';
+    d.innerHTML=`<div class="svgw">${await txt('assets/dielines/'+b[4]+'_production.svg')}</div><div class="cap"><b>${b[0]} · ${b[1]}</b><span>${b[2]}</span></div>`;
+    styleDie(d); $('#dlGrid').appendChild(d);
+    const s=document.createElement('div'); s.className='slide'; s.innerHTML=`<img src="assets/${b[3]}.jpg" alt="">`; $('#car').appendChild(s);
+    const c=document.createElement('div'); c.innerHTML=`<span class="nm">${b[1]}</span><span class="dm">${b[2]}</span>`; $('#carCap').appendChild(c);
+    const r=document.createElement('div'); r.innerHTML=`<img src="assets/${b[3]}.jpg" alt="">`; $('#range').appendChild(r);
+  }
+  $('#flat .svgw').innerHTML=await txt('assets/dielines/03_boite-gable-patisserie.svg'); styleDie($('#flat'));
+  prepDraw($$('#dlMain .cutp')); prepDraw($$('.dlT .cutp')); prepDraw($$('#flat .cutp'));
+}
+function fit(){
+  $$('.ln > span').forEach(s=>{ const box=s.parentElement.getBoundingClientRect().width, w=s.getBoundingClientRect().width;
+    if(w>box){ const fs=parseFloat(getComputedStyle(s.parentElement).fontSize); s.parentElement.style.fontSize=(fs*box/w*0.98)+'px'; } });
+}
+const up=(sel,t,o={})=>tl.fromTo(sel,{yPercent:115},{yPercent:0,duration:o.d??.8,ease:'expo.out',stagger:o.st??.09,immediateRender:false},t);
+const show=(sel,a,b)=>{ tl.set(sel,{autoAlpha:1},a); if(b!=null) tl.set(sel,{autoAlpha:0},b); };
+const fadeIn=(sel,t,o={})=>tl.fromTo(sel,{opacity:0,y:o.y??'2cqw'},{opacity:1,y:0,duration:o.d??.7,ease:'power3.out',stagger:o.st??.08,immediateRender:false},t);
+const draw=(paths,t,d)=>paths.forEach((p,i)=>tl.fromTo(p,{strokeDashoffset:+p.dataset.len},{strokeDashoffset:0,duration:d,ease:'power1.inOut',immediateRender:false},t+i*.05));
+// minimal transition: espresso panel slides up and away
+function wipe(t){ tl.set('#wipe',{autoAlpha:1},t-.45); tl.fromTo('#wipe',{yPercent:100},{yPercent:0,duration:.45,ease:'power3.in',immediateRender:false},t-.45);
+  tl.to('#wipe',{yPercent:-100,duration:.5,ease:'power3.out'},t+.02); tl.set('#wipe',{autoAlpha:0},t+.55); }
+const exitText=(sc,t)=>tl.to(sc+' .sh .ln > span',{yPercent:-115,duration:.35,ease:'power2.in',stagger:.03},t);
+function stepCount(n,t){ tl.set('#steps .cnt',{textContent:'0'+n+' / 05'},t); }
+function build(){
+  tl=gsap.timeline({paused:true});
+  gsap.set('.sc,#hud,#wipe,#dlGrid,#fold',{autoAlpha:0});
+  gsap.set('#wipe',{yPercent:100}); gsap.set('.crp,.mk',{opacity:0}); gsap.set('.ln > span',{yPercent:115});
+  $$('.cutp').forEach(p=>{ if(p.dataset.len) p.style.strokeDashoffset=p.dataset.len; });
+  gsap.set('#word',{y:'9cqw'}); gsap.set('#tagl',{clipPath:'inset(0% 100% 0% 0%)'}); gsap.set('#dimH',{scaleX:0});
+  gsap.set('#pin,#subl,#logoBox,#pal > div,#tagBox,#dlInfo > .kv,.dlT,#flat,#s3notes > div,#car,#carIdx,#s7 .svc span,#s7 .brand,#s7 .brand2,#s7 .ph',{opacity:0});
+  // ---------- 0: intro 0–3.6 ----------
+  show('#s0',0,3.6);
+  up('#s0 .k span',.2); up('#s0 .h .ln > span',.45,{d:1.0,st:.14});
+  tl.fromTo('#s0 .r',{scaleX:0},{scaleX:1,duration:1.1,ease:'power3.inOut'},1.0);
+  up('#s0 .s .ln > span',1.35,{st:.12});
+  wipe(3.6);
+  // ---------- 1: brand 3.6–9.4 ----------
+  const T1=3.6; show('#s1',T1,9.4); show('#hud',T1,35.2); stepCount(1,T1);
+  tl.fromTo('#hud',{opacity:0},{opacity:1,duration:.6},T1+.1);
+  tl.to('#steps .bar i:nth-child(1) b',{scaleX:1,duration:5.8,ease:'none'},T1);
+  up('#s1 .sh .ln > span',T1+.25);
+  fadeIn('#logoBox',T1+.6,{y:'3cqw'});
+  tl.fromTo('#pin',{y:'-6cqw',opacity:0},{y:0,opacity:1,duration:.8,ease:'bounce.out',immediateRender:false},T1+1.1);
+  tl.fromTo('#word',{y:'9cqw'},{y:'1.6cqw',duration:.9,ease:'expo.out',immediateRender:false},T1+1.5);
+  fadeIn('#subl',T1+1.9,{y:'1cqw'});
+  fadeIn('#pal > div',T1+1.6,{y:'3cqw',st:.15,d:.6});
+  tl.fromTo('#tagBox',{opacity:0},{opacity:1,duration:.6},T1+2.6);
+  tl.fromTo('#tagl',{clipPath:'inset(0% 100% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:1.4,ease:'power2.inOut',immediateRender:false},T1+2.7);
+  tl.to('#grid1',{opacity:0,duration:1},T1+3.4);
+  exitText('#s1',9.0);
+  wipe(9.4);
+  // ---------- 2: dielines 9.4–17.6 ----------
+  const T2=9.4; show('#s2',T2,17.6); stepCount(2,T2);
+  tl.to('#steps .bar i:nth-child(2) b',{scaleX:1,duration:8.2,ease:'none'},T2);
+  up('#s2 .sh .ln > span',T2+.25);
+  draw($$('#dlMain .cutp'),T2+.6,2.4);
+  tl.fromTo('#dlMain .crp',{opacity:0},{opacity:1,duration:.5,stagger:.08,immediateRender:false},T2+2.4);
+  tl.fromTo('#dimH',{scaleX:0},{scaleX:1,duration:.6,ease:'power3.out',immediateRender:false},T2+2.9);
+  fadeIn('#dlInfo > .kv',T2+1.0,{st:.25});
+  // to grid of six
+  tl.to('#dlMain,#dimH,#dlInfo',{opacity:0,y:'-2cqw',duration:.45,ease:'power2.in'},T2+4.3);
+  show('#dlGrid',T2+4.7);
+  fadeIn('.dlT',T2+4.7,{st:.07,d:.5});
+  $$('.dlT').forEach((d,i)=>draw([...d.querySelectorAll('.cutp')],T2+4.85+i*.12,1.5));
+  tl.fromTo('.dlT .crp',{opacity:0},{opacity:1,duration:.4,immediateRender:false},T2+6.4);
+  exitText('#s2',17.2);
+  wipe(17.6);
+  // ---------- 3: flat -> folded 17.6–23.4 ----------
+  const T3=17.6; show('#s3',T3,23.4); stepCount(3,T3);
+  tl.to('#steps .bar i:nth-child(3) b',{scaleX:1,duration:5.8,ease:'none'},T3);
+  up('#s3 .sh .ln > span',T3+.25);
+  fadeIn('#flat',T3+.4);
+  draw($$('#flat .cutp'),T3+.5,1.4);
+  tl.fromTo('#flat .crp',{opacity:0},{opacity:1,duration:.4,immediateRender:false},T3+1.6);
+  tl.fromTo('#flat .mk',{opacity:0,scale:.92,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.6,stagger:.12,ease:'power3.out',immediateRender:false},T3+1.9);
+  fadeIn('#s3notes > div',T3+2.2,{st:.18});
+  show('#fold',T3+3.4);
+  tl.fromTo('#fold',{clipPath:'inset(100% 0% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.9,ease:'expo.inOut',immediateRender:false},T3+3.4);
+  tl.fromTo('#fold img',{scale:1.12},{scale:1,duration:2.4,ease:'power2.out',immediateRender:false},T3+3.4);
+  tl.to('#s3notes',{opacity:0,duration:.3},T3+3.4);
+  exitText('#s3',23.0);
+  wipe(23.4);
+  // ---------- 4: mockups carousel 23.4–30.6 ----------
+  const T4=23.4; show('#s4',T4,30.6); stepCount(4,T4);
+  tl.to('#steps .bar i:nth-child(4) b',{scaleX:1,duration:7.2,ease:'none'},T4);
+  up('#s4 .sh .ln > span',T4+.25);
+  fadeIn('#car',T4+.4,{y:'3cqw'});
+  const slides=$$('.slide'), caps=$$('#carCap > div'), per=1.0;
+  gsap.set(slides,{xPercent:100}); gsap.set(slides[0],{xPercent:0}); gsap.set(caps,{opacity:0});
+  tl.fromTo(caps[0],{opacity:0,y:'1.5cqw'},{opacity:1,y:0,duration:.5,immediateRender:false},T4+.7);
+  slides.forEach((s,i)=>{
+    const t=T4+.6+i*per+ (i?0:0);
+    tl.fromTo(s.querySelector('img'),{scale:1.06},{scale:1,duration:per+.6,ease:'power2.out',immediateRender:false},t);
+    if(i){ const ts=T4+.6+i*per;
+      tl.fromTo(s,{xPercent:100},{xPercent:0,duration:.6,ease:'expo.inOut',immediateRender:false},ts-.3);
+      tl.to(slides[i-1],{xPercent:-30,duration:.6,ease:'expo.inOut'},ts-.3);
+      tl.to(caps[i-1],{opacity:0,y:'-1.5cqw',duration:.25},ts-.3);
+      tl.fromTo(caps[i],{opacity:0,y:'1.5cqw'},{opacity:1,y:0,duration:.45,immediateRender:false},ts);
+      tl.set('#carIdx',{textContent:'0'+(i+1)+' / 06'},ts);
+    }
+  });
+  fadeIn('#carIdx',T4+.6);
+  exitText('#s4',30.2);
+  wipe(30.6);
+  // ---------- 5: specs 30.6–35.2 ----------
+  const T5=30.6; show('#s5',T5,35.2); stepCount(5,T5);
+  tl.to('#steps .bar i:nth-child(5) b',{scaleX:1,duration:4.6,ease:'none'},T5);
+  up('#s5 .sh .ln > span',T5+.25);
+  $$('#spec .row').forEach((r,i)=>{
+    tl.fromTo(r.querySelector('.rl'),{scaleX:0},{scaleX:1,duration:.7,ease:'power3.inOut',immediateRender:false},T5+.7+i*.3);
+    tl.fromTo(r.querySelectorAll('.k,.v'),{opacity:0,x:'-2cqw'},{opacity:1,x:0,duration:.6,ease:'power3.out',immediateRender:false},T5+.9+i*.3);
+  });
+  tl.to('#spec .rl',{opacity:0,duration:.6},T5+2.6);
+  exitText('#s5',34.8);
+  wipe(35.2);
+  // ---------- 6: range 35.2–37.4 ... end 37.4–40 ----------
+  const T6=35.2; show('#s6',T6,37.6); tl.set('#hud',{autoAlpha:0},T6);
+  up('#s6 .sh .ln > span',T6+.15);
+  tl.fromTo('#range > div',{clipPath:'inset(100% 0% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.7,ease:'expo.out',stagger:.08,immediateRender:false},T6+.3);
+  tl.fromTo('#range img',{scale:1.15},{scale:1,duration:2,ease:'power2.out',stagger:.08,immediateRender:false},T6+.3);
+  wipe(37.6);
+  const T7=37.6; show('#s7',T7);
+  up('#s7 .k span',T7+.1); up('#s7 .h .ln > span',T7+.25,{d:.9,st:.12});
+  tl.fromTo('#s7 .r',{scaleX:0},{scaleX:1,duration:.9,ease:'power3.inOut',immediateRender:false},T7+.6);
+  fadeIn('#s7 .svc span',T7+.8,{st:.08,d:.5});
+  fadeIn('#s7 .brand,#s7 .brand2,#s7 .ph',T7+1.1,{st:.12,d:.6});
+  tl.set({}, {}, DUR);
+}
+window.__seek=async t=>{ tl.pause(t,false); };
+window.__dur=DUR;
+window.__ready=(async()=>{
+  await load();
+  await document.fonts.ready; await Promise.all([...document.fonts].map(f=>f.load()));
+  await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));
+  fit(); build(); tl.pause(0,false);
+})();
+</script>
+</body>
+</html>
