@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="805mm" height="495mm" viewBox="0 0 805 495">
+<title>L’Adresse — Boîte gable pâtisserie avec poignée — tracé de découpe 1:1 (mm)</title>
+<g id="DECOUPE" inkscape:groupmode="layer" inkscape:label="DECOUPE">
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" d="M30,460 L30,300 L15,290 L15,160 L30,150 L30,60 L52.142,20.144 C53.906,16.969 57.252,15 60.884,15 L219.116,15 C222.748,15 226.094,16.969 227.858,20.144 L250,60 L250,150 L251.5,60 L408.5,60 L410,150 L410,60 L432.142,20.144 C433.906,16.969 437.252,15 440.884,15 L599.116,15 C602.748,15 606.094,16.969 607.858,20.144 L630,60 L630,150 L631.5,60 L788.5,60 L790,150 L790,324.5 L755.701,368.836 C755.133,369.57 754.256,370 753.328,370 L635.874,370 C634.267,370 632.946,368.734 632.877,367.128 L630,300 L627.304,350.321 C627.134,353.505 624.502,356 621.313,356 L418.687,356 C415.498,356 412.866,353.505 412.696,350.321 L410,300 L407.123,367.128 C407.054,368.734 405.733,370 404.126,370 L255.874,370 C254.267,370 252.946,368.734 252.877,367.128 L250,300 L250,460 L248.022,473.187 C247.435,477.103 244.07,480 240.111,480 L39.889,480 C35.93,480 32.565,477.103 31.978,473.187 Z"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" d="M90.5,36.6 C90.5,43.227 95.873,48.6 102.5,48.6 L177.5,48.6 C184.127,48.6 189.5,43.227 189.5,36.6 C189.5,29.973 184.127,24.6 177.5,24.6 L102.5,24.6 C95.873,24.6 90.5,29.973 90.5,36.6 Z"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" d="M470.5,36.6 C470.5,43.227 475.873,48.6 482.5,48.6 L557.5,48.6 C564.127,48.6 569.5,43.227 569.5,36.6 C569.5,29.973 564.127,24.6 557.5,24.6 L482.5,24.6 C475.873,24.6 470.5,29.973 470.5,36.6 Z"/>
+</g>
+<g id="RAINAGE" inkscape:groupmode="layer" inkscape:label="RAINAGE">
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M30,300 L30,150"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M250,300 L250,150"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M410,300 L410,150"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M630,300 L630,150"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M30,150 L790,150"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M30,60 L250,60"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M410,60 L630,60"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M250,150 L330,60"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M330,60 L410,150"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M330,150 L330,60"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M630,150 L710,60"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M710,60 L790,150"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M710,150 L710,60"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M30,300 L790,300"/>
+<path fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.0 1.5" d="M30,460 L250,460"/>
+</g>
+</svg>
