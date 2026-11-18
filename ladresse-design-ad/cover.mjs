@@ -1,0 +1,10 @@
+import { chromium } from 'playwright';
+import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+const root = path.dirname(new URL(import.meta.url).pathname);
+const mime={'.html':'text/html','.svg':'image/svg+xml','.jpg':'image/jpeg','.woff2':'font/woff2'};
+const srv=http.createServer((q,r)=>{const p=path.join(root,decodeURIComponent(q.url.split('?')[0])); if(!p.startsWith(root)||!fs.existsSync(p)){r.writeHead(404);return r.end();} r.writeHead(200,{'content-type':mime[path.extname(p)]||'application/octet-stream'}); fs.createReadStream(p).pipe(r);}).listen(0);
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1080, height: 1350 } });
+await p.goto(`http://127.0.0.1:${srv.address().port}/cover.html`);
+await p.waitForFunction(() => window.__done);
+await p.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.fonts].map(f => f.load())); await Promise.all([...document.images].map(i => i.decode())); });
+await p.screenshot({ path: root + '/out/cover.png' }); await b.close(); srv.close();

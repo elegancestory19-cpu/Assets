@@ -1,0 +1,56 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Cover</title>
+<style>
+@font-face{font-family:Corm;font-weight:500;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Corm;font-weight:500;font-style:italic;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-italic.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:500;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:600;src:url(node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:JB;font-weight:400;src:url(node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2) format("woff2")}
+*{margin:0;padding:0;box-sizing:border-box}html{overflow:hidden}
+body{width:1080px;height:1350px;overflow:hidden;position:relative;background:#f4ebe1;font-family:Inter,sans-serif;color:#3b2416}
+body>*{position:absolute}
+.top{left:0;right:0;top:0;height:560px;background:#3b2416}
+.k{left:76px;top:92px;font-family:JB;font-size:24px;letter-spacing:.22em;color:#b08d57}
+.h{left:72px;top:140px;font-family:Corm;font-weight:500;font-size:132px;line-height:1;color:#f4ebe1}
+.h em{font-style:italic;color:#b08d57}
+.s{left:76px;top:408px;font-size:28px;color:#d9c8b6;line-height:1.5}
+.s b{color:#f4ebe1;font-weight:500}
+.num{right:76px;top:92px;font-family:JB;font-size:24px;letter-spacing:.14em;color:#d9c8b6}
+/* dieline + box */
+.dl{left:76px;top:490px;width:420px;height:540px;background:#fbf6f0;border:1px solid #e2d5c6;box-shadow:0 20px 50px rgba(59,36,22,.25)}
+.dl svg{position:absolute;inset:26px 26px 70px;width:calc(100% - 52px);height:calc(100% - 96px)}
+.dl .cap{position:absolute;left:26px;bottom:22px;font-family:JB;font-size:18px;color:#8a7666;letter-spacing:.08em}
+.ph{left:530px;top:490px;width:474px;height:540px;background:#fff;overflow:hidden;box-shadow:0 20px 50px rgba(59,36,22,.25)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph .cap{position:absolute;left:22px;top:22px;background:#3b2416;color:#f4ebe1;font-family:JB;font-size:18px;letter-spacing:.08em;padding:8px 16px;border-radius:99px}
+.arrow{left:497px;top:743px;width:34px;height:34px;border-radius:50%;background:#b08d57;color:#fff;display:flex;align-items:center;justify-content:center;font-family:JB;font-size:22px;z-index:2}
+.row{left:76px;top:1062px;width:928px;height:150px;display:flex;gap:16px}
+.row div{position:relative;flex:1;background:#fff;overflow:hidden;border:1px solid #e2d5c6}
+.row img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.foot{left:76px;right:76px;top:1250px;display:flex;justify-content:space-between;align-items:center}
+.foot .b{font-weight:600;font-size:30px;letter-spacing:.3em}
+.foot .t{font-family:JB;font-size:19px;letter-spacing:.14em;color:#8a7666}
+.cutp{stroke:#c4473a!important;stroke-width:2.4px!important;vector-effect:non-scaling-stroke;fill:none}
+.crp{stroke:#2f8f5b!important;stroke-width:1.8px!important;vector-effect:non-scaling-stroke;stroke-dasharray:7 5!important;fill:none}
+.mk{fill:#3b2416!important}
+</style></head><body>
+<div class="top"></div>
+<div class="k">ELEGANCE STORY — DESIGN DEPARTMENT</div>
+<div class="num">CASE STUDY</div>
+<div class="h">From brief<br>to <em>box.</em></div>
+<div class="s">Packaging for <b>L’Adresse</b> · 6 custom boxes</div>
+<div class="dl" id="dl"><div class="cap">DIELINE · 1:1 MM · CUT + CREASE</div></div>
+<div class="arrow">→</div>
+<div class="ph"><img src="assets/photo_03_gable.jpg"><div class="cap">FINAL BOX</div></div>
+<div class="row"><div><img src="assets/photo_01_cookie.jpg"></div><div><img src="assets/photo_04_verrine.jpg"></div><div><img src="assets/photo_02_mailer.jpg"></div><div><img src="assets/photo_06_cups.jpg" style="object-position:50% 30%"></div><div><img src="assets/photo_05_square.jpg"></div></div>
+<div class="foot"><span class="b">ELEGANCE STORY</span><span class="t">PACKAGING · DIELINES · PRINT</span></div>
+<script>
+fetch('assets/dielines/01_boite-cookies-longue.svg').then(r=>r.text()).then(t=>{
+  const h=document.getElementById('dl'); h.insertAdjacentHTML('afterbegin',t);
+  h.querySelectorAll('#DECOUPE path').forEach(p=>p.setAttribute('class','cutp'));
+  h.querySelectorAll('#RAINAGE path').forEach(p=>p.setAttribute('class','crp'));
+  h.querySelectorAll('#MARQUAGE path').forEach(p=>p.setAttribute('class','mk'));
+  const i=h.querySelector('#INFOS'); if(i) i.remove();
+  const s=h.querySelector('svg'); s.removeAttribute('width'); s.removeAttribute('height'); s.setAttribute('preserveAspectRatio','xMidYMid meet');
+  window.__done=true; });
+</script>
+</body></html>
