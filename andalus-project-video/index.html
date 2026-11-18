@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>مكتبة الأندلس — من التصميم إلى الواقع</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:400;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-400-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:400;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Amiri;font-weight:700;src:url(node_modules/@fontsource/amiri/files/amiri-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:400;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+:root{--g:#0e5a4a;--gd:#072f27;--gl:#1b8a6f;--gold:#d6ad4f;--cream:#f6f1e4;--mag:#ff2d8a;--cy:#12c8f4;--yel:#ffd60a;--uv:#2a3bff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;height:100%;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:100vw;aspect-ratio:9/16;container-type:inline-size;overflow:hidden;font-family:Alexandria,AlexLat,sans-serif;color:var(--cream);
+  background:radial-gradient(ellipse at 70% 30%,#13715c 0%,var(--g) 38%,var(--gd) 100%)}
+#stage > *,.sc > *,#hud > *,#end > *{position:absolute}
+.sc{inset:0}
+.ln{overflow:hidden;padding:.14em 0 .24em;margin:-.14em 0 -.24em}
+.ln > span{position:relative;display:inline-block;white-space:nowrap}
+#grid{inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:9cqw 9cqw}
+
+/* HUD */
+#hud{left:6cqw;right:6cqw;top:26cqw;height:6cqw;direction:ltr;z-index:20}
+#hud .b{left:0;top:0;font-family:AlexLat;font-weight:900;font-size:3cqw;letter-spacing:.3em;white-space:nowrap}
+#hud .t{right:0;top:.2cqw;font-family:Mono;font-size:2.4cqw;letter-spacing:.08em;color:var(--gold);white-space:nowrap}
+#prog{left:0;right:0;top:5cqw;height:.6cqw;display:flex;gap:1.2cqw}
+#prog i{position:relative;flex:1;background:rgba(255,255,255,.18);overflow:hidden}
+#prog b{position:absolute;inset:0;background:var(--gold);transform-origin:left center;transform:scaleX(0)}
+
+/* step header */
+.sh{left:6cqw;right:6cqw;top:33cqw;text-align:right}
+.sh > *{position:relative;display:block}
+.sh .n{font-family:Mono;font-size:2.6cqw;letter-spacing:.2em;color:var(--gold);direction:ltr;text-align:right}
+.sh .t{font-weight:900;font-size:7cqw;line-height:1.25;margin-top:.6cqw}
+.chip{position:absolute;padding:1cqw 2.6cqw;border-radius:99cqw;font-weight:700;font-size:3.1cqw;white-space:nowrap;z-index:5}
+.chip.d{background:var(--cream);color:var(--gd)}
+.chip.r{background:var(--gold);color:var(--gd)}
+.card{overflow:hidden;border-radius:2cqw;box-shadow:0 2cqw 6cqw rgba(0,0,0,.45)}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.canvas{background:rgba(255,255,255,.06);border:1px dashed rgba(255,255,255,.35)}
+.sel{position:absolute;border:.35cqw solid var(--cy);z-index:6;pointer-events:none}
+.sel i{position:absolute;width:2cqw;height:2cqw;background:#fff;border:.35cqw solid var(--cy)}
+.sel i:nth-child(1){left:-1.15cqw;top:-1.15cqw}.sel i:nth-child(2){right:-1.15cqw;top:-1.15cqw}
+.sel i:nth-child(3){left:-1.15cqw;bottom:-1.15cqw}.sel i:nth-child(4){right:-1.15cqw;bottom:-1.15cqw}
+.arrow{font-family:Mono;font-weight:700;color:var(--gold);font-size:6cqw;text-align:center}
+
+/* 0 hook */
+#s0 .logo{left:22cqw;top:44cqw;width:56cqw;height:56cqw;border-radius:50%;overflow:hidden;box-shadow:0 3cqw 10cqw rgba(0,0,0,.5)}
+#s0 .logo img{width:100%;height:100%}
+#s0 .sheen{inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,240,200,.55) 50%,transparent 65%)}
+#s0 .tx{left:6cqw;right:6cqw;top:104cqw;text-align:center}
+#s0 .tx > *{position:relative;display:block}
+#s0 .a{font-weight:900;font-size:9cqw}
+#s0 .b{font-family:Amiri;font-weight:700;font-size:8cqw;color:var(--gold);line-height:1.35}
+#s0 .k{font-family:Mono;font-size:2.6cqw;letter-spacing:.24em;color:var(--gold);direction:ltr;margin-bottom:2cqw}
+#s0 .tx .k{position:relative}
+
+/* 1 identity */
+#idLogo{right:6cqw;top:52cqw;width:46cqw;height:46cqw;border-radius:50%;overflow:hidden}
+#idLogo img{width:100%;height:100%}
+#pal{left:6cqw;top:52cqw;width:36cqw;display:flex;flex-direction:column;gap:1.6cqw}
+#pal > div{position:relative;height:9.4cqw;border-radius:1.4cqw;padding:1.4cqw 2cqw;display:flex;flex-direction:column;justify-content:space-between;direction:ltr}
+#pal .nm{font-family:AlexLat;font-weight:700;font-size:2.4cqw}
+#pal .hx{font-family:Mono;font-size:2cqw;opacity:.85}
+#idNotes{left:6cqw;right:6cqw;top:104cqw;display:flex;gap:2cqw}
+#idNotes > div{position:relative;flex:1;border-top:1px solid rgba(255,255,255,.3);padding-top:1.6cqw;text-align:right}
+#idNotes b{display:block;font-family:Mono;font-size:2cqw;color:var(--gold);direction:ltr;text-align:right;letter-spacing:.1em}
+#idNotes span{display:block;font-weight:700;font-size:3.3cqw;margin-top:.6cqw;line-height:1.35}
+
+/* 2 facade */
+#fD{left:6cqw;top:52cqw;width:88cqw;height:33.5cqw}
+#fR{left:6cqw;top:94cqw;width:88cqw;height:40.6cqw}
+#fArrow{left:0;right:0;top:86.5cqw;height:7cqw}
+
+/* 3 windows */
+#wCard{left:0;top:52cqw;width:100cqw;height:98cqw;overflow:hidden}
+#wPhoto{position:absolute;left:-70.37cqw;top:-5.56cqw;width:237.04cqw;height:109.26cqw}
+#wPhoto img{width:100%;height:100%}
+.wp{position:absolute;overflow:hidden;box-shadow:0 1.5cqw 4cqw rgba(0,0,0,.45);background:#0e5a4a}
+.wp img{width:100%;height:100%;object-fit:fill;display:block}
+#wLab{left:6cqw;top:47cqw;z-index:7}
+
+/* 4 stand */
+#sD{right:6cqw;top:53cqw;width:41cqw;height:79.4cqw}
+#sR{left:6cqw;top:53cqw;width:41cqw;height:89cqw}
+#sR .ph{position:absolute;inset:0}
+#sArrow{left:47cqw;width:6cqw;top:88cqw;height:8cqw}
+
+/* 5 video */
+#vA{left:0;top:54cqw;width:100cqw;height:56.3cqw}
+#vA img{width:100%;height:100%;object-fit:cover}
+#vB{left:22cqw;top:50cqw;width:56cqw;height:99.4cqw}
+#vB img{width:100%;height:100%;object-fit:cover}
+#vBg{inset:-8cqw;background-size:cover;background-position:center;filter:blur(5cqw) brightness(.45)}
+.rec{left:6cqw;top:150cqw;font-family:Mono;font-size:2.4cqw;letter-spacing:.12em;direction:ltr;color:var(--cream);z-index:6}
+.rec b{color:#ff4b4b}
+
+/* end */
+#end{inset:0;background:#0a0a12;z-index:30}
+#dots{left:0;right:0;top:27cqw;height:5cqw;display:flex;justify-content:center;gap:2.4cqw}
+#dots i{position:relative;width:5cqw;height:5cqw;border-radius:50%}
+#word{left:0;right:0;top:36cqw;direction:ltr;text-align:center;font-family:AlexLat;font-weight:900;line-height:1}
+#word > *{position:relative;display:block}
+#word .w1{font-size:15.5cqw;letter-spacing:.02em}
+#word .w2{font-size:15.5cqw;letter-spacing:.34em;margin-right:-.34em;color:var(--yel)}
+#etag{left:6cqw;right:6cqw;top:72cqw;text-align:center}
+#etag > *{position:relative;display:block}
+#etag .a{font-weight:700;font-size:6.4cqw;line-height:1.4}
+#etag .b{font-family:Amiri;font-weight:700;font-size:10cqw;color:var(--yel);line-height:1.25}
+#cta{left:50%;top:99cqw;transform:translateX(-50%);background:var(--yel);color:#0a0a12;font-weight:900;font-size:5.6cqw;padding:2.8cqw 6.5cqw;border-radius:99cqw;white-space:nowrap}
+#svc{left:6cqw;right:6cqw;top:114cqw;text-align:center;font-family:Mono;font-size:2.4cqw;letter-spacing:.12em;color:#cfcfd8;direction:ltr}
+#edeco{left:7cqw;right:7cqw;bottom:0;height:40cqw;display:flex;gap:2.5cqw;align-items:flex-end}
+#edeco i{position:relative;flex:1;height:100%;transform-origin:center bottom}
+#wipe{inset:0;z-index:40;background:var(--gold)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="grid"></div>
+
+  <div class="sc" id="s0">
+    <div class="logo"><img src="assets/logo.png" alt=""><div class="sheen"></div></div>
+    <div class="tx"><div class="k ln"><span>DESIGN → REALITY</span></div><div class="a ln"><span>مكتبة الأندلس</span></div><div class="b ln"><span>من التصميم… إلى الواقع</span></div></div>
+  </div>
+
+  <div class="sc" id="s1">
+    <div class="sh"><div class="n ln"><span>STEP 01</span></div><div class="t ln"><span>الهوية البصرية</span></div></div>
+    <div id="idLogo"><img src="assets/logo.png" alt=""></div>
+    <div id="pal">
+      <div style="background:#0e5a4a;border:1px solid rgba(255,255,255,.25)"><span class="nm">Andalus Green</span><span class="hx">#0E5A4A</span></div>
+      <div style="background:#1b8a6f"><span class="nm">Jade</span><span class="hx">#1B8A6F</span></div>
+      <div style="background:#d6ad4f;color:#072f27"><span class="nm">Gold</span><span class="hx">#D6AD4F</span></div>
+      <div style="background:#f6f1e4;color:#072f27"><span class="nm">Cream</span><span class="hx">#F6F1E4</span></div>
+    </div>
+    <div id="idNotes">
+      <div><b>SYMBOL</b><span>كتاب مفتوح وقوس أندلسي</span></div>
+      <div><b>BACKGROUND</b><span>أخضر مائي بلمسات ذهبية</span></div>
+    </div>
+  </div>
+
+  <div class="sc" id="s2">
+    <div class="sh"><div class="n ln"><span>STEP 02</span></div><div class="t ln"><span>لافتة الواجهة</span></div></div>
+    <div id="fD" class="card"><img src="assets/d_facade.jpg" alt=""></div>
+    <div class="chip d" id="fDc" style="right:6cqw;top:46.5cqw">التصميم</div>
+    <div class="sel" id="fSel" style="left:6cqw;top:52cqw;width:88cqw;height:33.5cqw"><i></i><i></i><i></i><i></i></div>
+    <div id="fArrow" class="arrow">↓</div>
+    <div id="fR" class="card"><img src="assets/r_facade.jpg" alt=""></div>
+    <div class="chip r" id="fRc" style="right:6cqw;top:88.5cqw">بعد التركيب</div>
+  </div>
+
+  <div class="sc" id="s3">
+    <div class="sh"><div class="n ln"><span>STEP 03</span></div><div class="t ln"><span>ملصقات الواجهة الزجاجية</span></div></div>
+    <div id="wCard">
+      <div id="wPhoto"><img src="assets/r_windows.jpg" alt=""></div>
+      <div class="wp" id="wpS"><img src="assets/d_services.jpg" alt=""></div>
+      <div class="wp" id="wpF"><img src="assets/d_flexy.jpg" alt=""></div>
+      <div class="wp" id="wpW"><img src="assets/d_welcome.jpg" alt=""></div>
+    </div>
+    <div class="chip d" id="wLabD" style="right:6cqw;top:46.5cqw">3 تصاميم مقاسة على الزجاج</div>
+    <div class="chip r" id="wLabR" style="right:6cqw;top:46.5cqw">بعد التركيب على الزجاج</div>
+  </div>
+
+  <div class="sc" id="s4">
+    <div class="sh"><div class="n ln"><span>STEP 04</span></div><div class="t ln"><span>اللوحة الإعلانية الخارجية</span></div></div>
+    <div id="sD" class="card"><img src="assets/d_stand.jpg" alt=""></div>
+    <div class="chip d" style="right:6cqw;top:46.5cqw" id="sDc">التصميم</div>
+    <div id="sArrow" class="arrow">←</div>
+    <div id="sR" class="card">
+      <div class="ph"><img src="assets/r_stand1.jpg" alt=""></div>
+      <div class="ph"><img src="assets/r_stand2.jpg" alt=""></div>
+      <div class="ph"><img src="assets/r_stand3.jpg" alt=""></div>
+    </div>
+    <div class="chip r" style="left:6cqw;top:46.5cqw" id="sRc">في الشارع</div>
+  </div>
+
+  <div class="sc" id="s5">
+    <div id="vBg"></div>
+    <div class="sh"><div class="n ln"><span>RESULT</span></div><div class="t ln"><span>النتيجة على أرض الواقع</span></div></div>
+    <div id="vA" class="card"><img id="vAi" alt=""></div>
+    <div id="vB" class="card"><img id="vBi" alt=""></div>
+    <div class="rec"><b>●</b> REAL FOOTAGE · ON SITE</div>
+  </div>
+
+  <div id="end">
+    <div id="dots"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div>
+    <div id="word"><div class="ln w1"><span>ELEGANCE</span></div><div class="ln w2"><span>STORY</span></div></div>
+    <div id="etag"><div class="ln a"><span>هويتك من التصميم إلى الواجهة</span></div><div class="ln b"><span>بأناقة</span></div></div>
+    <div id="cta">اطلب مشروعك الآن</div>
+    <div id="svc">LOGO · BANNERS · WINDOW VINYL · STANDS</div>
+    <div id="edeco"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div>
+  </div>
+
+  <div id="hud"><div class="b">ELEGANCE STORY</div><div class="t">AL-ANDALUS LIBRARY</div><div id="prog"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div></div>
+  <div id="wipe"></div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+const DUR=38, FPS=30, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const NA=74, NB=139, VA0=29.0, VB0=31.6; // clip A / clip B start times
+let tl, curA=-1, curB=-1;
+const pad=n=>String(n).padStart(4,'0');
+function fit(){ $$('.ln > span').forEach(s=>{ const box=s.parentElement.getBoundingClientRect().width, w=s.getBoundingClientRect().width;
+  if(w>box){ const fs=parseFloat(getComputedStyle(s.parentElement).fontSize); s.parentElement.style.fontSize=(fs*box/w*0.98)+'px'; } }); }
+const up=(sel,t,o={})=>tl.fromTo(sel,{yPercent:130},{yPercent:0,duration:o.d??.6,ease:'power4.out',stagger:o.st??.08,immediateRender:false},t);
+const fadeIn=(sel,t,o={})=>tl.fromTo(sel,{opacity:0,y:o.y??'3cqw'},{opacity:1,y:0,duration:o.d??.6,ease:'power3.out',stagger:o.st??.1,immediateRender:false},t);
+const show=(sel,a,b)=>{ tl.set(sel,{autoAlpha:1},a); if(b!=null) tl.set(sel,{autoAlpha:0},b); };
+function wipe(t){ tl.set('#wipe',{autoAlpha:1},t-.4); tl.fromTo('#wipe',{xPercent:100},{xPercent:0,duration:.4,ease:'power3.in',immediateRender:false},t-.4);
+  tl.to('#wipe',{xPercent:-100,duration:.45,ease:'power3.out'},t+.02); tl.set('#wipe',{autoAlpha:0},t+.5); }
+const exitH=(sc,t)=>tl.to(sc+' .sh .ln > span',{yPercent:-130,duration:.3,ease:'power2.in',stagger:.03},t);
+function build(){
+  tl=gsap.timeline({paused:true});
+  gsap.set('.sc,#hud,#end,#wipe',{autoAlpha:0}); gsap.set('.ln > span',{yPercent:130}); gsap.set('#wipe',{xPercent:100}); gsap.set('#wLabR,#wLabD',{autoAlpha:0});
+  // ---- 0 hook 0–3 ----
+  show('#s0',0,3.0);
+  tl.fromTo('#s0 .logo',{scale:.6,opacity:0,rotation:-25},{scale:1,opacity:1,rotation:0,duration:1.1,ease:'expo.out',immediateRender:false},.1);
+  tl.fromTo('#s0 .sheen',{xPercent:-120},{xPercent:120,duration:1.1,ease:'power2.inOut',immediateRender:false},.9);
+  up('#s0 .tx .ln > span',.7,{st:.15,d:.8});
+  wipe(3.0);
+  // ---- 1 identity 3–7.6 ----
+  show('#s1',3.0,7.6); show('#hud',3.0,35.0);
+  tl.fromTo('#hud',{opacity:0},{opacity:1,duration:.5},3.1);
+  tl.to('#prog i:nth-child(1) b',{scaleX:1,duration:4.6,ease:'none'},3.0);
+  up('#s1 .sh .ln > span',3.2);
+  tl.fromTo('#idLogo',{scale:.7,opacity:0},{scale:1,opacity:1,duration:.8,ease:'back.out(1.6)',immediateRender:false},3.5);
+  tl.to('#idLogo',{rotation:360,duration:3.6,ease:'none'},3.9);
+  tl.set('#idLogo',{rotation:0},7.55);
+  fadeIn('#pal > div',3.8,{y:'2cqw',st:.14});
+  fadeIn('#idNotes > div',4.8,{st:.18});
+  exitH('#s1',7.2); wipe(7.6);
+  // ---- 2 facade 7.6–14.2 ----
+  show('#s2',7.6,14.2); tl.to('#prog i:nth-child(2) b',{scaleX:1,duration:6.6,ease:'none'},7.6);
+  up('#s2 .sh .ln > span',7.8);
+  tl.fromTo('#fD',{clipPath:'inset(0% 100% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:1.0,ease:'power3.inOut',immediateRender:false},8.1);
+  fadeIn('#fDc',8.6,{y:'1cqw'});
+  tl.fromTo('#fSel',{opacity:0,scale:1.04},{opacity:1,scale:1,duration:.3,immediateRender:false},9.2); tl.to('#fSel',{opacity:0,duration:.3},10.3);
+  tl.fromTo('#fD img',{scale:1},{scale:1.08,duration:5,ease:'none',immediateRender:false},8.1);
+  fadeIn('#fArrow',10.4,{y:'-2cqw'});
+  tl.fromTo('#fR',{clipPath:'inset(0% 0% 100% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.9,ease:'expo.inOut',immediateRender:false},10.7);
+  tl.fromTo('#fR img',{scale:1.15},{scale:1,duration:3.2,ease:'power2.out',immediateRender:false},10.7);
+  fadeIn('#fRc',11.3,{y:'1cqw'});
+  exitH('#s2',13.8); wipe(14.2);
+  // ---- 3 windows 14.2–21.6 ----
+  show('#s3',14.2,21.6); tl.to('#prog i:nth-child(3) b',{scaleX:1,duration:7.4,ease:'none'},14.2);
+  up('#s3 .sh .ln > span',14.4);
+  // design layout (big, on canvas) -> exact position on the photo
+  const D={S:[14,2,35,75.1],F:[51,2,35,75.1],W:[14,79,72,20.3]};
+  const R={S:[21.85,10.0,27.22,57.96],F:[51.11,10.0,27.22,57.96],W:[21.85,69.44,56.85,17.04]};
+  const css=a=>({left:a[0]+'cqw',top:a[1]+'cqw',width:a[2]+'cqw',height:a[3]+'cqw'});
+  gsap.set('#wpS',css(D.S)); gsap.set('#wpF',css(D.F)); gsap.set('#wpW',css(D.W));
+  gsap.set('#wPhoto',{opacity:0});
+  [['#wpS',14.7],['#wpF',15.0],['#wpW',15.3]].forEach(([s,t])=>tl.fromTo(s,{opacity:0,y:'4cqw'},{opacity:1,y:0,duration:.6,ease:'power3.out',immediateRender:false},t));
+  show('#wLabD',15.2,17.4); fadeIn('#wLabD',15.2,{y:'1cqw'});
+  tl.to('#wPhoto',{opacity:1,duration:.8},17.0);
+  tl.to('#wpS',{...css(R.S),duration:1.2,ease:'expo.inOut'},17.2);
+  tl.to('#wpF',{...css(R.F),duration:1.2,ease:'expo.inOut'},17.3);
+  tl.to('#wpW',{...css(R.W),duration:1.2,ease:'expo.inOut'},17.4);
+  tl.to('.wp',{boxShadow:'0 0 0 rgba(0,0,0,0)',duration:.4},18.4);
+  tl.to('.wp',{opacity:0,duration:.8,stagger:.15},18.9);
+  show('#wLabR',18.9); fadeIn('#wLabR',18.9,{y:'1cqw'});
+  tl.fromTo('#wPhoto',{scale:1},{scale:1.06,duration:2.6,ease:'none',transformOrigin:'45% 45%',immediateRender:false},18.9);
+  exitH('#s3',21.2); wipe(21.6);
+  // ---- 4 stand 21.6–28.6 ----
+  show('#s4',21.6,28.6); tl.to('#prog i:nth-child(4) b',{scaleX:1,duration:7.0,ease:'none'},21.6);
+  up('#s4 .sh .ln > span',21.8);
+  tl.fromTo('#sD',{clipPath:'inset(100% 0% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:1.0,ease:'expo.inOut',immediateRender:false},22.1);
+  fadeIn('#sDc',22.6,{y:'1cqw'});
+  fadeIn('#sArrow',23.2,{y:'0cqw'}); tl.fromTo('#sArrow',{x:'2cqw'},{x:'-1cqw',duration:.5,yoyo:true,repeat:3,ease:'sine.inOut',immediateRender:false},23.4);
+  tl.fromTo('#sR',{clipPath:'inset(100% 0% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:1.0,ease:'expo.inOut',immediateRender:false},23.5);
+  fadeIn('#sRc',24.0,{y:'1cqw'});
+  const ph=$$('#sR .ph'); gsap.set(ph,{opacity:0}); gsap.set(ph[0],{opacity:1});
+  tl.fromTo(ph[0].firstChild,{scale:1.1},{scale:1,duration:2,ease:'power2.out',immediateRender:false},23.5);
+  tl.to(ph[1],{opacity:1,duration:.5},25.4); tl.fromTo(ph[1].firstChild,{scale:1.1},{scale:1,duration:1.8,immediateRender:false},25.4);
+  tl.to(ph[2],{opacity:1,duration:.5},26.9); tl.fromTo(ph[2].firstChild,{scale:1.1},{scale:1,duration:1.6,immediateRender:false},26.9);
+  exitH('#s4',28.2); wipe(28.6);
+  // ---- 5 real video 28.6–35 ----
+  show('#s5',28.6,35.0); tl.to('#prog i:nth-child(5) b',{scaleX:1,duration:6.4,ease:'none'},28.6);
+  up('#s5 .sh .ln > span',28.8);
+  show('#vA',VA0-.3,VB0); tl.fromTo('#vA',{opacity:0,scale:.94},{opacity:1,scale:1,duration:.5,ease:'power3.out',immediateRender:false},VA0-.3);
+  show('#vB',VB0-.2); tl.fromTo('#vB',{clipPath:'inset(50% 0% 50% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.6,ease:'expo.out',immediateRender:false},VB0-.2);
+  tl.to('#s5 .sh',{opacity:0,duration:.3},VB0-.3);
+  fadeIn('.rec',29.4,{y:'1cqw'});
+  wipe(35.0);
+  // ---- end 35–38 ----
+  show('#end',35.0);
+  tl.fromTo('#dots i',{scale:0},{scale:1,duration:.4,ease:'back.out(2.5)',stagger:.07},35.25);
+  tl.fromTo('#word .ln > span',{yPercent:125},{yPercent:0,duration:.6,ease:'power4.out',stagger:.12},35.3);
+  tl.fromTo('#etag .ln > span',{yPercent:125},{yPercent:0,duration:.55,ease:'power4.out',stagger:.14},35.8);
+  tl.fromTo('#cta',{scale:0},{scale:1,duration:.5,ease:'back.out(1.8)'},36.2);
+  fadeIn('#svc',36.4,{y:'1cqw'});
+  [.35,.7,.5,.9].forEach((h,i)=>tl.fromTo('#edeco i:nth-child('+(i+1)+')',{scaleY:0},{scaleY:h,duration:.6,ease:'power4.out'},35.4+i*.08));
+  tl.set({}, {}, DUR);
+}
+async function frames(t,wait){
+  const ps=[];
+  const a=Math.min(NA-1,Math.max(0,Math.floor((t-VA0)*FPS))), b=Math.min(NB-1,Math.max(0,Math.floor((t-VB0)*FPS)));
+  if(a!==curA){ curA=a; $('#vAi').src='frames/a/f'+pad(a)+'.jpg'; if(wait) ps.push($('#vAi').decode().catch(()=>{})); }
+  if(b!==curB){ curB=b; $('#vBi').src='frames/b/f'+pad(b)+'.jpg'; $('#vBg').style.backgroundImage=`url(frames/b/f${pad(b)}.jpg)`; if(wait) ps.push($('#vBi').decode().catch(()=>{})); }
+  await Promise.all(ps);
+}
+window.__seek=async t=>{ tl.pause(t,false); await frames(t,true); };
+window.__dur=DUR;
+window.__ready=(async()=>{
+  await document.fonts.ready; await Promise.all([...document.fonts].map(f=>f.load()));
+  await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));
+  fit(); build(); await window.__seek(0);
+})();
+</script>
+</body>
+</html>
