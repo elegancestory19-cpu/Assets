@@ -1,0 +1,50 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>Cover</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:Amiri;font-weight:700;src:url(node_modules/@fontsource/amiri/files/amiri-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+*{margin:0;padding:0;box-sizing:border-box}html{overflow:hidden}
+body{width:1080px;height:1920px;overflow:hidden;position:relative;font-family:Alexandria,AlexLat,sans-serif;color:#f6f1e4;
+ background:radial-gradient(ellipse at 70% 30%,#13715c 0%,#0e5a4a 38%,#072f27 100%)}
+body>*{position:absolute}
+.grid{inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:97px 97px}
+.brand{left:65px;top:290px;direction:ltr;font-family:AlexLat;font-weight:900;font-size:34px;letter-spacing:.3em}
+.logo{right:65px;top:270px;width:150px;height:150px;border-radius:50%;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.t1{right:65px;top:440px;font-weight:900;font-size:118px;line-height:1.15;white-space:nowrap}
+.t2{right:65px;top:585px;font-family:Amiri;font-weight:700;font-size:96px;color:#d6ad4f;white-space:nowrap}
+/* split card */
+.card{left:65px;top:760px;width:950px;height:520px;border-radius:26px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+.card .a,.card .b{position:absolute;top:0;bottom:0;width:100%;}
+.card img{position:absolute;width:100%;height:100%;object-fit:cover}
+.card .a{clip-path:polygon(0 0,58% 0,42% 100%,0 100%)}
+.card .b{clip-path:polygon(58% 0,100% 0,100% 100%,42% 100%)}
+.card .a img{object-position:50% 55%}
+.slash{left:65px;top:760px;width:950px;height:520px;pointer-events:none}
+.tag{padding:12px 30px;border-radius:99px;font-weight:700;font-size:36px;white-space:nowrap}
+.tA{left:95px;top:1205px;background:#f6f1e4;color:#072f27}
+.tB{right:95px;top:790px;background:#d6ad4f;color:#072f27}
+.play{left:470px;top:950px;width:140px;height:140px;border-radius:50%;background:rgba(7,47,39,.82);border:5px solid #d6ad4f;display:flex;align-items:center;justify-content:center}
+.play i{display:block;width:0;height:0;border-left:44px solid #f6f1e4;border-top:28px solid transparent;border-bottom:28px solid transparent;margin-left:12px}
+.dots{left:65px;bottom:90px;display:flex;gap:16px}.dots i{width:28px;height:28px;border-radius:50%}
+.row{left:65px;top:1315px;width:950px;height:300px;display:flex;gap:22px}
+.row div{position:relative;flex:1;border-radius:20px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.row img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.row span{position:absolute;right:14px;bottom:14px;background:rgba(7,47,39,.85);color:#f6f1e4;font-weight:700;font-size:26px;padding:6px 18px;border-radius:99px}
+.foot{left:65px;right:65px;top:1660px;display:flex;justify-content:space-between;align-items:center;direction:ltr}
+.foot b{font-family:Mono;font-size:26px;letter-spacing:.14em;color:#d6ad4f}
+.foot .d{display:flex;gap:14px}.foot .d i{width:24px;height:24px;border-radius:50%}
+</style></head><body>
+<div class="grid"></div>
+<div class="brand">ELEGANCE STORY</div>
+<img class="logo" src="assets/logo.png">
+<div class="t1">مكتبة الأندلس</div>
+<div class="t2">من التصميم… إلى الواقع</div>
+<div class="card"><div class="a"><img src="assets/d_facade.jpg"></div><div class="b"><img src="assets/r_facade.jpg"></div></div>
+<svg class="slash" viewBox="0 0 950 520"><line x1="551" y1="0" x2="399" y2="520" stroke="#d6ad4f" stroke-width="10"/></svg>
+<div class="tag tA">التصميم</div><div class="tag tB">بعد التركيب</div>
+<div class="play"><i></i></div>
+<div class="row"><div><img src="assets/r_windows.jpg" style="object-position:50% 40%"><span>الواجهة الزجاجية</span></div><div><img src="assets/r_stand1.jpg" style="object-position:50% 35%"><span>اللوحة الخارجية</span></div><div><img src="assets/logo.png"><span>الشعار</span></div></div>
+<div class="foot"><b>LOGO · BANNER · VINYL · STAND</b><div class="d"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div></div>
+</body></html>
