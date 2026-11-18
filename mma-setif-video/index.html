@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>MMA Sétif — From Inspiration to Facade</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:400;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-400-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Amiri;font-weight:700;src:url(node_modules/@fontsource/amiri/files/amiri-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:400;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+:root{--k:#0b0b0b;--k2:#161616;--y:#f3b705;--w:#f5f2ea;--mute:#9b968a;--red:#d6262b}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;height:100%;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:100vw;aspect-ratio:9/16;container-type:inline-size;overflow:hidden;background:var(--k);font-family:Alexandria,AlexLat,sans-serif;color:var(--w)}
+#stage > *,.sc > *,#hud > *,#end > *{position:absolute}
+.sc{inset:0}
+.ln{overflow:hidden;padding:.14em 0 .24em;margin:-.14em 0 -.24em}
+.ln > span{position:relative;display:inline-block;white-space:nowrap}
+#smoke{inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(243,183,5,.10),transparent 55%),radial-gradient(ellipse at 85% 75%,rgba(243,183,5,.08),transparent 50%)}
+.brush{height:7cqw;background:var(--y);transform:skewX(-20deg);border-radius:.6cqw}
+/* HUD */
+#hud{left:6cqw;right:6cqw;top:26cqw;height:6cqw;direction:ltr;z-index:20}
+#hud .b{left:0;top:0;font-family:AlexLat;font-weight:900;font-size:3cqw;letter-spacing:.3em;white-space:nowrap}
+#hud .t{right:0;top:.2cqw;font-family:Mono;font-size:2.4cqw;letter-spacing:.08em;color:var(--y);white-space:nowrap}
+#prog{left:0;right:0;top:5cqw;height:.6cqw;display:flex;gap:1.2cqw}
+#prog i{position:relative;flex:1;background:rgba(255,255,255,.16);overflow:hidden}
+#prog b{position:absolute;inset:0;background:var(--y);transform-origin:left center;transform:scaleX(0)}
+.sh{left:6cqw;right:6cqw;top:33cqw;text-align:right}
+.sh > *{position:relative;display:block}
+.sh .n{font-family:Mono;font-size:2.6cqw;letter-spacing:.2em;color:var(--y);direction:ltr;text-align:right}
+.sh .t{font-weight:900;font-size:7.2cqw;line-height:1.25;margin-top:.6cqw}
+.sh .d{font-size:3.4cqw;color:var(--mute);margin-top:.4cqw}
+.chip{position:absolute;padding:1cqw 2.6cqw;border-radius:99cqw;font-weight:700;font-size:3.1cqw;white-space:nowrap;z-index:6}
+.chip.y{background:var(--y);color:var(--k)}
+.chip.w{background:var(--w);color:var(--k)}
+.tile{position:absolute;overflow:hidden;border-radius:1.6cqw;box-shadow:0 2cqw 6cqw rgba(0,0,0,.6);border:.4cqw solid var(--k2)}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* 0 hook */
+#s0 .b1{left:-10cqw;top:68cqw;width:120cqw}
+#s0 .b2{left:-10cqw;top:108cqw;width:120cqw;background:var(--w)}
+#s0 .q{left:6cqw;right:6cqw;top:58cqw;text-align:center}
+#s0 .q > *{position:relative;display:block}
+#s0 .a{font-weight:900;font-size:24cqw;line-height:1.1}
+#s0 .a2{font-weight:900;font-size:24cqw;line-height:1.1;color:var(--y)}
+#s0 .s{font-weight:700;font-size:4.6cqw;margin-top:3cqw;color:var(--w)}
+#s0 .k{font-family:Mono;font-size:2.6cqw;letter-spacing:.24em;color:var(--y);direction:ltr;margin-bottom:2cqw}
+
+/* 1 moodboard */
+#mood{left:6cqw;right:6cqw;top:55cqw;height:62cqw;transform:scale(.9);transform-origin:top right}
+#kw{left:6cqw;right:6cqw;top:112cqw;display:flex;flex-wrap:wrap;gap:1.6cqw;direction:rtl}
+#kw span{position:relative;border:1px solid rgba(243,183,5,.55);color:var(--y);border-radius:99cqw;padding:1cqw 2.6cqw;font-weight:700;font-size:3.1cqw;white-space:nowrap}
+
+/* 2 identity */
+#logo{right:6cqw;top:55cqw;width:40cqw;height:40cqw;border-radius:50%;overflow:hidden;box-shadow:0 0 0 .5cqw var(--y),0 2cqw 6cqw rgba(0,0,0,.6)}
+#logo img{width:100%;height:100%;object-fit:cover}
+#pal{left:6cqw;top:55cqw;width:40cqw;display:flex;flex-direction:column;gap:1.6cqw}
+#pal > div{position:relative;height:12cqw;border-radius:1.4cqw;padding:1.6cqw 2.2cqw;display:flex;flex-direction:column;justify-content:space-between;direction:ltr}
+#pal .nm{font-family:AlexLat;font-weight:700;font-size:2.6cqw}
+#pal .hx{font-family:Mono;font-size:2.1cqw;opacity:.85}
+#typo{left:6cqw;right:6cqw;top:98cqw;height:18cqw;display:flex;gap:2cqw}
+#typo > div{position:relative;flex:1;background:var(--k2);border:1px solid #2a2a2a;border-radius:1.6cqw;overflow:hidden}
+#typo img{position:absolute;inset:12% 8%;width:84%;height:62%;object-fit:contain}
+#typo b{position:absolute;left:0;right:0;bottom:1.4cqw;text-align:center;font-family:Mono;font-size:1.9cqw;color:var(--mute);letter-spacing:.08em;direction:ltr;font-weight:400}
+
+/* 3 layout */
+#lay{left:0;top:0;width:100cqw;height:178cqw}
+.slot{position:absolute;border:.3cqw dashed rgba(243,183,5,.75);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.slot .lb{position:relative;font-weight:700;font-size:2.4cqw;color:var(--y);line-height:1.3;padding:0 .6cqw}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}
+#layNote{left:6cqw;right:6cqw;top:106cqw;display:flex;gap:2cqw}
+#layNote > div{position:relative;flex:1;border-top:1px solid rgba(255,255,255,.25);padding-top:1.4cqw;text-align:right}
+#layNote b{display:block;font-family:Mono;font-size:2cqw;color:var(--y);direction:ltr;text-align:right;letter-spacing:.1em}
+#layNote span{display:block;font-weight:700;font-size:3.2cqw;margin-top:.5cqw;line-height:1.35}
+
+/* 4 one-way */
+#lp{left:23cqw;top:54cqw;width:54cqw;height:54cqw;border-radius:50%;overflow:hidden;border:.8cqw solid var(--w);box-shadow:0 0 0 .5cqw var(--y),0 3cqw 8cqw rgba(0,0,0,.7)}
+#lp .img{position:absolute;inset:0;background:url(assets/m_fighter.jpg) no-repeat;background-size:150% auto;background-position:40% 25%}
+#lp .holes{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,0,0,.95) 0 1cqw,transparent 1.1cqw);background-size:3.2cqw 3.2cqw;background-position:center}
+#lp .cap{position:absolute;left:0;right:0;bottom:7cqw;text-align:center;font-family:Mono;font-weight:700;font-size:2.6cqw;direction:ltr}
+#lp .cap span{background:var(--y);color:var(--k);padding:.5cqw 1.8cqw;border-radius:9cqw}
+#ow{left:6cqw;right:6cqw;top:111cqw;display:flex;gap:2.4cqw}
+#ow > div{position:relative;flex:1;background:var(--k2);border:1px solid #2c2c2c;border-radius:2cqw;padding:2.4cqw 2.8cqw;text-align:right}
+#ow b{display:block;font-family:Mono;font-size:2.2cqw;color:var(--y);direction:ltr;text-align:right}
+#ow span{display:block;font-weight:700;font-size:3.9cqw;line-height:1.35;margin-top:.6cqw}
+
+/* 5 after */
+#aCard{left:0;top:55cqw;width:100cqw;height:62.6cqw;overflow:hidden}
+#aPhoto{position:absolute}
+#aPhoto img{width:100%;height:100%;display:block}
+.fp{position:absolute;overflow:hidden;box-shadow:0 1.4cqw 4cqw rgba(0,0,0,.55);z-index:3}
+.fp img{width:100%;height:100%;object-fit:fill;display:block}
+#bigA{left:6cqw;right:6cqw;top:34cqw;text-align:right;z-index:6}
+#bigA > *{position:relative;display:block}
+#bigA .w{font-weight:900;font-size:14cqw;line-height:1.1;color:var(--y)}
+#bigA .s{font-weight:700;font-size:4.4cqw;color:var(--w)}
+
+/* 6 footage */
+#vBg{inset:-8cqw;background-size:cover;background-position:center;filter:blur(5cqw) brightness(.4)}
+#vCard{left:14cqw;top:50cqw;width:72cqw;height:128cqw;border-radius:2.4cqw;overflow:hidden;box-shadow:0 3cqw 9cqw rgba(0,0,0,.7);border:.5cqw solid rgba(255,255,255,.15)}
+#vCard img{width:100%;height:100%;object-fit:cover}
+#vTag{left:6cqw;top:43cqw;z-index:6;font-family:Mono;font-size:2.6cqw;letter-spacing:.12em;direction:ltr;background:rgba(11,11,11,.8);padding:1cqw 2.4cqw;border-radius:99cqw}
+#vTag b{color:#ff4b4b}
+#vT{right:6cqw;top:33cqw;z-index:6;font-weight:900;font-size:6.4cqw;white-space:nowrap}
+
+/* end */
+#end{inset:0;background:#0a0a12;z-index:30}
+#dots{left:0;right:0;top:27cqw;height:5cqw;display:flex;justify-content:center;gap:2.4cqw}
+#dots i{position:relative;width:5cqw;height:5cqw;border-radius:50%}
+#word{left:0;right:0;top:36cqw;direction:ltr;text-align:center;font-family:AlexLat;font-weight:900;line-height:1}
+#word > *{position:relative;display:block}
+#word .w1{font-size:15.5cqw;letter-spacing:.02em}
+#word .w2{font-size:15.5cqw;letter-spacing:.34em;margin-right:-.34em;color:#ffd60a}
+#etag{left:6cqw;right:6cqw;top:72cqw;text-align:center}
+#etag > *{position:relative;display:block}
+#etag .a{font-weight:700;font-size:6.2cqw;line-height:1.4}
+#etag .b{font-family:Amiri;font-weight:700;font-size:10cqw;color:#ffd60a;line-height:1.25}
+#cta{left:50%;top:99cqw;transform:translateX(-50%);background:#ffd60a;color:#0a0a12;font-weight:900;font-size:5.6cqw;padding:2.8cqw 6.5cqw;border-radius:99cqw;white-space:nowrap}
+#svc{left:6cqw;right:6cqw;top:114cqw;text-align:center;font-family:Mono;font-size:2.4cqw;letter-spacing:.12em;color:#cfcfd8;direction:ltr}
+#edeco{left:7cqw;right:7cqw;bottom:0;height:40cqw;display:flex;gap:2.5cqw;align-items:flex-end}
+#edeco i{position:relative;flex:1;height:100%;transform-origin:center bottom}
+#wipe{inset:0;z-index:40}
+#wipe i{position:absolute;left:-30cqw;right:-30cqw;height:34%;background:var(--y);transform:skewY(-8deg)}
+#wipe i:nth-child(1){top:-2%}#wipe i:nth-child(2){top:32%;background:var(--w)}#wipe i:nth-child(3){top:66%}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="smoke"></div>
+
+  <div class="sc" id="s0">
+    <div class="brush b1"></div><div class="brush b2"></div>
+    <div class="q"><div class="k ln"><span>BEFORE → AFTER</span></div><div class="a ln"><span>قبل</span></div><div class="a2 ln"><span>وبعد</span></div><div class="s ln"><span>واجهة صالة الفنون القتالية · سطيف</span></div></div>
+  </div>
+
+  <div class="sc" id="s1">
+    <div class="sh"><div class="n ln"><span>STEP 01 · INSPIRATION</span></div><div class="t ln"><span>لوحة الإلهام</span></div><div class="d ln"><span>طاقة، دخان، وضربات فرشاة ذهبية</span></div></div>
+    <div id="mood"></div>
+    <div id="kw"><span>قوة</span><span>انضباط</span><span>حركة</span><span>دخان</span><span>ضربات فرشاة</span><span>أسود وذهبي</span></div>
+  </div>
+
+  <div class="sc" id="s2">
+    <div class="sh"><div class="n ln"><span>STEP 02 · IDENTITY</span></div><div class="t ln"><span>الألوان والخطوط</span></div><div class="d ln"><span>أسود عميق مع أصفر قتالي</span></div></div>
+    <div id="logo"><img src="assets/logo.jpg" alt=""></div>
+    <div id="pal">
+      <div style="background:#0b0b0b;border:1px solid #333"><span class="nm">Fight Black</span><span class="hx">#0B0B0B</span></div>
+      <div style="background:#f3b705;color:#0b0b0b"><span class="nm">Champion Gold</span><span class="hx">#F3B705</span></div>
+      <div style="background:#f5f2ea;color:#0b0b0b"><span class="nm">Chalk White</span><span class="hx">#F5F2EA</span></div>
+    </div>
+    <div id="typo">
+      <div><img src="assets/t_mma.jpg" alt=""><b>BRUSH DISPLAY</b></div>
+      <div><img src="assets/t_title.jpg" alt=""><b>ARABIC HEADLINE</b></div>
+      <div><img src="assets/yin.jpg" alt=""><b>ICON · YIN-YANG</b></div>
+    </div>
+  </div>
+
+  <div class="sc" id="s3">
+    <div class="sh"><div class="n ln"><span>STEP 03 · LAYOUT</span></div><div class="t ln"><span>تقسيم الواجهة</span></div><div class="d ln"><span>8 لوحات على مقاس كل زجاج وباب</span></div></div>
+    <div id="lay"></div>
+    <div id="layNote">
+      <div><b>MAIN</b><span>رسالة التسجيل</span></div>
+      <div><b>DOOR</b><span>جيت كون دو</span></div>
+      <div><b>LIST</b><span>6 رياضات</span></div>
+    </div>
+  </div>
+
+  <div class="sc" id="s4">
+    <div class="sh"><div class="n ln"><span>STEP 04 · ONE WAY VISION</span></div><div class="t ln"><span>لاصق مثقّب perforé</span></div><div class="d ln"><span>اختيار الخامة المناسبة للزجاج</span></div></div>
+    <div id="lp"><div class="img"></div><div class="holes"></div><div class="cap"><span>MICRO-PERFORATION</span></div></div>
+    <div id="ow">
+      <div><b>OUTSIDE</b><span>من الخارج: صورة كاملة</span></div>
+      <div><b>INSIDE</b><span>من الداخل: رؤية واضحة</span></div>
+    </div>
+  </div>
+
+  <div class="sc" id="s5">
+    <div class="sh"><div class="n ln"><span>STEP 05 · INSTALLATION</span></div><div class="t ln"><span>التركيب على الواجهة</span></div></div>
+    <div id="aCard"><div id="aPhoto"><img src="assets/real.jpg" alt=""></div></div>
+    <div id="bigA"><div class="w ln"><span>بعد</span></div><div class="s ln"><span>كل لوحة في مكانها بالضبط</span></div></div>
+  </div>
+
+  <div class="sc" id="s6">
+    <div id="vBg"></div>
+    <div id="vCard"><img id="vImg" alt=""></div>
+    <div id="vT">النتيجة على أرض الواقع</div>
+    <div id="vTag"><b>●</b> REAL FOOTAGE · ON SITE</div>
+  </div>
+
+  <div id="end">
+    <div id="dots"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div>
+    <div id="word"><div class="ln w1"><span>ELEGANCE</span></div><div class="ln w2"><span>STORY</span></div></div>
+    <div id="etag"><div class="ln a"><span>من الإلهام إلى الواجهة</span></div><div class="ln b"><span>بأناقة</span></div></div>
+    <div id="cta">اطلب تصميم واجهتك</div>
+    <div id="svc">DESIGN · PRINT · ONE WAY VISION · INSTALL</div>
+    <div id="edeco"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div>
+  </div>
+
+  <div id="hud"><div class="b">ELEGANCE STORY</div><div class="t">MMA · SÉTIF</div><div id="prog"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div></div>
+  <div id="wipe"><i></i><i></i><i></i></div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+const DUR=42, FPS=30, NF=370, V0=33.2, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let tl, cur=-1; const pad=n=>String(n).padStart(4,'0');
+// design panels (display coords on a 2000-wide sheet) and their real positions (real.jpg pixels)
+const P=[
+ ['p_left',[22,45,740,838],[75,75,500,495],'ملصق رئيسي'],
+ ['p_jkd',[750,80,1120,838],[540,115,730,490],'الباب'],
+ ['p_strip',[1130,25,1210,838],[760,125,820,490],''],
+ ['p_list',[1220,25,1975,838],[835,110,1195,490],'قائمة الرياضات'],
+ ['p_call',[22,848,740,1095],[110,515,500,630],'أرقام التسجيل'],
+ ['p_qr',[750,848,1120,1095],[535,512,710,625],'QR'],
+ ['p_mma',[1130,848,1210,1095],[752,510,800,625],''],
+ ['p_follow',[1220,848,1975,1095],[825,510,1140,625],'فيسبوك']];
+const LS=88/1953, LX=6, LY=55;           // layout box mapping (design -> cqw)
+const lay=b=>[LX+(b[0]-22)*LS, LY+(b[1]-25)*LS, (b[2]-b[0])*LS, (b[3]-b[1])*LS];
+const RR=100/1150, RX=-60*RR, RY=-40*RR; // real photo mapping inside #aCard
+const real=b=>[RX+b[0]*RR, RY+b[1]*RR, (b[2]-b[0])*RR, (b[3]-b[1])*RR];
+const css=a=>({left:a[0]+'cqw',top:a[1]+'cqw',width:a[2]+'cqw',height:a[3]+'cqw'});
+function setup(){
+  // moodboard tiles
+  const M=[['m_fighter',0,0,40,52,-4],['m_kick',44,0,44,30,3],['m_ground',44,33,44,28,-2],['yin',0,54,24,8,0],['m_def',62,0,26,0,0]];
+  const mood=$('#mood');
+  [['m_fighter',[0,2,42,58],-5],['m_kick',[46,0,42,34],4],['m_ground',[44,37,30,25],-3],['m_def',[74,30,20,32],6],['yin',[28,44,18,18],-8]].forEach(([n,r,rot])=>{
+    const d=document.createElement('div'); d.className='tile'; d.style.cssText=`left:${r[0]}cqw;top:${r[1]}cqw;width:${r[2]}cqw;height:${r[3]}cqw`; d.dataset.rot=rot;
+    d.innerHTML=`<img src="assets/${n}.jpg">`; mood.appendChild(d); });
+  // layout slots
+  P.forEach(([n,b,,lb])=>{ const d=document.createElement('div'); d.className='slot'; Object.assign(d.style,Object.fromEntries(Object.entries(css(lay(b)))));
+    d.innerHTML=`<span class="lb">${lb}</span><img src="assets/${n}.jpg">`; $('#lay').appendChild(d); });
+  // after: real photo + flying panels
+  Object.assign($('#aPhoto').style,{left:RX+'cqw',top:RY+'cqw',width:1280*RR+'cqw',height:720*RR+'cqw'});
+  P.forEach(([n,b])=>{ const d=document.createElement('div'); d.className='fp'; d.innerHTML=`<img src="assets/${n}.jpg">`; $('#aCard').appendChild(d); });
+}
+function fit(){ $$('.ln > span').forEach(s=>{ const box=s.parentElement.getBoundingClientRect().width, w=s.getBoundingClientRect().width;
+  if(w>box){ const fs=parseFloat(getComputedStyle(s.parentElement).fontSize); s.parentElement.style.fontSize=(fs*box/w*0.98)+'px'; } }); }
+const up=(sel,t,o={})=>tl.fromTo(sel,{yPercent:130},{yPercent:0,duration:o.d??.6,ease:'power4.out',stagger:o.st??.08,immediateRender:false},t);
+const fadeIn=(sel,t,o={})=>tl.fromTo(sel,{opacity:0,y:o.y??'3cqw'},{opacity:1,y:0,duration:o.d??.6,ease:'power3.out',stagger:o.st??.1,immediateRender:false},t);
+const show=(sel,a,b)=>{ tl.set(sel,{autoAlpha:1},a); if(b!=null) tl.set(sel,{autoAlpha:0},b); };
+function wipe(t){ tl.set('#wipe',{autoAlpha:1},t-.42);
+  tl.fromTo('#wipe i',{xPercent:110},{xPercent:0,duration:.4,ease:'power3.in',stagger:.04,immediateRender:false},t-.48);
+  tl.to('#wipe i',{xPercent:-110,duration:.42,ease:'power3.out',stagger:.04},t+.02); tl.set('#wipe',{autoAlpha:0},t+.6); }
+const exitH=(sc,t)=>tl.to(sc+' .sh .ln > span',{yPercent:-130,duration:.3,ease:'power2.in',stagger:.03},t);
+function build(){
+  tl=gsap.timeline({paused:true});
+  gsap.set('.sc,#hud,#end,#wipe',{autoAlpha:0}); gsap.set('.ln > span',{yPercent:130}); gsap.set('#wipe i',{xPercent:110});
+  // ---- 0 hook 0–3.2
+  show('#s0',0,3.2);
+  tl.fromTo('#s0 .b1',{xPercent:-110},{xPercent:0,duration:.6,ease:'expo.out',immediateRender:false},.05);
+  tl.fromTo('#s0 .b2',{xPercent:110},{xPercent:0,duration:.6,ease:'expo.out',immediateRender:false},.25);
+  up('#s0 .q .ln > span',.4,{st:.16,d:.7});
+  tl.to('#s0 .b1,#s0 .b2',{opacity:.18,duration:.6},1.2);
+  wipe(3.2);
+  // ---- 1 moodboard 3.2–9.0
+  show('#s1',3.2,9.0); show('#hud',3.2,33.0); tl.fromTo('#hud',{opacity:0},{opacity:1,duration:.5},3.3);
+  tl.to('#prog i:nth-child(1) b',{scaleX:1,duration:5.8,ease:'none'},3.2);
+  up('#s1 .sh .ln > span',3.4);
+  $$('#mood .tile').forEach((d,i)=>{ const r=+d.dataset.rot;
+    tl.fromTo(d,{opacity:0,scale:1.25,rotation:r*3},{opacity:1,scale:1,rotation:r,duration:.6,ease:'back.out(1.4)',immediateRender:false},3.9+i*.32);
+    tl.fromTo(d.firstChild,{scale:1.15},{scale:1,duration:4,ease:'none',immediateRender:false},3.9+i*.32); });
+  fadeIn('#kw span',5.9,{y:'2cqw',st:.12,d:.45});
+  exitH('#s1',8.6); wipe(9.0);
+  // ---- 2 identity 9.0–14.6
+  show('#s2',9.0,14.6); tl.to('#prog i:nth-child(2) b',{scaleX:1,duration:5.6,ease:'none'},9.0);
+  up('#s2 .sh .ln > span',9.2);
+  tl.fromTo('#logo',{scale:.5,opacity:0,rotation:-120},{scale:1,opacity:1,rotation:0,duration:1,ease:'expo.out',immediateRender:false},9.6);
+  fadeIn('#pal > div',9.9,{y:'2cqw',st:.16});
+  tl.fromTo('#typo > div',{opacity:0,y:'4cqw'},{opacity:1,y:0,duration:.5,ease:'power3.out',stagger:.2,immediateRender:false},11.0);
+  tl.fromTo('#typo img',{clipPath:'inset(0% 0% 0% 100%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.8,ease:'power2.inOut',stagger:.2,immediateRender:false},11.2);
+  exitH('#s2',14.2); wipe(14.6);
+  // ---- 3 layout 14.6–21.4
+  show('#s3',14.6,21.4); tl.to('#prog i:nth-child(3) b',{scaleX:1,duration:6.8,ease:'none'},14.6);
+  up('#s3 .sh .ln > span',14.8);
+  const slots=$$('.slot');
+  gsap.set('.slot img',{clipPath:'inset(0% 0% 100% 0%)'});
+  slots.forEach((s,i)=>tl.fromTo(s,{opacity:0,scale:.9},{opacity:1,scale:1,duration:.35,ease:'power3.out',immediateRender:false},15.2+i*.12));
+  fadeIn('#layNote > div',16.0,{st:.15});
+  [0,1,2,3,4,5,6,7].forEach((i,k)=>tl.to(slots[i].querySelector('img'),{clipPath:'inset(0% 0% 0% 0%)',duration:.55,ease:'power2.inOut'},17.0+k*.32));
+  tl.to('.slot',{borderColor:'rgba(243,183,5,0)',duration:.4},19.8);
+  exitH('#s3',21.0); wipe(21.4);
+  // ---- 4 one-way 21.4–26.2
+  show('#s4',21.4,26.2); tl.to('#prog i:nth-child(4) b',{scaleX:1,duration:4.8,ease:'none'},21.4);
+  up('#s4 .sh .ln > span',21.6);
+  tl.fromTo('#lp',{scale:0},{scale:1,duration:.6,ease:'back.out(1.6)',immediateRender:false},22.0);
+  tl.fromTo('#lp .img',{backgroundSize:'110% auto'},{backgroundSize:'190% auto',duration:2.2,ease:'power1.inOut',immediateRender:false},22.0);
+  tl.fromTo('#lp .holes',{opacity:0},{opacity:1,duration:.6,immediateRender:false},22.6);
+  fadeIn('#ow > div',23.2,{st:.2});
+  exitH('#s4',25.8); wipe(26.2);
+  // ---- 5 after 26.2–33.2
+  show('#s5',26.2,33.2); tl.to('#prog i:nth-child(5) b',{scaleX:1,duration:7,ease:'none'},26.2);
+  up('#s5 .sh .ln > span',26.4);
+  const fps=$$('.fp');
+  gsap.set('#aPhoto',{opacity:0});
+  fps.forEach((d,i)=>{ const L=lay(P[i][1]); gsap.set(d,css([L[0],L[1]-55,L[2],L[3]]));
+    tl.fromTo(d,{opacity:0},{opacity:1,duration:.3,immediateRender:false},26.5); });
+  tl.to('#aPhoto',{opacity:1,duration:.8},27.4);
+  fps.forEach((d,i)=>tl.to(d,{...css(real(P[i][2])),duration:1.1,ease:'expo.inOut'},27.7+i*.09));
+  tl.to('.fp',{boxShadow:'0 0 0 rgba(0,0,0,0)',duration:.3},29.0);
+  tl.to('.fp',{opacity:0,duration:.9,stagger:.07},29.4);
+  tl.fromTo('#aPhoto',{scale:1},{scale:1.07,duration:3.6,ease:'none',transformOrigin:'50% 50%',immediateRender:false},29.4);
+  tl.to('#s5 .sh',{opacity:0,duration:.3},29.3); show('#bigA',29.6); tl.fromTo('#bigA .w span',{yPercent:0,scale:1.6,opacity:0},{scale:1,opacity:1,duration:.5,ease:'expo.out',immediateRender:false},29.6);
+  up('#bigA .s span',29.9);
+  wipe(33.2);
+  // ---- 6 footage 33.2–39.6
+  show('#s6',33.2,39.6);
+  tl.fromTo('#vCard',{opacity:0,scale:.92},{opacity:1,scale:1,duration:.5,ease:'power3.out',immediateRender:false},33.3);
+  fadeIn('#vT,#vTag',33.6,{y:'2cqw',st:.15});
+  wipe(39.6);
+  // ---- end 39.6–42
+  show('#end',39.6);
+  tl.fromTo('#dots i',{scale:0},{scale:1,duration:.4,ease:'back.out(2.5)',stagger:.07},39.8);
+  tl.fromTo('#word .ln > span',{yPercent:125},{yPercent:0,duration:.6,ease:'power4.out',stagger:.12},39.85);
+  tl.fromTo('#etag .ln > span',{yPercent:125},{yPercent:0,duration:.55,ease:'power4.out',stagger:.14},40.3);
+  tl.fromTo('#cta',{scale:0},{scale:1,duration:.5,ease:'back.out(1.8)'},40.7);
+  fadeIn('#svc',40.9,{y:'1cqw'});
+  [.35,.7,.5,.9].forEach((h,i)=>tl.fromTo('#edeco i:nth-child('+(i+1)+')',{scaleY:0},{scaleY:h,duration:.6,ease:'power4.out'},39.9+i*.08));
+  tl.set({}, {}, DUR);
+}
+async function frame(t,wait){
+  const i=Math.min(NF-1,Math.max(0,Math.floor((t-V0)*FPS*1.0)));
+  if(i===cur) return; cur=i; const src='frames/f'+pad(i)+'.jpg';
+  $('#vImg').src=src; $('#vBg').style.backgroundImage=`url(${src})`;
+  if(wait){ try{ await $('#vImg').decode(); }catch(e){} }
+}
+window.__seek=async t=>{ tl.pause(t,false); await frame(t,true); };
+window.__dur=DUR;
+window.__ready=(async()=>{
+  setup();
+  await document.fonts.ready; await Promise.all([...document.fonts].map(f=>f.load()));
+  await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));
+  fit(); build(); await window.__seek(0);
+})();
+</script>
+</body>
+</html>
