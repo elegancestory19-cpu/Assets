@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Elegance Story — Election Flyers Workflow</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:400;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-400-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Amiri;font-weight:700;src:url(node_modules/@fontsource/amiri/files/amiri-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:400;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+:root{--g:#0e5a4a;--gd:#06231d;--gold:#e0b84e;--w:#f6f5ef;--sub:#d4e3dd}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;height:100%;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:100vw;aspect-ratio:9/16;container-type:inline-size;overflow:hidden;background:var(--gd);font-family:Alexandria,AlexLat,"Noto Color Emoji",sans-serif;color:var(--w)}
+#stage > *,.sc > *,#hud > *,#end > *{position:absolute}
+.sc{inset:0}
+.ln{overflow:hidden;padding:.14em 0 .24em;margin:-.14em 0 -.24em}
+.ln > span{position:relative;display:inline-block;white-space:nowrap}
+#bg{inset:-8cqw;background:url(assets/d_lamhal.jpg) center 30%/cover;filter:blur(4cqw) saturate(1.1) brightness(.5)}
+#tint{inset:0;background:linear-gradient(180deg,rgba(6,35,29,.7),rgba(6,35,29,.35) 45%,rgba(6,35,29,.75))}
+.orb{border-radius:50%;filter:blur(6cqw)}
+#o1{left:-20cqw;top:25cqw;width:70cqw;height:70cqw;background:#1fb58f;opacity:.35}
+#o2{right:-25cqw;top:105cqw;width:80cqw;height:80cqw;background:#e0b84e;opacity:.22}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.07));backdrop-filter:blur(2.6cqw) saturate(1.4);-webkit-backdrop-filter:blur(2.6cqw) saturate(1.4);
+  border:1px solid rgba(255,255,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 2cqw 6cqw rgba(0,0,0,.35);border-radius:3cqw}
+.glass.dk{background:linear-gradient(135deg,rgba(6,35,29,.65),rgba(6,35,29,.35))}
+.glass.sm{border-radius:99cqw}
+.shine{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+.shine::before{content:"";position:absolute;top:-50%;bottom:-50%;width:30%;left:var(--p,-40%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);transform:skewX(-20deg)}
+.card{overflow:hidden;border-radius:1.6cqw;box-shadow:0 2cqw 6cqw rgba(0,0,0,.5);background:#fff}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* HUD */
+#hud{left:6cqw;right:6cqw;top:26cqw;height:6cqw;direction:ltr;z-index:20}
+#hud .b{left:0;top:0;font-family:AlexLat;font-weight:900;font-size:3cqw;letter-spacing:.3em;white-space:nowrap}
+#hud .t{right:0;top:.2cqw;font-family:Mono;font-size:2.4cqw;letter-spacing:.08em;color:var(--gold);white-space:nowrap}
+#prog{left:0;right:0;top:5cqw;height:.6cqw;display:flex;gap:1cqw}
+#prog i{position:relative;flex:1;background:rgba(255,255,255,.2);overflow:hidden;border-radius:9cqw}
+#prog b{position:absolute;inset:0;background:var(--gold);transform-origin:left center;transform:scaleX(0)}
+.sh{left:6cqw;right:6cqw;top:33cqw;text-align:right}
+.sh > *{position:relative;display:block}
+.sh .n{font-family:Mono;font-size:2.6cqw;letter-spacing:.2em;color:var(--gold);direction:ltr;text-align:right}
+.sh .t{font-weight:900;font-size:7.2cqw;line-height:1.25;margin-top:.6cqw;text-shadow:0 .4cqw 2cqw rgba(0,0,0,.35)}
+.sh .d{font-size:3.4cqw;color:var(--sub);margin-top:.4cqw}
+
+/* 0 hook */
+#fan{left:0;right:0;top:46cqw;height:70cqw}
+#fan .card{position:absolute;top:4cqw;width:36cqw;height:59.5cqw}
+#hT{left:6cqw;right:6cqw;top:120cqw;text-align:center;padding:3cqw 0 3.4cqw}
+#hT > *{position:relative;display:block}
+#hT .k{font-family:Mono;font-size:2.6cqw;letter-spacing:.22em;color:var(--gold);direction:ltr}
+#hT .a{font-weight:900;font-size:7.4cqw;line-height:1.3;margin-top:.6cqw}
+#hT .b{font-family:Amiri;font-weight:700;font-size:6cqw;color:var(--gold);line-height:1.3}
+
+/* 1 contact */
+#chat{left:6cqw;right:6cqw;top:52cqw;height:70cqw;padding:3cqw 3.4cqw}
+#chat .hd{position:relative;display:flex;align-items:center;gap:2cqw;padding-bottom:2cqw;border-bottom:1px solid rgba(255,255,255,.2);margin-bottom:2.4cqw}
+#chat .av{width:7cqw;height:7cqw;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:3.4cqw}
+#chat .hd b{font-weight:700;font-size:3.3cqw}
+#chat .hd span{font-family:Mono;font-size:2cqw;color:var(--gold);direction:ltr;margin-right:auto}
+.msg{position:relative;max-width:78%;padding:1.5cqw 2.6cqw;border-radius:2.6cqw;font-size:3cqw;line-height:1.4;margin-bottom:1.6cqw;clear:both}
+.msg.in{float:right;background:rgba(255,255,255,.9);color:#10221d;border-top-right-radius:.6cqw}
+.msg.out{float:left;background:#1a7a63;color:#fff;border-top-left-radius:.6cqw}
+.msg small{display:block;font-family:Mono;font-size:1.7cqw;opacity:.6;margin-top:.4cqw;direction:ltr;text-align:left}
+#places{left:6cqw;right:6cqw;top:126cqw;display:flex;gap:2cqw;justify-content:center}
+#places span{position:relative;padding:1.2cqw 2.6cqw;font-weight:700;font-size:3cqw;white-space:nowrap}
+
+/* 2 brief */
+#brief{left:6cqw;right:6cqw;top:52cqw;display:flex;flex-direction:column;gap:2.4cqw}
+.bc{position:relative;height:24cqw;display:flex;gap:3cqw;align-items:center;padding:2.4cqw 3cqw}
+.bc .th{position:relative;width:13cqw;height:21.5cqw;border-radius:1cqw;overflow:hidden;flex:none;box-shadow:0 1cqw 3cqw rgba(0,0,0,.4)}
+.bc .th img{width:100%;height:100%;object-fit:cover}
+.bc .tx{position:relative;flex:1;min-width:0}
+.bc .nm{display:block;font-weight:900;font-size:4.6cqw;white-space:nowrap}
+.bc .pl{display:block;font-size:2.8cqw;color:var(--sub);margin-top:.3cqw;white-space:nowrap}
+.bc .chips{display:flex;gap:1.2cqw;margin-top:1.2cqw;flex-wrap:wrap}
+.bc .chips i{font-style:normal;font-family:AlexLat,Alexandria;font-weight:700;font-size:2.3cqw;padding:.5cqw 1.6cqw;border-radius:99cqw;background:rgba(224,184,78,.2);border:1px solid rgba(224,184,78,.7);color:var(--gold);white-space:nowrap}
+.bc .id{display:block;font-size:2.6cqw;color:#fff;margin-top:1.2cqw;white-space:nowrap}
+.bc .id b{color:var(--gold);font-weight:700}
+
+/* 3 design */
+#dCard{left:6cqw;top:52cqw;width:50cqw;height:82.7cqw;background:#e9efec}
+#dCard .ly{position:absolute;inset:0}
+#dCard .ly img{position:absolute;inset:0;width:100%;height:100%}
+#dGrid{left:6cqw;top:52cqw;width:50cqw;height:82.7cqw;pointer-events:none;background-image:linear-gradient(rgba(14,90,74,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(14,90,74,.25) 1px,transparent 1px);background-size:5.4cqw 5.4cqw;border-radius:1.6cqw}
+#dSel{border:.35cqw solid #39c2ff;z-index:6;pointer-events:none;left:6cqw;width:50cqw}
+#layers{left:59cqw;right:4cqw;top:52cqw;display:flex;flex-direction:column;gap:1.6cqw}
+#layers > div{position:relative;padding:1.5cqw 1.8cqw;font-size:2.4cqw;font-weight:700;display:flex;gap:1.4cqw;align-items:center;white-space:nowrap;border-radius:1.6cqw}
+#layers b{font-family:Mono;color:var(--gold);font-size:2.1cqw}
+#layers > div.on{border-color:#39c2ff;background:linear-gradient(135deg,rgba(57,194,255,.3),rgba(57,194,255,.1))}
+#trio{left:0;right:0;top:52cqw;height:60cqw}
+#trio .card{position:absolute;top:0;width:28cqw;height:46.3cqw}
+#trioCap{left:6cqw;right:6cqw;top:112cqw;display:flex;justify-content:space-around}
+#trioCap span{position:relative;font-weight:700;font-size:3cqw;text-align:center;white-space:nowrap}
+#trioCap small{display:block;font-size:2.3cqw;color:var(--gold);font-weight:400}
+
+/* 4 offset */
+#plates{left:0;right:0;top:52cqw;height:80cqw;isolation:isolate}
+#plates .pw{position:absolute;width:20cqw;height:33cqw;top:0}
+#plates .pw img{position:absolute;inset:0;width:100%;height:100%;border-radius:1cqw;box-shadow:0 1cqw 3cqw rgba(0,0,0,.4)}
+#plates .pw b{position:absolute;left:0;right:0;top:34.5cqw;text-align:center;font-family:Mono;font-weight:700;font-size:3cqw;direction:ltr}
+#pBase{position:absolute;left:30cqw;top:0;width:40cqw;height:66.2cqw;background:#fff;border-radius:1cqw;box-shadow:0 2cqw 6cqw rgba(0,0,0,.5)}
+#oSpec{left:6cqw;right:6cqw;top:124cqw;display:flex;gap:2cqw;justify-content:center}
+#oSpec span{position:relative;padding:1.2cqw 2.6cqw;font-weight:700;font-size:3cqw;white-space:nowrap}
+
+/* 5 result */
+#rPhoto{left:6cqw;top:52cqw;width:88cqw;height:80cqw}
+#rPhoto img{object-position:50% 52%}
+#rTag{right:9cqw;top:55cqw;padding:1cqw 2.4cqw;font-family:Mono;font-size:2.4cqw;direction:ltr;z-index:6}
+#rTag b{color:#ff5a5a}
+#mock{left:0;right:0;top:50cqw;height:90cqw;perspective:150cqw}
+#mockCard{position:absolute;left:28cqw;top:2cqw;width:44cqw;height:75.4cqw;border-radius:1.2cqw;overflow:hidden;box-shadow:-3cqw 5cqw 8cqw rgba(0,0,0,.55);transform-style:preserve-3d}
+#mockCard img{width:100%;height:100%;object-fit:cover}
+#mockCard .gl{position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.35) 45%,rgba(255,255,255,0) 60%)}
+#mTag{left:6cqw;right:6cqw;top:132cqw;text-align:center;padding:1.6cqw 0;font-weight:700;font-size:3.2cqw}
+#mTag small{display:block;font-size:2.4cqw;color:var(--gold);font-weight:400;margin-top:.3cqw}
+
+/* 6 delivery */
+#map{left:0;top:50cqw;width:100cqw;height:90cqw}
+#map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.node{position:absolute;padding:1.6cqw 3.2cqw;font-weight:700;font-size:3.6cqw;white-space:nowrap;text-align:center;transform:translate(-50%,-50%)}
+.node small{display:block;font-size:2.2cqw;color:var(--gold);font-weight:400}
+#modes{left:6cqw;right:6cqw;top:134cqw;display:flex;gap:2cqw;justify-content:center}
+#modes span{position:relative;padding:1.2cqw 2.8cqw;font-weight:700;font-size:3.1cqw;white-space:nowrap}
+
+/* end */
+#end{inset:0;z-index:30}
+#eCard{left:7cqw;right:7cqw;top:30cqw;height:90cqw}
+#eCard > *{position:absolute}
+#eK{left:0;right:0;top:7cqw;text-align:center;font-family:Mono;font-size:2.6cqw;letter-spacing:.2em;color:var(--gold);direction:ltr}
+#eH{left:4cqw;right:4cqw;top:12cqw;text-align:center}
+#eH > *{position:relative;display:block;font-weight:900;font-size:7.4cqw;line-height:1.3}
+#eH .g{color:var(--gold)}
+#eSvc{left:4cqw;right:4cqw;top:36cqw;display:flex;flex-wrap:wrap;gap:1.6cqw;justify-content:center}
+#eSvc span{position:relative;padding:1cqw 2.4cqw;font-weight:700;font-size:3cqw;white-space:nowrap}
+#word{left:0;right:0;top:55cqw;direction:ltr;text-align:center;font-family:AlexLat;font-weight:900;line-height:1}
+#word > *{position:relative;display:block}
+#word .w1{font-size:9cqw;letter-spacing:.02em}
+#word .w2{font-size:9cqw;letter-spacing:.34em;margin-right:-.34em;color:var(--gold)}
+#cta{left:50%;top:76cqw;transform:translateX(-50%);background:var(--gold);color:var(--gd);font-weight:900;font-size:5cqw;padding:2.4cqw 6cqw;border-radius:99cqw;white-space:nowrap}
+#ph2{left:6cqw;right:6cqw;top:124cqw;text-align:center;font-family:Mono;font-size:2.8cqw;letter-spacing:.06em;direction:ltr}
+#veil{inset:0;z-index:38;background:rgba(255,255,255,0)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"></div><div id="tint"></div><div class="orb" id="o1"></div><div class="orb" id="o2"></div>
+
+  <div class="sc" id="s0">
+    <div id="fan">
+      <div class="card" style="left:6cqw"><img src="assets/d_sari.jpg"></div>
+      <div class="card" style="left:58cqw"><img src="assets/d_taha.jpg"></div>
+      <div class="card" style="left:32cqw"><img src="assets/d_lamhal.jpg"></div>
+    </div>
+    <div class="glass dk" id="hT"><div class="shine"></div><div class="k ln"><span>ELECTIONS 2026 · DESIGN → PRINT</span></div><div class="a ln"><span>قصاصات الحملة الانتخابية</span></div><div class="b ln"><span>من الرسالة الأولى… إلى يد الناخب</span></div></div>
+  </div>
+
+  <div class="sc" id="s1">
+    <div class="sh"><div class="n ln"><span>STEP 01 · CONTACT</span></div><div class="t ln"><span>التواصل</span></div><div class="d ln"><span>نخدمو عن بُعد… من أي ولاية</span></div></div>
+    <div class="glass dk" id="chat"><div class="shine"></div>
+      <div class="hd"><div class="av">🗳️</div><b>طلب جديد</b><span>ONLINE</span></div>
+      <div class="msg in">السلام عليكم، نحتاج قصاصة للحملة الانتخابية<small>09:12</small></div>
+      <div class="msg out">وعليكم السلام، مرحبا! ابعثلي الصورة والمعلومات ✅<small>09:13</small></div>
+      <div class="msg in">القائمة رقم 2… والرقم تاعي فالقائمة<small>09:15</small></div>
+      <div class="msg out">تمام، التصميم يوصلك اليوم للمراجعة 👌<small>09:16</small></div>
+    </div>
+    <div id="places"><span class="glass sm">📍 باتنة</span><span class="glass sm">📍 بومرداس</span><span class="glass sm">📍 عين تيموشنت</span></div>
+  </div>
+
+  <div class="sc" id="s2">
+    <div class="sh"><div class="n ln"><span>STEP 02 · IDEA</span></div><div class="t ln"><span>الفكرة</span></div><div class="d ln"><span>لكل مترشح هوية تشبه منطقته</span></div></div>
+    <div id="brief">
+      <div class="glass dk bc"><div class="shine"></div><div class="th"><img src="assets/d_lamhal.jpg"></div><div class="tx"><span class="nm">لمهل أمين</span><span class="pl">ولاية باتنة · المجلس الشعبي الولائي</span><div class="chips"><i>RND</i><i>قائمة 2</i><i>مترشح 51</i></div><span class="id">💡 <b>الفكرة:</b> أخضر زمردي ومدينة باتنة في الخلفية</span></div></div>
+      <div class="glass dk bc"><div class="shine"></div><div class="th"><img src="assets/d_taha.jpg"></div><div class="tx"><span class="nm">طه فوزي</span><span class="pl">حمام بوحجر · عين تيموشنت · البلدي</span><div class="chips"><i>FLN</i><i>حزب 1</i><i>رقم 4</i></div><span class="id">💡 <b>الفكرة:</b> العلم الوطني ومدخل حمام بوحجر</span></div></div>
+      <div class="glass dk bc"><div class="shine"></div><div class="th"><img src="assets/d_sari.jpg"></div><div class="tx"><span class="nm">صاري محمد</span><span class="pl">بغلية · بومرداس · المجلس الولائي</span><div class="chips"><i>RND</i><i>قائمة 02</i><i>رقم 09</i></div><span class="id">💡 <b>الفكرة:</b> نموذج ورقة التصويت بمكان الاسم</span></div></div>
+    </div>
+  </div>
+
+  <div class="sc" id="s3">
+    <div class="sh"><div class="n ln"><span>STEP 03 · DESIGN</span></div><div class="t ln"><span>التصميم</span></div><div class="d ln"><span>طبقة فوق طبقة… حتى يكتمل</span></div></div>
+    <div class="card" id="dCard"></div>
+    <div id="dGrid"></div>
+    <div id="dSel"></div>
+    <div id="layers"></div>
+    <div id="trio">
+      <div class="card" style="left:4cqw;top:3cqw"><img src="assets/d_sari.jpg"></div>
+      <div class="card" style="left:36cqw"><img src="assets/d_lamhal.jpg"></div>
+      <div class="card" style="left:68cqw;top:3cqw"><img src="assets/d_taha.jpg"></div>
+    </div>
+    <div id="trioCap"><span>صاري محمد<small>بومرداس</small></span><span>لمهل أمين<small>باتنة</small></span><span>طه فوزي<small>عين تيموشنت</small></span></div>
+  </div>
+
+  <div class="sc" id="s4">
+    <div class="sh"><div class="n ln"><span>STEP 04 · OFFSET PRINT</span></div><div class="t ln"><span>الطباعة أوفست</span></div><div class="d ln"><span>4 ألواح… لون واحد مثالي</span></div></div>
+    <div id="plates">
+      <div id="pBase"></div>
+      <div class="pw" style="left:4cqw"><img src="assets/pl_c.jpg"><b style="color:#2fc6f2">C</b></div>
+      <div class="pw" style="left:28cqw"><img src="assets/pl_m.jpg"><b style="color:#ff4fa0">M</b></div>
+      <div class="pw" style="left:52cqw"><img src="assets/pl_y.jpg"><b style="color:#ffd60a">Y</b></div>
+      <div class="pw" style="left:76cqw"><img src="assets/pl_k.jpg"><b style="color:#fff">K</b></div>
+    </div>
+    <div id="oSpec"><span class="glass sm">🖨️ مطبعة أوفست</span><span class="glass sm">📄 ورق كوشي</span><span class="glass sm">🎨 ألوان مطابقة</span></div>
+  </div>
+
+  <div class="sc" id="s5">
+    <div class="sh"><div class="n ln"><span>STEP 05 · RESULT</span></div><div class="t ln"><span>الإنجاز</span></div><div class="d ln"><span>مطبوعة… وجاهزة للتوزيع</span></div></div>
+    <div class="card" id="rPhoto"><img src="assets/photo_r.jpg"></div>
+    <div class="glass sm" id="rTag"><b>●</b> REAL PRINT</div>
+    <div id="mock"><div id="mockCard"><img src="assets/d_sari.jpg"><div class="gl"></div></div></div>
+    <div class="glass dk" id="mTag">صاري محمد · بغلية، بومرداس<small>التصميم النهائي</small></div>
+  </div>
+
+  <div class="sc" id="s6">
+    <div class="sh"><div class="n ln"><span>STEP 06 · DELIVERY</span></div><div class="t ln"><span>التوصيل</span></div><div class="d ln"><span>تصلك لولايتك أينما كنت</span></div></div>
+    <div id="map">
+      <svg viewBox="0 0 100 90">
+        <path id="rt1" d="M50,14 C40,30 25,40 20,62" fill="none" stroke="rgba(224,184,78,.85)" stroke-width=".5" stroke-dasharray="1.6 1.2"/>
+        <path id="rt2" d="M50,14 C50,32 50,48 50,72" fill="none" stroke="rgba(224,184,78,.85)" stroke-width=".5" stroke-dasharray="1.6 1.2"/>
+        <path id="rt3" d="M50,14 C60,30 75,40 80,62" fill="none" stroke="rgba(224,184,78,.85)" stroke-width=".5" stroke-dasharray="1.6 1.2"/>
+        <circle id="dt1" r="1.4" fill="#fff"/><circle id="dt2" r="1.4" fill="#fff"/><circle id="dt3" r="1.4" fill="#fff"/>
+      </svg>
+      <div class="glass node" id="nO" style="left:50cqw;top:12cqw">Elegance Story<small>الورشة</small></div>
+      <div class="glass dk node" id="n1" style="left:20cqw;top:66cqw">عين تيموشنت<small>حمام بوحجر</small></div>
+      <div class="glass dk node" id="n2" style="left:50cqw;top:77cqw">بومرداس<small>بغلية</small></div>
+      <div class="glass dk node" id="n3" style="left:80cqw;top:66cqw">باتنة<small>APW</small></div>
+    </div>
+    <div id="modes"><span class="glass sm">🚚 شركة توصيل</span><span class="glass sm">🚌 النقل البري</span></div>
+  </div>
+
+  <div id="end">
+    <div class="glass dk" id="eCard"><div class="shine"></div>
+      <div id="eK" class="ln"><span>ELECTION PRINT SOLUTIONS</span></div>
+      <div id="eH"><div class="ln"><span>حملتك الانتخابية</span></div><div class="ln g"><span>تبدا بتصميم يقنع</span></div></div>
+      <div id="eSvc"><span class="glass sm">تصميم</span><span class="glass sm">طباعة أوفست</span><span class="glass sm">توصيل لـ 69 ولاية</span></div>
+      <div id="word"><div class="ln w1"><span>ELEGANCE</span></div><div class="ln w2"><span>STORY</span></div></div>
+      <div id="cta">اطلب قصاصتك الآن</div>
+    </div>
+    <div id="ph2">0772 65 83 01 · 0668 89 79 07 · 0553 04 54 07</div>
+  </div>
+
+  <div id="hud"><div class="b">ELEGANCE STORY</div><div class="t">ELECTIONS · 2026</div><div id="prog"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div></div>
+  <div id="veil"></div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+const DUR=46, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+// Lamhal design layers (% of height)
+const LAY=[[0,14,'الشعار ورقم القائمة'],[14,56,'صورة المترشح والخلفية'],[56,68,'اسم المترشح'],[68,83,'المؤهلات'],[83,100,'الشعار الختامي']];
+let tl;
+function setup(){
+  LAY.forEach(([a,b,n],i)=>{
+    const l=document.createElement('div'); l.className='ly'; l.innerHTML='<img src="assets/d_lamhal.jpg">'; l.style.clipPath=`inset(${a}% 0% ${100-b}% 0%)`; $('#dCard').appendChild(l);
+    const r=document.createElement('div'); r.className='glass'; r.innerHTML=`<b>0${i+1}</b>${n}`; $('#layers').appendChild(r); });
+}
+function fit(){ $$('.ln > span, .bc .nm, .bc .pl, .bc .id').forEach(s=>{ const p=s.parentElement, box=p.getBoundingClientRect().width, w=s.getBoundingClientRect().width;
+  if(w>box){ const fs=parseFloat(getComputedStyle(s).fontSize); s.style.fontSize=(fs*box/w*0.97)+'px'; } }); }
+const up=(sel,t,o={})=>tl.fromTo(sel,{yPercent:130},{yPercent:0,duration:o.d??.6,ease:'power4.out',stagger:o.st??.08,immediateRender:false},t);
+const gIn=(sel,t,o={})=>tl.fromTo(sel,{opacity:0,y:o.y??'5cqw',scale:o.s??.96},{opacity:1,y:0,scale:1,duration:o.d??.7,ease:'power3.out',stagger:o.st??.1,immediateRender:false},t);
+const show=(sel,a,b)=>{ tl.set(sel,{autoAlpha:1},a); if(b!=null) tl.set(sel,{autoAlpha:0},b); };
+function sweep(sel,t){ $$(sel).forEach((el,i)=>{ const s=el.querySelector('.shine'); if(s) tl.fromTo(s,{'--p':'-40%'},{'--p':'140%',duration:1.1,ease:'power2.inOut',immediateRender:false},t+i*.12); }); }
+function frost(t){ tl.set('#veil',{autoAlpha:1},t-.45);
+  tl.fromTo('#veil',{backdropFilter:'blur(0cqw)',backgroundColor:'rgba(255,255,255,0)'},{backdropFilter:'blur(5cqw)',backgroundColor:'rgba(225,240,235,.2)',duration:.45,ease:'power2.in',immediateRender:false},t-.45);
+  tl.to('#veil',{backdropFilter:'blur(0cqw)',backgroundColor:'rgba(255,255,255,0)',duration:.55,ease:'power2.out'},t+.02); tl.set('#veil',{autoAlpha:0},t+.6); }
+const exitH=(sc,t)=>tl.to(sc+' .sh .ln > span',{yPercent:-130,duration:.3,ease:'power2.in',stagger:.03},t);
+const step=(i,a,b)=>tl.to(`#prog i:nth-child(${i}) b`,{scaleX:1,duration:b-a,ease:'none'},a);
+function build(){
+  tl=gsap.timeline({paused:true});
+  gsap.set('.sc,#hud,#end,#veil',{autoAlpha:0}); gsap.set('#mock,#mTag',{autoAlpha:0}); gsap.set('.ln > span',{yPercent:130});
+  tl.fromTo('#bg',{scale:1},{scale:1.15,duration:DUR,ease:'none'},0);
+  tl.fromTo('#o1',{x:0,y:0},{x:'20cqw',y:'30cqw',duration:DUR,ease:'sine.inOut'},0);
+  tl.fromTo('#o2',{x:0,y:0},{x:'-25cqw',y:'-40cqw',duration:DUR,ease:'sine.inOut'},0);
+  // ---- 0 hook 0–3.6
+  show('#s0',0,3.6);
+  const fc=$$('#fan .card');
+  tl.fromTo(fc[2],{y:'40cqw',opacity:0},{y:0,opacity:1,duration:.8,ease:'expo.out',immediateRender:false},.1);
+  tl.fromTo(fc[0],{x:'26cqw',rotation:0,opacity:0},{x:0,rotation:-10,opacity:1,duration:.8,ease:'expo.out',immediateRender:false},.45);
+  tl.fromTo(fc[1],{x:'-26cqw',rotation:0,opacity:0},{x:0,rotation:10,opacity:1,duration:.8,ease:'expo.out',immediateRender:false},.45);
+  gIn('#hT',.9,{y:'6cqw'}); sweep('#hT',1.4); up('#hT .ln > span',1.1,{st:.14});
+  frost(3.6);
+  // ---- 1 contact 3.6–9.6
+  show('#s1',3.6,9.6); show('#hud',3.6,43.0); tl.fromTo('#hud',{opacity:0},{opacity:1,duration:.5},3.7); step(1,3.6,9.6);
+  up('#s1 .sh .ln > span',3.8);
+  gIn('#chat',4.0); sweep('#chat',4.5);
+  $$('.msg').forEach((m,i)=>tl.fromTo(m,{opacity:0,y:'3cqw',scale:.9,transformOrigin:m.classList.contains('in')?'100% 0':'0 0'},{opacity:1,y:0,scale:1,duration:.4,ease:'back.out(1.8)',immediateRender:false},4.6+i*1.0));
+  gIn('#places span',8.2,{y:'2cqw',st:.12,d:.45});
+  exitH('#s1',9.2); frost(9.6);
+  // ---- 2 idea 9.6–16.0
+  show('#s2',9.6,16.0); step(2,9.6,16.0);
+  up('#s2 .sh .ln > span',9.8);
+  $$('.bc').forEach((c,i)=>{ const t=10.2+i*1.3;
+    tl.fromTo(c,{opacity:0,x:'-10cqw'},{opacity:1,x:0,duration:.6,ease:'power3.out',immediateRender:false},t);
+    tl.fromTo(c.querySelectorAll('.chips i'),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.3,ease:'back.out(2)',stagger:.08,immediateRender:false},t+.4);
+    tl.fromTo(c.querySelector('.id'),{clipPath:'inset(0% 0% 0% 100%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.6,ease:'none',immediateRender:false},t+.7); });
+  sweep('.bc',12.0);
+  exitH('#s2',15.6); frost(16.0);
+  // ---- 3 design 16–24
+  show('#s3',16.0,24.0); step(3,16.0,24.0);
+  up('#s3 .sh .ln > span',16.2);
+  gIn('#dCard',16.3,{y:'4cqw'}); tl.fromTo('#dGrid',{opacity:0},{opacity:1,duration:.4,immediateRender:false},16.3);
+  const ly=$$('#dCard .ly'), lr=$$('#layers > div'); gsap.set(ly,{opacity:0}); gsap.set(lr,{opacity:0});
+  gsap.set('#dSel',{opacity:0});
+  LAY.forEach(([a,b],i)=>{ const t=16.8+i*.85;
+    tl.fromTo(lr[i],{opacity:0,x:'-4cqw'},{opacity:1,x:0,duration:.35,immediateRender:false},t);
+    tl.set(lr[i],{className:'glass on'},t); if(i) tl.set(lr[i-1],{className:'glass'},t);
+    tl.fromTo(ly[i],{opacity:0,y:'-3cqw'},{opacity:1,y:0,duration:.45,ease:'power3.out',immediateRender:false},t+.1);
+    tl.to('#dSel',{opacity:1,top:(52+a*0.827)+'cqw',height:((b-a)*0.827)+'cqw',duration:.35,ease:'power3.inOut'},t); });
+  tl.set(lr[LAY.length-1],{className:'glass'},21.2);
+  tl.to('#dSel,#dGrid',{opacity:0,duration:.3},21.0);
+  tl.to('#dCard,#layers',{opacity:0,scale:.9,duration:.4,ease:'power2.in'},21.4);
+  const tc=$$('#trio .card'); gsap.set(tc,{opacity:0}); gsap.set('#trioCap span',{opacity:0});
+  tl.fromTo(tc[1],{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:'back.out(1.5)',immediateRender:false},21.8);
+  tl.fromTo(tc[0],{opacity:0,x:'30cqw',rotation:0},{opacity:1,x:0,rotation:-5,duration:.6,ease:'expo.out',immediateRender:false},22.0);
+  tl.fromTo(tc[2],{opacity:0,x:'-30cqw',rotation:0},{opacity:1,x:0,rotation:5,duration:.6,ease:'expo.out',immediateRender:false},22.0);
+  gIn('#trioCap span',22.4,{y:'2cqw',st:.1,d:.4});
+  exitH('#s3',23.6); frost(24.0);
+  // ---- 4 offset 24–31
+  show('#s4',24.0,31.0); step(4,24.0,31.0);
+  up('#s4 .sh .ln > span',24.2);
+  const pw=$$('#plates .pw'); gsap.set('#pBase',{opacity:0});
+  pw.forEach((p,i)=>tl.fromTo(p,{opacity:0,y:'-12cqw',rotation:-8},{opacity:1,y:0,rotation:0,duration:.55,ease:'back.out(1.6)',immediateRender:false},24.6+i*.45));
+  tl.to('#plates .pw b',{opacity:0,duration:.25},27.0);
+  tl.to('#pBase',{opacity:1,duration:.3},27.1);
+  tl.set('#plates .pw',{mixBlendMode:'multiply'},27.2);
+  pw.forEach((p,i)=>tl.to(p,{left:'30cqw',width:'40cqw',height:'66.2cqw',duration:.7,ease:'expo.inOut'},27.2+i*.25));
+  tl.fromTo('#plates',{scale:1},{scale:1.04,duration:2.2,ease:'none',immediateRender:false},28.6);
+  gIn('#oSpec span',28.9,{y:'2cqw',st:.12,d:.45});
+  exitH('#s4',30.6); frost(31.0);
+  // ---- 5 result 31–37.6
+  show('#s5',31.0,37.6); step(5,31.0,37.6);
+  up('#s5 .sh .ln > span',31.2);
+  gIn('#rPhoto',31.3,{y:'4cqw'});
+  tl.fromTo('#rPhoto img',{scale:1.15},{scale:1.32,duration:3.4,ease:'none',transformOrigin:'40% 55%',immediateRender:false},31.3);
+  gIn('#rTag',31.7,{y:'2cqw',d:.4});
+  tl.to('#rPhoto,#rTag',{opacity:0,y:'-4cqw',duration:.4,ease:'power2.in'},34.4);
+  show('#mock',34.7); show('#mTag',35.0);
+  tl.fromTo('#mockCard',{rotationY:-35,rotationX:12,rotationZ:-4,opacity:0,y:'10cqw'},{rotationY:-14,rotationX:8,rotationZ:-3,opacity:1,y:0,duration:.9,ease:'expo.out',immediateRender:false},34.7);
+  tl.to('#mockCard',{rotationY:10,rotationX:4,rotationZ:2,duration:2.4,ease:'sine.inOut'},35.6);
+  tl.fromTo('#mockCard .gl',{xPercent:-100},{xPercent:100,duration:1.6,ease:'power2.inOut',immediateRender:false},35.4);
+  gIn('#mTag',35.0,{y:'2cqw',d:.5});
+  exitH('#s5',37.2); frost(37.6);
+  // ---- 6 delivery 37.6–43.0
+  show('#s6',37.6,43.0); step(6,37.6,43.0);
+  up('#s6 .sh .ln > span',37.8);
+  gIn('#nO',38.0,{y:'2cqw',d:.5});
+  [1,2,3].forEach(i=>{ const p=$('#rt'+i), L=p.getTotalLength(), d=$('#dt'+i);
+    gsap.set(p,{strokeDasharray:L,strokeDashoffset:L}); const pt0=p.getPointAtLength(0); gsap.set(d,{attr:{cx:pt0.x,cy:pt0.y},opacity:0});
+    const t=38.4+(i-1)*.2;
+    tl.to(p,{strokeDashoffset:0,duration:1.4,ease:'power2.inOut'},t);
+    tl.set(d,{opacity:1},t);
+    const o={v:0}; tl.to(o,{v:1,duration:1.4,ease:'power2.inOut',onUpdate:()=>{ const q=p.getPointAtLength(o.v*L); d.setAttribute('cx',q.x); d.setAttribute('cy',q.y); }},t);
+    tl.fromTo('#n'+i,{opacity:0,scale:.6},{opacity:1,scale:1,duration:.45,ease:'back.out(2)',immediateRender:false},t+1.3);
+    tl.to('#n'+i,{scale:1.08,duration:.25,yoyo:true,repeat:1},t+1.75); });
+  gIn('#modes span',40.4,{y:'2cqw',st:.14,d:.45});
+  frost(43.0);
+  // ---- end 43–46
+  show('#end',43.0);
+  gIn('#eCard',43.05,{y:'6cqw'}); sweep('#eCard',43.6);
+  up('#eK span',43.2); up('#eH .ln > span',43.35,{st:.14});
+  gIn('#eSvc span',43.8,{y:'2cqw',st:.08,d:.4});
+  tl.fromTo('#word .ln > span',{yPercent:125},{yPercent:0,duration:.6,ease:'power4.out',stagger:.12},44.1);
+  tl.fromTo('#cta',{scale:0},{scale:1,duration:.5,ease:'back.out(1.8)'},44.5);
+  tl.fromTo('#ph2',{opacity:0},{opacity:1,duration:.5},44.7);
+  tl.to('#cta',{scale:1.05,duration:.3,yoyo:true,repeat:1,ease:'power2.out'},45.2);
+  tl.set({}, {}, DUR);
+}
+window.__seek=async t=>{ tl.pause(t,false); };
+window.__dur=DUR;
+window.__ready=(async()=>{
+  setup();
+  await document.fonts.ready; await Promise.all([...document.fonts].map(f=>f.load()));
+  await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));
+  fit(); build(); tl.pause(0,false);
+})();
+</script>
+</body>
+</html>
