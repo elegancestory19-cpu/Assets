@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>ATMANI Aphtenature — Label Before / After</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:400;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-400-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Amiri;font-weight:700;src:url(node_modules/@fontsource/amiri/files/amiri-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:400;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+:root{--g:#1f5b2a;--gd:#0f2e15;--leaf:#19431d;--gold:#d8b54a;--w:#f7f6ef}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;height:100%;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:100vw;aspect-ratio:9/16;container-type:inline-size;overflow:hidden;background:var(--gd);font-family:Alexandria,AlexLat,sans-serif;color:var(--w)}
+#stage > *,.sc > *,#hud > *,#end > *{position:absolute}
+.sc{inset:0}
+.ln{overflow:hidden;padding:.14em 0 .24em;margin:-.14em 0 -.24em}
+.ln > span{position:relative;display:inline-block;white-space:nowrap}
+/* living background: leaves, blurred, with soft orbs */
+#bg{inset:-6cqw;background:url(assets/leaves.jpg) center/cover;filter:blur(1.2cqw) saturate(1.15) brightness(.75)}
+#tint{inset:0;background:linear-gradient(180deg,rgba(10,35,15,.55) 0%,rgba(10,35,15,.25) 40%,rgba(10,35,15,.6) 100%)}
+.orb{border-radius:50%;filter:blur(6cqw);opacity:.55}
+#o1{left:-20cqw;top:20cqw;width:70cqw;height:70cqw;background:#8fd16f}
+#o2{right:-25cqw;top:100cqw;width:80cqw;height:80cqw;background:#e6c75a;opacity:.35}
+/* frosted glass */
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.24),rgba(255,255,255,.08));backdrop-filter:blur(2.6cqw) saturate(1.5);-webkit-backdrop-filter:blur(2.6cqw) saturate(1.5);
+  border:1px solid rgba(255,255,255,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2cqw 6cqw rgba(0,0,0,.35);border-radius:3.2cqw}
+.glass.sm{border-radius:99cqw}
+.shine{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+.shine::before{content:"";position:absolute;top:-50%;bottom:-50%;width:30%;left:var(--p,-40%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
+/* HUD */
+#hud{left:6cqw;right:6cqw;top:26cqw;height:6cqw;direction:ltr;z-index:20}
+#hud .b{left:0;top:0;font-family:AlexLat;font-weight:900;font-size:3cqw;letter-spacing:.3em;white-space:nowrap}
+#hud .t{right:0;top:.2cqw;font-family:Mono;font-size:2.4cqw;letter-spacing:.08em;color:var(--gold);white-space:nowrap}
+#prog{left:0;right:0;top:5cqw;height:.6cqw;display:flex;gap:1.2cqw}
+#prog i{position:relative;flex:1;background:rgba(255,255,255,.22);overflow:hidden;border-radius:9cqw}
+#prog b{position:absolute;inset:0;background:var(--gold);transform-origin:left center;transform:scaleX(0)}
+.sh{left:6cqw;right:6cqw;top:33cqw;text-align:right}
+.sh > *{position:relative;display:block}
+.sh .n{font-family:Mono;font-size:2.6cqw;letter-spacing:.2em;color:var(--gold);direction:ltr;text-align:right}
+.sh .t{font-weight:900;font-size:7.2cqw;line-height:1.25;margin-top:.6cqw;text-shadow:0 .4cqw 2cqw rgba(0,0,0,.35)}
+.sh .d{font-size:3.4cqw;color:#dfe9d8;margin-top:.4cqw}
+
+/* 0 hook */
+#hookCard{left:8cqw;right:8cqw;top:52cqw;height:66cqw}
+#hookCard > *{position:absolute}
+#hookCard .k{left:0;right:0;top:7cqw;text-align:center;font-family:Mono;font-size:2.8cqw;letter-spacing:.24em;color:var(--gold);direction:ltr}
+#hookCard .a{left:0;right:0;top:13cqw;text-align:center;font-weight:900;font-size:20cqw;line-height:1.1}
+#hookCard .a2{left:0;right:0;top:33cqw;text-align:center;font-weight:900;font-size:20cqw;line-height:1.1;color:var(--gold)}
+#hookCard .s{left:0;right:0;top:55cqw;text-align:center;font-weight:700;font-size:4.2cqw;direction:ltr;font-family:AlexLat;letter-spacing:.06em}
+
+/* 1 brand */
+#bCard{left:6cqw;right:6cqw;top:55cqw;height:44cqw}
+#bCard > *{position:absolute}
+#bLogo{right:4cqw;top:5cqw;width:34cqw;height:34cqw;border-radius:50%;background:#fff;overflow:hidden;box-shadow:0 1cqw 4cqw rgba(0,0,0,.3)}
+#bLogo img{position:absolute;inset:6%;width:88%;height:88%;object-fit:contain}
+#bName{left:4cqw;top:5cqw;width:44cqw;height:12cqw;background:#fff;border-radius:2cqw;overflow:hidden}
+#bName img{position:absolute;inset:6% 4%;width:92%;height:88%;object-fit:contain}
+#bSub{left:4cqw;top:19.5cqw;width:44cqw;text-align:center;background:var(--g);border-radius:99cqw;padding:1.2cqw 0;font-family:AlexLat;font-weight:700;font-size:3.3cqw;direction:ltr}
+#bBadge{left:19cqw;top:27.5cqw;width:14cqw;height:14cqw;border-radius:50%;overflow:hidden;box-shadow:0 1cqw 3cqw rgba(0,0,0,.3)}
+#bBadge img{width:100%;height:100%;object-fit:cover}
+#pal{left:6cqw;right:6cqw;top:103cqw;height:13cqw;display:flex;gap:2cqw}
+#pal > div{position:relative;flex:1;padding:1.6cqw 2cqw;display:flex;flex-direction:column;justify-content:space-between;direction:ltr;border-radius:2.4cqw}
+#pal i{position:relative;display:block;width:5cqw;height:5cqw;border-radius:50%;border:1px solid rgba(255,255,255,.6)}
+#pal b{position:relative;font-family:Mono;font-size:2cqw;font-weight:700}
+
+/* 2 label anatomy */
+#lCard{left:3cqw;right:3cqw;top:55cqw;height:40cqw;overflow:hidden}
+#lWrap{position:absolute;left:0;top:4cqw;height:32cqw;width:224cqw;transform-origin:0 0}
+#lWrap img{position:absolute;inset:0;width:100%;height:100%;border-radius:1.6cqw}
+#lHi{position:absolute;top:-1cqw;height:34cqw;border:.6cqw solid var(--gold);border-radius:2cqw;box-shadow:0 0 0 200cqw rgba(8,25,12,.45),0 0 4cqw rgba(216,181,74,.6)}
+#lCap{left:6cqw;right:6cqw;top:99cqw;height:16cqw}
+#lCap > div{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 4cqw}
+#lCap .nm{position:relative;font-weight:900;font-size:5.4cqw;white-space:nowrap}
+#lCap .nb{position:relative;font-family:Mono;font-weight:700;font-size:4cqw;color:var(--gold);direction:ltr}
+
+/* 3 print */
+#pGrid{left:6cqw;right:6cqw;top:55cqw;display:grid;grid-template-columns:1fr 1fr;gap:3cqw}
+#pGrid > div{position:relative;height:29cqw;padding:3cqw 3.2cqw}
+#pGrid .ic{position:relative;display:flex;width:9cqw;height:9cqw;border-radius:50%;background:rgba(216,181,74,.25);border:1px solid rgba(216,181,74,.7);align-items:center;justify-content:center;font-family:Mono;font-weight:700;font-size:3.6cqw;color:var(--gold);direction:ltr}
+#pGrid b{position:relative;display:block;font-weight:900;font-size:4cqw;margin-top:1.8cqw;line-height:1.3;white-space:nowrap}
+#pGrid span{position:relative;display:block;font-size:2.7cqw;color:#dfe9d8;margin-top:.8cqw;line-height:1.45}
+
+/* 4 after (footage) */
+#vWrap{inset:0;overflow:hidden}
+#vImg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#vShade{inset:0;background:linear-gradient(180deg,rgba(8,25,12,.75) 0%,rgba(8,25,12,.1) 30%,rgba(8,25,12,0) 60%,rgba(8,25,12,.35) 100%)}
+#bigA{left:8cqw;right:8cqw;top:40cqw;height:40cqw;z-index:5;background:linear-gradient(135deg,rgba(15,46,21,.55),rgba(15,46,21,.3))!important}
+#bigA > *{position:absolute;left:0;right:0;text-align:center}
+#bigA .w{top:3cqw;font-weight:900;font-size:22cqw;line-height:1.1;color:var(--w)}
+#bigA .s{top:29cqw;font-weight:700;font-size:4.4cqw;color:var(--gold)}
+#vCap{right:6cqw;top:40cqw;z-index:5;height:10cqw}
+#vCap > div{position:absolute;right:0;top:0;white-space:nowrap;padding:2cqw 4cqw;font-weight:900;font-size:4.6cqw}
+#vTag{left:6cqw;top:40cqw;z-index:5;font-family:Mono;font-size:2.4cqw;letter-spacing:.12em;direction:ltr;padding:1.2cqw 2.4cqw}
+#vTag b{color:#ff5a5a}
+
+/* end */
+#end{inset:0;z-index:30}
+#eCard{left:7cqw;right:7cqw;top:30cqw;height:88cqw;background:linear-gradient(135deg,rgba(15,46,21,.55),rgba(15,46,21,.3))!important}
+#eCard > *{position:absolute}
+#dots{left:0;right:0;top:6cqw;height:5cqw;display:flex;justify-content:center;gap:2.4cqw}
+#dots i{position:relative;width:4.6cqw;height:4.6cqw;border-radius:50%}
+#word{left:0;right:0;top:15cqw;direction:ltr;text-align:center;font-family:AlexLat;font-weight:900;line-height:1}
+#word > *{position:relative;display:block}
+#word .w1{font-size:13.5cqw;letter-spacing:.02em}
+#word .w2{font-size:13.5cqw;letter-spacing:.34em;margin-right:-.34em;color:var(--gold)}
+#etag{left:4cqw;right:4cqw;top:47cqw;text-align:center}
+#etag > *{position:relative;display:block}
+#etag .a{font-weight:700;font-size:5.6cqw;line-height:1.4}
+#etag .b{font-family:Amiri;font-weight:700;font-size:9cqw;color:var(--gold);line-height:1.25}
+#cta{left:50%;top:71cqw;transform:translateX(-50%);background:var(--gold);color:var(--gd);font-weight:900;font-size:5cqw;padding:2.4cqw 6cqw;border-radius:99cqw;white-space:nowrap}
+#svc{left:6cqw;right:6cqw;top:124cqw;text-align:center;font-family:Mono;font-size:2.4cqw;letter-spacing:.12em;color:#e9efe4;direction:ltr}
+#veil{inset:0;z-index:38;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);background:rgba(255,255,255,0)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"></div><div id="tint"></div><div class="orb" id="o1"></div><div class="orb" id="o2"></div>
+
+  <div class="sc" id="s0">
+    <div class="glass" id="hookCard"><div class="shine"></div>
+      <div class="k ln"><span>BEFORE → AFTER</span></div>
+      <div class="a ln"><span>قبل</span></div>
+      <div class="a2 ln"><span>وبعد</span></div>
+      <div class="s ln"><span>ATMANI · APHTENATURE</span></div>
+    </div>
+  </div>
+
+  <div class="sc" id="s1">
+    <div class="sh"><div class="n ln"><span>STEP 01 · BRAND</span></div><div class="t ln"><span>هوية المنتج</span></div><div class="d ln"><span>شعار، اسم، وختم طبيعي 100%</span></div></div>
+    <div class="glass" id="bCard"><div class="shine"></div>
+      <div id="bLogo"><img src="assets/logo.jpg" alt=""></div>
+      <div id="bName"><img src="assets/name.jpg" alt=""></div>
+      <div id="bSub">Soins des ruminants</div>
+      <div id="bBadge"><img src="assets/badge.jpg" alt=""></div>
+    </div>
+    <div id="pal">
+      <div class="glass"><i style="background:#1f5b2a"></i><b>#1F5B2A</b></div>
+      <div class="glass"><i style="background:#19431d"></i><b>#19431D</b></div>
+      <div class="glass"><i style="background:#d8b54a"></i><b>#D8B54A</b></div>
+      <div class="glass"><i style="background:#ffffff"></i><b>#FFFFFF</b></div>
+    </div>
+  </div>
+
+  <div class="sc" id="s2">
+    <div class="sh"><div class="n ln"><span>STEP 02 · LABEL LAYOUT</span></div><div class="t ln"><span>تشريح الإيتيكيت</span></div><div class="d ln"><span>كل معلومة في مكانها</span></div></div>
+    <div class="glass" id="lCard"><div id="lWrap"><img src="assets/label.jpg" alt=""><div id="lHi"></div></div></div>
+    <div class="glass" id="lCap"></div>
+  </div>
+
+  <div class="sc" id="s3">
+    <div class="sh"><div class="n ln"><span>STEP 03 · PRINT</span></div><div class="t ln"><span>تجهيز الطباعة</span></div><div class="d ln"><span>من الملف إلى الرول</span></div></div>
+    <div id="pGrid">
+      <div class="glass"><div class="shine"></div><span class="ic">CMYK</span><b>ألوان مطابقة</b><span>نفس الأخضر والذهبي في التصميم</span></div>
+      <div class="glass"><div class="shine"></div><span class="ic">HD</span><b>طباعة عالية الدقة</b><span>نصوص عربية صغيرة واضحة</span></div>
+      <div class="glass"><div class="shine"></div><span class="ic">✂</span><b>قصّ على الشكل</b><span>حواف دائرية دقيقة</span></div>
+      <div class="glass"><div class="shine"></div><span class="ic">↗</span><b>سهل النزع</b><span>جاهز للتلصيق على العلبة</span></div>
+    </div>
+  </div>
+
+  <div class="sc" id="s4">
+    <div id="vWrap"><img id="vImg" alt=""></div>
+    <div id="vShade"></div>
+    <div class="glass" id="bigA"><div class="shine"></div><div class="w ln"><span>بعد</span></div><div class="s ln"><span>الإيتيكيت مطبوعة على أرض الواقع</span></div></div>
+    <div id="vCap"></div>
+    <div class="glass sm" id="vTag"><b>●</b> REAL PRINT</div>
+  </div>
+
+  <div id="end">
+    <div class="glass" id="eCard"><div class="shine"></div>
+      <div id="dots"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div>
+      <div id="word"><div class="ln w1"><span>ELEGANCE</span></div><div class="ln w2"><span>STORY</span></div></div>
+      <div id="etag"><div class="ln a"><span>إيتيكيت منتجك… من التصميم إلى الرول</span></div><div class="ln b"><span>بأناقة</span></div></div>
+      <div id="cta">اطلب تصميم إيتيكيتك</div>
+    </div>
+    <div id="svc">LABEL DESIGN · PRINT · DIE-CUT · ROLLS</div>
+  </div>
+
+  <div id="hud"><div class="b">ELEGANCE STORY</div><div class="t">ATMANI · LABELS</div><div id="prog"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div></div>
+  <div id="veil"></div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+const DUR=37.4, FPS=30, NF=388, V0=21.4, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const CUTS=[0,108,205,297];
+const VCAP=['مطبوعة وجاهزة','سهلة النزع','تفاصيل واضحة ودقيقة','بالكميات المطلوبة'];
+const SECT=[[195,390,'صور توضيحية للحالات'],[610,905,'المستهدف: الأبقار والأغنام'],[850,1115,'الشعار واسم المنتج'],[1245,1440,'المعلومات التقنية'],[1440,1600,'التركيبة والتحذيرات'],[1600,1850,'دواعي وطريقة الاستعمال'],[1850,1995,'وصف المنتج']];
+const LS=224/2000;
+let tl, cur=-1; const pad=n=>String(n).padStart(4,'0');
+function setup(){
+  SECT.forEach((s,i)=>{ const d=document.createElement('div'); d.innerHTML=`<span class="nm">${s[2]}</span><span class="nb">0${i+1}</span>`; $('#lCap').appendChild(d); });
+  VCAP.forEach(c=>{ const d=document.createElement('div'); d.className='glass sm'; d.textContent=c; $('#vCap').appendChild(d); });
+}
+function fit(){ $$('.ln > span').forEach(s=>{ const box=s.parentElement.getBoundingClientRect().width, w=s.getBoundingClientRect().width;
+  if(w>box){ const fs=parseFloat(getComputedStyle(s.parentElement).fontSize); s.parentElement.style.fontSize=(fs*box/w*0.98)+'px'; } }); }
+const up=(sel,t,o={})=>tl.fromTo(sel,{yPercent:130},{yPercent:0,duration:o.d??.6,ease:'power4.out',stagger:o.st??.08,immediateRender:false},t);
+const glassIn=(sel,t,o={})=>tl.fromTo(sel,{opacity:0,y:o.y??'5cqw',scale:.96},{opacity:1,y:0,scale:1,duration:o.d??.7,ease:'power3.out',stagger:o.st??.1,immediateRender:false},t);
+const shine=(sel,t)=>$$(sel+' .shine').forEach((s,i)=>tl.fromTo(s,{'--x':0},{'--x':1,duration:.01},t)) ;
+const show=(sel,a,b)=>{ tl.set(sel,{autoAlpha:1},a); if(b!=null) tl.set(sel,{autoAlpha:0},b); };
+// frosted transition: the whole frame frosts over, swaps, then clears
+function frost(t){ tl.set('#veil',{autoAlpha:1},t-.45);
+  tl.fromTo('#veil',{backdropFilter:'blur(0cqw)',webkitBackdropFilter:'blur(0cqw)',backgroundColor:'rgba(255,255,255,0)'},{backdropFilter:'blur(5cqw)',webkitBackdropFilter:'blur(5cqw)',backgroundColor:'rgba(235,245,230,.22)',duration:.45,ease:'power2.in',immediateRender:false},t-.45);
+  tl.to('#veil',{backdropFilter:'blur(0cqw)',webkitBackdropFilter:'blur(0cqw)',backgroundColor:'rgba(255,255,255,0)',duration:.55,ease:'power2.out'},t+.02);
+  tl.set('#veil',{autoAlpha:0},t+.6); }
+const exitH=(sc,t)=>tl.to(sc+' .sh .ln > span',{yPercent:-130,duration:.3,ease:'power2.in',stagger:.03},t);
+function sweep(sel,t){ $$(sel).forEach((el,i)=>{ const s=el.querySelector('.shine'); if(!s) return;
+  tl.fromTo(s,{'--p':'-40%'},{'--p':'140%',duration:1.1,ease:'power2.inOut',immediateRender:false},t+i*.12); }); }
+function build(){
+  tl=gsap.timeline({paused:true});
+  gsap.set('.sc,#hud,#end,#veil',{autoAlpha:0}); gsap.set('.ln > span',{yPercent:130});
+  // background life
+  tl.fromTo('#bg',{scale:1,x:0},{scale:1.15,x:'-4cqw',duration:DUR,ease:'none'},0);
+  tl.fromTo('#o1',{x:0,y:0},{x:'20cqw',y:'30cqw',duration:DUR,ease:'sine.inOut'},0);
+  tl.fromTo('#o2',{x:0,y:0},{x:'-25cqw',y:'-40cqw',duration:DUR,ease:'sine.inOut'},0);
+  // ---- 0 hook
+  show('#s0',0,3.2);
+  glassIn('#hookCard',.1,{y:'8cqw',d:.9}); sweep('#hookCard',.7);
+  up('#hookCard .ln > span',.5,{st:.14,d:.7});
+  frost(3.2);
+  // ---- 1 brand 3.2–9.0
+  show('#s1',3.2,9.0); show('#hud',3.2,21.4); tl.fromTo('#hud',{opacity:0},{opacity:1,duration:.5},3.3);
+  tl.to('#prog i:nth-child(1) b',{scaleX:1,duration:5.8,ease:'none'},3.2);
+  up('#s1 .sh .ln > span',3.4);
+  glassIn('#bCard',3.7); sweep('#bCard',4.4);
+  tl.fromTo('#bLogo',{scale:0,rotation:-90},{scale:1,rotation:0,duration:.8,ease:'back.out(1.6)',immediateRender:false},4.0);
+  tl.fromTo('#bName',{clipPath:'inset(0% 100% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.8,ease:'power2.inOut',immediateRender:false},4.5);
+  glassIn('#bSub',5.0,{y:'2cqw',d:.5});
+  tl.fromTo('#bBadge',{scale:0},{scale:1,duration:.6,ease:'back.out(2)',immediateRender:false},5.4);
+  tl.to('#bBadge',{rotation:360,duration:3,ease:'none'},6.0);
+  glassIn('#pal > div',5.8,{y:'4cqw',st:.12,d:.55});
+  exitH('#s1',8.6); frost(9.0);
+  // ---- 2 label anatomy 9.0–16.6
+  show('#s2',9.0,16.6); tl.to('#prog i:nth-child(2) b',{scaleX:1,duration:7.6,ease:'none'},9.0);
+  up('#s2 .sh .ln > span',9.2);
+  glassIn('#lCard',9.4); glassIn('#lCap',9.6,{y:'3cqw'});
+  const caps=$$('#lCap > div'); gsap.set(caps,{opacity:0});
+  const cw=94; // lCard width in cqw
+  const fx=s=>cw/2-((s[0]+s[1])/2)*LS;
+  gsap.set('#lWrap',{x:fx(SECT[0])+'cqw'}); gsap.set('#lHi',{left:SECT[0][0]*LS+'cqw',width:(SECT[0][1]-SECT[0][0])*LS+'cqw',opacity:0});
+  tl.to('#lHi',{opacity:1,duration:.3},9.9);
+  SECT.forEach((s,i)=>{ const t=9.9+i*.86;
+    if(i){ tl.to('#lWrap',{x:fx(s)+'cqw',duration:.6,ease:'power3.inOut'},t-.3);
+      tl.to('#lHi',{left:s[0]*LS+'cqw',width:(s[1]-s[0])*LS+'cqw',duration:.6,ease:'power3.inOut'},t-.3);
+      tl.to(caps[i-1],{opacity:0,y:'-2cqw',duration:.25},t-.3); }
+    tl.fromTo(caps[i],{opacity:0,y:'2cqw'},{opacity:1,y:0,duration:.4,immediateRender:false},t); });
+  // zoom out to the full label
+  const tz=9.9+SECT.length*.86;
+  tl.to('#lHi',{opacity:0,duration:.3},tz-.2); tl.to(caps[SECT.length-1],{opacity:0,duration:.25},tz-.2);
+  tl.to('#lWrap',{x:'2cqw',y:'10cqw',scale:90/224,duration:.9,ease:'expo.inOut'},tz-.1);
+  exitH('#s2',16.2); frost(16.6);
+  // ---- 3 print 16.6–21.4
+  show('#s3',16.6,21.4); tl.to('#prog i:nth-child(3) b',{scaleX:1,duration:4.8,ease:'none'},16.6);
+  up('#s3 .sh .ln > span',16.8);
+  glassIn('#pGrid > div',17.1,{st:.18}); sweep('#pGrid > div',17.8);
+  exitH('#s3',21.0); frost(21.4);
+  // ---- 4 after footage 21.4–34.33
+  const VEND=V0+NF/FPS;
+  show('#s4',21.4,VEND); show('#hud',21.4,VEND); tl.to('#prog i:nth-child(4) b',{scaleX:1,duration:NF/FPS,ease:'none'},21.4);
+  tl.fromTo('#vWrap',{scale:1.08},{scale:1,duration:2.5,ease:'power2.out',immediateRender:false},21.4);
+  show('#bigA',21.6,24.7);
+  glassIn('#bigA',21.6,{y:'6cqw',d:.7}); sweep('#bigA',22.2);
+  tl.fromTo('#bigA .w span',{yPercent:0,scale:1.5,opacity:0},{scale:1,opacity:1,duration:.6,ease:'expo.out',immediateRender:false},21.8);
+  up('#bigA .s span',22.2);
+  tl.to('#bigA',{opacity:0,y:'-4cqw',duration:.35,ease:'power2.in'},24.3);
+  gsap.set('#vTag',{opacity:0}); glassIn('#vTag',24.6,{y:'2cqw',d:.5});
+  const vc=$$('#vCap > div'); gsap.set(vc,{opacity:0});
+  CUTS.forEach((c,i)=>{ const t=V0+c/FPS;
+    if(i){ // frosted micro-cut
+      tl.fromTo('#vImg',{filter:'blur(0cqw) brightness(1)'},{filter:'blur(2.4cqw) brightness(1.15)',duration:.14,ease:'power1.in',immediateRender:false},t-.14);
+      tl.to('#vImg',{filter:'blur(0cqw) brightness(1)',duration:.22,ease:'power1.out'},t);
+      tl.fromTo('#vWrap',{scale:1.05},{scale:1,duration:.8,ease:'power2.out',immediateRender:false},t); }
+    if(!i) return;
+    const ts=t+.1, te=(CUTS[i+1]!=null?V0+CUTS[i+1]/FPS:VEND)-.25;
+    tl.fromTo(vc[i],{opacity:0,x:'6cqw'},{opacity:1,x:0,duration:.45,ease:'power3.out',immediateRender:false},ts);
+    tl.to(vc[i],{opacity:0,x:'-4cqw',duration:.25},te); });
+  frost(VEND);
+  // ---- end
+  show('#end',VEND);
+  glassIn('#eCard',VEND+.05,{y:'6cqw'}); sweep('#eCard',VEND+.6);
+  tl.fromTo('#dots i',{scale:0},{scale:1,duration:.4,ease:'back.out(2.5)',stagger:.07},VEND+.3);
+  tl.fromTo('#word .ln > span',{yPercent:125},{yPercent:0,duration:.6,ease:'power4.out',stagger:.12},VEND+.35);
+  tl.fromTo('#etag .ln > span',{yPercent:125},{yPercent:0,duration:.55,ease:'power4.out',stagger:.14},VEND+.8);
+  tl.fromTo('#cta',{scale:0},{scale:1,duration:.5,ease:'back.out(1.8)'},VEND+1.2);
+  tl.fromTo('#svc',{opacity:0},{opacity:1,duration:.5},VEND+1.4);
+  tl.to('#cta',{scale:1.05,duration:.3,yoyo:true,repeat:3,ease:'power2.out'},VEND+1.9);
+  tl.set({}, {}, DUR);
+}
+async function frame(t,wait){
+  const i=Math.min(NF-1,Math.max(0,Math.floor((t-V0)*FPS+1e-4)));
+  if(i===cur) return; cur=i; $('#vImg').src='frames/f'+pad(i)+'.jpg';
+  if(wait){ try{ await $('#vImg').decode(); }catch(e){} }
+}
+window.__seek=async t=>{ tl.pause(t,false); await frame(t,true); };
+window.__dur=DUR;
+window.__ready=(async()=>{
+  setup();
+  await document.fonts.ready; await Promise.all([...document.fonts].map(f=>f.load()));
+  await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));
+  fit(); build(); await window.__seek(0);
+})();
+</script>
+</body>
+</html>
