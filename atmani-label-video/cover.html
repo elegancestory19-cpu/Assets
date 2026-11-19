@@ -1,0 +1,55 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>Cover</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+*{margin:0;padding:0;box-sizing:border-box}html{overflow:hidden}
+body{width:1080px;height:1920px;overflow:hidden;position:relative;font-family:Alexandria,AlexLat,sans-serif;color:#f7f6ef;background:#0f2e15}
+body>*{position:absolute}
+.bg{inset:-60px;background:url(assets/leaves.jpg) center/cover;filter:blur(14px) saturate(1.15) brightness(.72)}
+.tint{inset:0;background:linear-gradient(180deg,rgba(10,35,15,.55),rgba(10,35,15,.2) 45%,rgba(10,35,15,.6))}
+.orb{border-radius:50%;filter:blur(70px)}
+.o1{left:-200px;top:300px;width:700px;height:700px;background:#8fd16f;opacity:.5}
+.o2{right:-250px;top:1150px;width:800px;height:800px;background:#e6c75a;opacity:.32}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.26),rgba(255,255,255,.08));backdrop-filter:blur(28px) saturate(1.5);border:1.5px solid rgba(255,255,255,.45);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),0 24px 70px rgba(0,0,0,.35);border-radius:36px}
+.top{left:65px;right:65px;top:250px;height:470px}
+.top > *{position:absolute}
+.brand{left:44px;top:40px;direction:ltr;font-family:AlexLat;font-weight:900;font-size:32px;letter-spacing:.3em}
+.logo{right:40px;top:30px;width:150px;height:150px;border-radius:50%;background:#fff;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.logo img{position:absolute;inset:8%;width:84%;height:84%;object-fit:contain}
+.k{right:44px;top:188px;font-family:Mono;font-size:28px;letter-spacing:.22em;color:#e3c25a;direction:ltr}
+.t1{right:44px;top:240px;font-weight:900;font-size:124px;line-height:1.1;white-space:nowrap}
+.t1 b{color:#e3c25a}
+.t2{right:44px;top:405px;font-family:AlexLat;font-weight:700;font-size:38px;letter-spacing:.06em;direction:ltr}
+.card{left:65px;top:760px;width:950px;height:640px;border-radius:30px;overflow:hidden;box-shadow:0 26px 70px rgba(0,0,0,.5)}
+.card .a,.card .b{position:absolute;inset:0}
+.card img{position:absolute;width:100%;height:100%;object-fit:cover}
+.card .a{clip-path:polygon(0 0,58% 0,42% 100%,0 100%);background:#123b19}
+.card .a img{left:0;top:0;width:58%;object-fit:cover;object-position:50% 50%}
+.card .b{clip-path:polygon(58% 0,100% 0,100% 100%,42% 100%)}
+.slash{left:65px;top:760px;width:950px;height:640px}
+.tag{padding:12px 30px;font-weight:700;font-size:36px;white-space:nowrap;border-radius:99px}
+.tA{left:95px;top:1320px}
+.tB{right:95px;top:790px}
+.play{left:470px;top:1010px;width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.play i{display:block;border-left:44px solid #f7f6ef;border-top:28px solid transparent;border-bottom:28px solid transparent;margin-left:12px}
+.foot{left:65px;right:65px;top:1450px;height:130px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;direction:ltr}
+.foot b{font-family:Mono;font-size:26px;letter-spacing:.14em;color:#e3c25a}
+.foot .d{display:flex;gap:14px}.foot .d i{width:24px;height:24px;border-radius:50%}
+</style></head><body>
+<div class="bg"></div><div class="tint"></div><div class="orb o1"></div><div class="orb o2"></div>
+<div class="glass top">
+  <div class="brand">ELEGANCE STORY</div>
+  <div class="logo"><img src="assets/logo.jpg"></div>
+  <div class="k">BEFORE → AFTER</div>
+  <div class="t1">قبل <b>وبعد</b></div>
+  <div class="t2">ATMANI · APHTENATURE</div>
+</div>
+<div class="card"><div class="a"><img src="assets/label_circle.jpg"></div><div class="b"><img src="frames/f0040.jpg" style="object-position:50% 45%"></div></div>
+<svg class="slash" viewBox="0 0 950 640"><line x1="551" y1="0" x2="399" y2="640" stroke="#e3c25a" stroke-width="10"/></svg>
+<div class="glass tag tA">التصميم</div><div class="glass tag tB">بعد الطباعة</div>
+<div class="glass play"><i></i></div>
+<div class="glass foot"><b>LABEL DESIGN · PRINT · DIE-CUT</b><div class="d"><i style="background:#12c8f4"></i><i style="background:#ff2d8a"></i><i style="background:#ffd60a"></i><i style="background:#2a3bff"></i></div></div>
+</body></html>
