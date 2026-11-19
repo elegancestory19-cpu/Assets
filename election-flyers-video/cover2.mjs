@@ -1,0 +1,9 @@
+import { chromium } from 'playwright';
+import path from 'node:path';
+const root = path.dirname(new URL(import.meta.url).pathname);
+const b = await chromium.launch({ args: ['--allow-file-access-from-files'] });
+const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
+await p.goto('file://' + root + '/cover2.html');
+await p.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.fonts].map(f => f.load())); await Promise.all([...document.images].map(i => i.decode())); });
+await p.screenshot({ path: root + '/out/cover2.png' });
+await b.close();
