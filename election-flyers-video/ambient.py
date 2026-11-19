@@ -1,7 +1,7 @@
 """Calm ambient bed: warm low-passed pads, slow swells, sparse soft electric-piano notes.
 No percussion, no fast arpeggios, nothing above ~2 kHz. -> out/ambient.wav"""
 import numpy as np, wave, os
-SR, DUR = 44100, 46.0
+SR, DUR = 44100, 54.0
 N = int(DUR * SR)
 rng = np.random.default_rng(21)
 L = np.zeros(N); R = np.zeros(N)
@@ -38,9 +38,9 @@ def sub(m, dur):
     return np.sin(2 * np.pi * midi(m) * t) * np.clip(t / 1.5, 0, 1) * np.clip((dur - t) / 1.5, 0, 1)
 
 # gentle progression in D major (Dmaj7 - Bm7 - Gmaj7 - A sus), one chord per scene block
-SEG = [(0.0, 38, [57, 62, 66, 69]), (3.6, 38, [57, 62, 66, 73]), (9.6, 35, [54, 59, 62, 66]),
-       (16.0, 43, [55, 59, 62, 66]), (24.0, 40, [55, 59, 62, 67]), (31.0, 45, [57, 61, 64, 69]),
-       (37.6, 42, [54, 57, 61, 64]), (43.0, 38, [57, 62, 66, 69])]
+SEG = [(0.0, 38, [57, 62, 66, 69]), (5.3, 38, [57, 62, 66, 73]), (11.9, 35, [54, 59, 62, 66]),
+       (20.95, 43, [55, 59, 62, 66]), (28.5, 40, [55, 59, 62, 67]), (36.4, 45, [57, 61, 64, 69]),
+       (42.4, 42, [54, 57, 61, 64]), (48.0, 38, [57, 62, 66, 69])]
 for i, (t0, bass, ch) in enumerate(SEG):
     t1 = SEG[i + 1][0] if i + 1 < len(SEG) else DUR
     d = t1 - t0
@@ -50,7 +50,7 @@ for i, (t0, bass, ch) in enumerate(SEG):
     top = ch[-1] + 12
     add(epiano(top, .45, 4.5), t0 + .15, .22, .25)
     if d > 4.5: add(epiano(ch[-2] + 12, .38, 4.5), t0 + d / 2, .18, -.25)
-add(epiano(78, .4, 3), 43.6, .2, .2); add(epiano(74, .35, 2.4), 44.3, .18, -.2)
+add(epiano(78, .4, 3), 48.6, .2, .2); add(epiano(74, .35, 2.4), 49.3, .18, -.2)
 
 def ir(seed):
     r = np.random.default_rng(seed); n = int(4.0 * SR); t = np.arange(n) / SR

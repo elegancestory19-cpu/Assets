@@ -366,8 +366,11 @@ function build(){
   tl.to('#cta',{scale:1.05,duration:.3,yoyo:true,repeat:1,ease:'power2.out'},45.2);
   tl.set({}, {}, DUR);
 }
-window.__seek=async t=>{ tl.pause(t,false); };
-window.__dur=DUR;
+// output time -> animation time (scenes stretched to match the voiceover)
+const WARP=[[0,0],[5.3,3.6],[11.9,9.6],[20.95,16],[28.5,24],[36.4,31],[42.4,37.6],[48.0,43],[51,46],[54,46]];
+function warp(t){ for(let i=1;i<WARP.length;i++){ const [o1,a1]=WARP[i-1],[o2,a2]=WARP[i]; if(t<=o2) return a1+(a2-a1)*(t-o1)/(o2-o1); } return DUR; }
+window.__seek=async t=>{ tl.pause(Math.min(DUR,warp(t)),false); };
+window.__dur=54;
 window.__ready=(async()=>{
   setup();
   await document.fonts.ready; await Promise.all([...document.fonts].map(f=>f.load()));
