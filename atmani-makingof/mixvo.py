@@ -17,7 +17,7 @@ for i, (a, b, t, k) in enumerate(CH):
     f.append(f"[0:a]atrim={max(0,a-PRE):.3f}:{b+POST:.3f},asetpts=PTS-STARTPTS,atempo={k},afade=t=in:d=0.03,afade=t=out:st={d-0.08:.3f}:d=0.08,adelay={int(t*1000)}:all=1[c{i}]")
     print(f'sentence {i+1}: {t:.2f} -> {t+d:.2f}')
 f.append("".join(f"[c{i}]" for i in range(len(CH))) + f"amix=inputs={len(CH)}:normalize=0,aresample=44100,apad=whole_dur=51,highpass=f=70,acompressor=threshold=0.1:ratio=3:attack=5:release=120,pan=stereo|c0=c0|c1=c0,asplit[vo][sc]")
-f.append("[1:a]volume='if(between(t,39.3,47.7),0.15,if(between(t,38.8,39.3),1-(t-38.8)/0.5*0.85,if(between(t,47.7,48.2),0.15+(t-47.7)/0.5*0.85,1)))':eval=frame,volume=0.8[m0]")
+f.append("[1:a]volume='if(between(t,39.3,47.7),0.15,if(between(t,38.8,39.3),1-(t-38.8)/0.5*0.85,if(between(t,47.7,48.2),0.15+(t-47.7)/0.5*0.85,1)))':eval=frame,volume=0.5[m0]")
 f.append("[m0][sc]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=400[md]")
 f.append("[2:a]aresample=44100,afade=t=in:d=0.4,afade=t=out:st=8.4:d=0.6,adelay=39000|39000,apad=whole_dur=51[o]")
 f.append("[vo]volume=1.6[v];[v][md][o]amix=inputs=3:normalize=0,loudnorm=I=-15:TP=-1.5:LRA=9[a]")
