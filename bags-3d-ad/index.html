@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Elegance Story — Shopping Bags 3D</title>
+<style>
+@font-face{font-family:Alexandria;font-weight:400;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-400-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:400;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:700;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Alexandria;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-arabic-900-normal.woff2) format("woff2")}
+@font-face{font-family:AlexLat;font-weight:900;src:url(node_modules/@fontsource/alexandria/files/alexandria-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:700;src:url(node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2) format("woff2")}
+html,body{margin:0;background:#000;overflow:hidden}
+#wrap{position:relative;width:100vw;aspect-ratio:9/16;container-type:inline-size;overflow:hidden}
+canvas#gl{position:absolute;inset:0;width:100%;height:100%}
+#end{position:absolute;inset:0;display:none;background:radial-gradient(ellipse at 50% 35%,#2a0f2a 0%,#0a0a12 60%);font-family:Alexandria,AlexLat,sans-serif;color:#fff;text-align:center}
+#end > *{position:absolute;left:6cqw;right:6cqw}
+#end .lg{left:30cqw;right:30cqw;top:22cqw;aspect-ratio:1;border-radius:6cqw;overflow:hidden;box-shadow:0 0 0 .5cqw #ff3d9a,0 3cqw 10cqw rgba(255,61,154,.4)}
+#end .lg img{width:100%;height:100%;display:block}
+#end .h{top:68cqw;font-weight:900;font-size:8cqw;line-height:1.3}
+#end .h b{color:#ff3d9a}
+#end .cta{left:50%;right:auto;transform:translateX(-50%);top:92cqw;background:#ff3d9a;color:#fff;font-weight:900;font-size:5.4cqw;padding:2.6cqw 7cqw;border-radius:99cqw;white-space:nowrap}
+#end .ph{top:110cqw;font-family:Mono;font-size:4.3cqw;white-space:nowrap;direction:ltr;letter-spacing:.04em}
+#end .so{top:122cqw;font-family:AlexLat,Alexandria;font-weight:700;font-size:2.7cqw;white-space:nowrap;direction:ltr;color:#d8d8e6;line-height:1.9}
+#end .so b{color:#ff3d9a;font-weight:700}
+#end .dl{top:142cqw;font-weight:700;font-size:3.8cqw;color:#fff}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="gl"></canvas>
+  <div id="end">
+    <div class="lg"><img src="assets/logo.jpg"></div>
+    <div class="h">أكياس التسوّق<br><b>بأناقة… وبأحسن سعر</b></div>
+    <div class="cta">اطلب أكياسك الآن</div>
+    <div class="ph">0772 65 83 01 · 0668 89 79 07</div>
+    <div class="so"><b>IG</b> elegance_story19 &nbsp; <b>TikTok</b> Elegance Story &nbsp; <b>FB</b> The elegant story</div>
+    <div class="dl">نوفر التوصيل لجميع الولايات</div>
+  </div>
+</div>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const W=1080, H=1920, DUR=22.5, END=20.0, ACC=0xff3d9a, ACCS='#ff3d9a';
+const cv=document.getElementById('gl');
+const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1); renderer.setSize(innerWidth, innerWidth*16/9, false);
+renderer.outputColorSpace=THREE.SRGBColorSpace; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=.92;
+renderer.localClippingEnabled=true;
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0x07070d); scene.fog=new THREE.Fog(0x07070d,22,70);
+const pm=new THREE.PMREMGenerator(renderer); scene.environment=pm.fromScene(new RoomEnvironment(),0.04).texture;
+const camera=new THREE.PerspectiveCamera(50,9/16,0.1,200);
+
+// ---------- helpers ----------
+const ease={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), back:x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}, expo:x=>x>=1?1:1-Math.pow(2,-10*x)};
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const prog=(t,a,b)=>clamp((t-a)/(b-a));
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function canvasTex(w,h,draw){ const c=document.createElement('canvas'); c.width=w; c.height=h; const x=c.getContext('2d'); draw(x,w,h);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=8; return t; }
+function txt(x,s,px,py,size,weight,color,align='center',fam='Alexandria',dir='rtl'){ const f=fam==='Mono'?'Mono':'Alexandria, AlexLat'; x.font=`${weight} ${size}px ${f}`;
+  const maxW=x.canvas.width*.9; const w=x.measureText(s).width; if(w>maxW){ size*=maxW/w; x.font=`${weight} ${size}px ${f}`; }
+  x.fillStyle=color; x.textAlign=align; x.textBaseline='middle'; x.direction=dir; x.fillText(s,px,py); }
+function rr(x,a,b,w,h,r){ x.beginPath(); x.moveTo(a+r,b); x.arcTo(a+w,b,a+w,b+h,r); x.arcTo(a+w,b+h,a,b+h,r); x.arcTo(a,b+h,a,b,r); x.arcTo(a,b,a+w,b,r); x.closePath(); }
+
+// ---------- world ----------
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(300,300),new THREE.MeshStandardMaterial({color:0x0c0b14,roughness:.28,metalness:.65}));
+floor.rotation.x=-Math.PI/2; scene.add(floor);
+const glowTex=canvasTex(1024,1024,(x,w,h)=>{ const g=x.createRadialGradient(w/2,h/2,0,w/2,h/2,w/2); g.addColorStop(0,'rgba(255,61,154,.55)'); g.addColorStop(.45,'rgba(120,40,160,.25)'); g.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle=g; x.fillRect(0,0,w,h); });
+const glow=new THREE.Mesh(new THREE.PlaneGeometry(90,60),new THREE.MeshBasicMaterial({map:glowTex,transparent:true,depthWrite:false,fog:false})); glow.position.set(0,14,-55); scene.add(glow);
+scene.add(new THREE.HemisphereLight(0x9aa0ff,0x100810,.35));
+const key=new THREE.SpotLight(0xffffff,150,60,Math.PI/5,.6,1.6); key.position.set(4,12,12); key.target.position.set(0,2,0); scene.add(key,key.target);
+const rim=new THREE.PointLight(ACC,120,30,1.8); rim.position.set(-3,6,-5); scene.add(rim);
+const rim2=new THREE.PointLight(0x5a7dff,60,30,1.8); rim2.position.set(6,4,-4); scene.add(rim2);
+const shTex=canvasTex(256,256,(x,w)=>{ const g=x.createRadialGradient(w/2,w/2,0,w/2,w/2,w/2); g.addColorStop(0,'rgba(0,0,0,.75)'); g.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle=g; x.fillRect(0,0,w,w); });
+
+// bag print
+const logoImg=new Image(); logoImg.src='assets/logo.jpg';
+let printTex;
+function makePrint(){ printTex=canvasTex(900,1200,(x,w,h)=>{ x.fillStyle='#fbfaf7'; x.fillRect(0,0,w,h);
+  x.save(); rr(x,150,190,600,620,46); x.clip(); x.drawImage(logoImg,150,190,600,620); x.restore();
+  x.strokeStyle=ACCS; x.lineWidth=10; rr(x,150,190,600,620,46); x.stroke();
+  txt(x,'اليجانس ستوري',w/2,920,78,900,'#16121c'); txt(x,'حلول الإشهار والطباعة',w/2,1010,46,700,ACCS);
+  x.fillStyle=ACCS; x.fillRect(0,h-34,w,34); }); }
+
+const bagMat=new THREE.MeshStandardMaterial({color:0xe9e6e0,roughness:.7,metalness:0});
+const innerMat=new THREE.MeshStandardMaterial({color:0x2a2630,roughness:.9});
+function makeBag(w,h,d,withClip){
+  const g=new THREE.Group();
+  const body=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),bagMat); body.position.y=h/2; g.add(body);
+  const top=new THREE.Mesh(new THREE.PlaneGeometry(w*.98,d*.96),innerMat); top.rotation.x=-Math.PI/2; top.position.y=h+.002; g.add(top);
+  const pm=new THREE.MeshStandardMaterial({map:printTex,roughness:.5,metalness:0});
+  if(withClip){ pm.clippingPlanes=[new THREE.Plane(new THREE.Vector3(0,1,0),-h)]; }
+  const pr=new THREE.Mesh(new THREE.PlaneGeometry(w*.96,h*.94),pm); pr.position.set(0,h/2,d/2+.004); g.add(pr);
+  const hm=new THREE.MeshStandardMaterial({color:ACC,roughness:.45});
+  [d/2-.06,-d/2+.06].forEach(z=>{ const hd=new THREE.Mesh(new THREE.TorusGeometry(w*.2,.045,12,40,Math.PI),hm); hd.position.set(0,h-.02,z); g.add(hd); });
+  const sh=new THREE.Mesh(new THREE.PlaneGeometry(w*1.8,d*2.6),new THREE.MeshBasicMaterial({map:shTex,transparent:true,depthWrite:false})); sh.rotation.x=-Math.PI/2; sh.position.y=.01; g.add(sh);
+  g.userData={print:pm,h};
+  return g;
+}
+
+// glass card (pivot at left edge -> hinges open like a door)
+const glassMat=()=>new THREE.MeshPhysicalMaterial({color:0x1d1022,roughness:.12,metalness:0,transparent:true,opacity:.95,clearcoat:1,clearcoatRoughness:.08,envMapIntensity:1.4});
+function makeCard(w,h,draw,res=900){
+  const pivot=new THREE.Group(), body=new THREE.Group(); body.position.x=w/2; pivot.add(body);
+  const slab=new THREE.Mesh(new RoundedBoxGeometry(w,h,.12,4,.09),glassMat()); body.add(slab);
+  const edge=new THREE.Mesh(new RoundedBoxGeometry(.045,h*.82,.13,2,.02),new THREE.MeshBasicMaterial({color:ACC})); edge.position.x=-w/2+.09; body.add(edge);
+  const tex=canvasTex(res,Math.round(res*h/w),(x,cw,ch)=>draw(x,cw,ch));
+  const face=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:tex,transparent:true,depthWrite:false})); face.position.z=.066; body.add(face);
+  pivot.userData={w,h,body,slab,face}; scene.add(pivot); pivot.visible=false; return pivot;
+}
+function makePill(w,h,label){
+  const g=new THREE.Group();
+  const m=new THREE.MeshPhysicalMaterial({color:0x3a2a44,roughness:.2,clearcoat:1,transparent:true,opacity:.9});
+  const b=new THREE.Mesh(new RoundedBoxGeometry(w,h,.08,4,h*.45),m); g.add(b);
+  const tex=canvasTex(512,Math.round(512*h/w),(x,cw,ch)=>txt(x,label,cw/2,ch/2+2,ch*.5,900,'#fff'));
+  const f=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:tex,transparent:true,depthWrite:false})); f.position.z=.045; g.add(f);
+  g.userData={m}; return g;
+}
+// 3D number drum: a hexagonal prism of faces, rolls around x
+function makeDrum(vals,w,fh,color='#fff'){
+  const g=new THREE.Group(), n=6, step=Math.PI*2/n, r=fh/(2*Math.tan(step/2));
+  const faces=[];
+  for(let i=0;i<n;i++){ const v=vals[i%vals.length];
+    const tex=canvasTex(640,Math.round(640*fh/w),(x,cw,ch)=>txt(x,v,cw/2,ch/2+4,ch*.72,900,color));
+    const m=new THREE.MeshBasicMaterial({map:tex,transparent:true,depthWrite:false,side:THREE.FrontSide});
+    const p=new THREE.Mesh(new THREE.PlaneGeometry(w,fh),m); const holder=new THREE.Group();
+    p.position.z=r; holder.rotation.x=-i*step; holder.add(p); g.add(holder); faces.push(m); }
+  g.position.z=-r+.07; g.userData={step,faces}; return g;
+}
+
+// ---------- camera path (one continuous flight) ----------
+const KEYS=[
+ [0.0,[1.4,3.0,6.8],[0,2.4,0]],
+ [1.2,[1.5,3.1,6.4],[0,2.6,0]],
+ [2.2,[-1.3,2.5,6.9],[0,2.2,0]],
+ [3.4,[0,2.2,6.2],[0,2.0,0]],
+ [4.8,[1.6,2.9,7.4],[0,2.3,0]],
+ [6.0,[-3.3,3.7,8.8],[-4,2.6,0]],
+ [7.0,[0.4,4.3,9.6],[0,3.0,0]],
+ [8.1,[4.8,4.9,10.6],[5.3,3.5,0]],
+ [9.0,[-3.0,2.9,8.6],[-4,2.0,0]],
+ [10.4,[-3.8,2.7,7.9],[-4,2.0,0]],
+ [12.8,[-4.1,2.6,7.7],[-4,2.0,0]],
+ [13.9,[0.8,3.2,9.2],[1.0,2.6,0]],
+ [14.8,[5.6,3.8,9.6],[5.3,3.0,0]],
+ [16.0,[3.0,9.5,17.0],[0,1.0,-4]],
+ [17.4,[0,15.0,17.0],[0,0,-8]],
+ [18.5,[0,6.4,11.4],[0,4.6,0]],
+ [20.0,[0,5.8,10.0],[0,4.7,0]]];
+const kT=KEYS.map(k=>k[0]);
+const posC=new THREE.CatmullRomCurve3(KEYS.map(k=>new THREE.Vector3(...k[1])),false,'centripetal');
+const lookC=new THREE.CatmullRomCurve3(KEYS.map(k=>new THREE.Vector3(...k[2])),false,'centripetal');
+function camAt(t){ t=clamp(t,0,kT[kT.length-1]); let i=0; while(i<kT.length-2&&t>kT[i+1]) i++;
+  const f=ease.io(clamp((t-kT[i])/(kT[i+1]-kT[i]))), u=(i+f)/(kT.length-1);
+  return [posC.getPoint(u),lookC.getPoint(u)]; }
+// place a card in front of where the camera will be at tHold
+function place(card,tHold,D,yOff,xOff=0){ const [p,l]=camAt(tHold); const fwd=l.clone().sub(p).normalize();
+  const right=new THREE.Vector3().crossVectors(fwd,new THREE.Vector3(0,1,0)).normalize(); const up=new THREE.Vector3().crossVectors(right,fwd);
+  const c=p.clone().addScaledVector(fwd,D).addScaledVector(up,yOff).addScaledVector(right,xOff);
+  card.position.copy(c).addScaledVector(right,-card.userData.w/2);
+  card.lookAt(card.position.clone().sub(fwd)); card.userData.face0=card.quaternion.clone(); }
+
+// ---------- build ----------
+let hero,small,large,crowd,plate,cards={},pills=[],drumP,drumT,scanBar;
+function build(){
+  makePrint();
+  hero=makeBag(3,4,1.1,true); scene.add(hero);
+  small=makeBag(2,3,.9,false); small.position.x=-4; scene.add(small);
+  large=makeBag(4,5,1.3,false); large.position.x=5.3; scene.add(large);
+  scanBar=new THREE.Mesh(new THREE.BoxGeometry(3.3,.05,.05),new THREE.MeshBasicMaterial({color:ACC})); scanBar.position.z=.6; scene.add(scanBar);
+  const sl=new THREE.PointLight(ACC,8,3,1.5); scanBar.add(sl);
+  // cards
+  cards.c1=makeCard(1.4,.86,(x,w,h)=>{ txt(x,'اليجانس ستوري',w-60,h*.2,h*.1,700,ACCS,'right'); txt(x,'أكياس التسوّق',w-56,h*.48,h*.24,900,'#fff','right'); txt(x,'بتصميمك… بهويتك',w-60,h*.78,h*.12,700,'#e6e1ee','right'); });
+  place(cards.c1,1.3,3.3,-.7);
+  cards.c2=makeCard(1.4,.58,(x,w,h)=>{ txt(x,'التصميم مجاني ★',w/2,h*.42,h*.28,900,'#fff'); txt(x,'FREE DESIGN',w/2,h*.78,h*.11,700,ACCS,'center','Mono'); });
+  place(cards.c2,4.9,3.3,-.78);
+  const tag=(s,sub)=>(x,w,h)=>{ txt(x,s,w/2,h*.42,h*.42,900,'#fff'); txt(x,sub,w/2,h*.8,h*.16,700,ACCS); };
+  cards.t1=makeCard(2.4,1.0,tag('\u206630×20\u2069 سم','صغير')); cards.t1.position.set(-4-1.2,4.1,.6);
+  cards.t2=makeCard(2.4,1.0,tag('\u206640×30\u2069 سم','متوسط')); cards.t2.position.set(0-1.2,5.1,.7);
+  cards.t3=makeCard(2.4,1.0,tag('\u206650×40\u2069 سم','كبير')); cards.t3.position.set(5.3-1.2,6.1,.8);
+  // price card
+  cards.p=makeCard(1.5,1.42,(x,w,h)=>{ txt(x,'\u206630×20\u2069 سم',w-50,h*.09,h*.075,900,'#fff','right'); txt(x,'كلما زادت الكمية… انخفض السعر',w-50,h*.17,h*.05,700,ACCS,'right');
+    txt(x,'سعر الكيس',w*.75,h*.5,h*.05,700,'#cfc8da'); txt(x,'المجموع',w*.27,h*.5,h*.05,700,'#cfc8da'); },1000);
+  place(cards.p,11.2,3.35,-.3);
+  const pb=cards.p.userData.body;
+  [['100 كيس',.47],['500 كيس',0],['1000 كيس',-.47]].forEach(([s,xx])=>{ const p=makePill(.42,.17,s); p.position.set(xx,.18,.08); pb.add(p); pills.push(p); });
+  drumP=makeDrum(['32 دج','30 دج','28 دج'],.66,.2); drumP.position.x=.38; drumP.position.y=-.42; pb.add(drumP);
+  drumT=makeDrum(['3,200 دج','15,000 دج','28,000 دج'],.68,.2,ACCS); drumT.position.x=-.36; drumT.position.y=-.42; pb.add(drumT);
+  cards.m2=makeCard(1.3,.66,(x,w,h)=>{ txt(x,'\u206640×30\u2069 سم · 1000 كيس',w/2,h*.33,h*.17,700,'#e6e1ee'); txt(x,'34 دج',w/2,h*.68,h*.36,900,ACCS); }); place(cards.m2,13.75,3.3,-.75,-.04);
+  cards.m3=makeCard(1.45,.7,(x,w,h)=>{ txt(x,'\u206650×40\u2069 سم · 1000 كيس',w/2,h*.33,h*.17,700,'#e6e1ee'); txt(x,'41 دج',w/2,h*.68,h*.36,900,ACCS); }); place(cards.m3,14.85,3.3,-.75);
+  // crowd of bags
+  const pos=[]; const R=rng(7);
+  for(let ix=-6;ix<=6;ix++) for(let iz=1;iz<=9;iz++){ const x=ix*2.9+(R()-.5)*.6, z=-iz*2.9-1.5+(R()-.5)*.6; pos.push([x,z,R()]); }
+  const mats=[bagMat,bagMat,innerMat,bagMat,new THREE.MeshStandardMaterial({map:printTex,roughness:.5}),bagMat];
+  const bg=new THREE.BoxGeometry(2,2.8,.9); bg.translate(0,1.4,0);
+  crowd=new THREE.InstancedMesh(bg,mats,pos.length); crowd.userData.pos=pos; scene.add(crowd);
+  cards.v=makeCard(1.45,.66,(x,w,h)=>{ txt(x,'100 · 500 · 1000',w/2,h*.36,h*.3,900,'#fff','center','Mono','ltr'); txt(x,'كيس… وأكثر',w/2,h*.74,h*.22,900,ACCS); });
+  place(cards.v,16.9,3.4,-.2);
+  // lock-up plate
+  plate=new THREE.Group();
+  const ps=new THREE.Mesh(new RoundedBoxGeometry(3.3,3.4,.22,4,.18),new THREE.MeshPhysicalMaterial({color:0x221628,roughness:.1,clearcoat:1,metalness:.2}));
+  const lt=new THREE.TextureLoader().load('assets/logo.jpg'); lt.colorSpace=THREE.SRGBColorSpace;
+  const pf=new THREE.Mesh(new THREE.PlaneGeometry(3.0,3.1),new THREE.MeshBasicMaterial({map:lt})); pf.position.z=.115;
+  const pr=new THREE.Mesh(new RoundedBoxGeometry(3.42,3.52,.18,4,.2),new THREE.MeshBasicMaterial({color:ACC})); pr.position.z=-.03;
+  plate.add(pr,ps,pf); plate.position.set(0,4.9,3.0); scene.add(plate);
+  cards.d=makeCard(1.45,.4,(x,w,h)=>{ txt(x,'نوفر التوصيل لجميع الولايات',w/2,h*.5,h*.34,900,'#fff'); });
+  place(cards.d,19.3,3.3,-1.05);
+}
+
+// ---------- state as a pure function of t ----------
+const dummy=new THREE.Object3D();
+function hinge(card,t,t0,dur=.55){ const p=prog(t,t0,t0+dur); card.visible=t>=t0; const a=(1-ease.back(p))*(-Math.PI/2.1);
+  card.userData.body.parent.rotation.set(0,0,0); card.userData.body.rotation.y=a; card.userData.body.position.x=card.userData.w/2; card.scale.setScalar(.85+.15*ease.out(p)); }
+function hideAfter(card,t,t1){ if(t>t1){ const q=prog(t,t1,t1+.35); card.visible=q<1; card.userData.body.rotation.y=ease.io(q)*(Math.PI/2.1); } }
+function setDrum(d,t,times){ let k=0; times.forEach(tt=>{ k+=ease.out(prog(t,tt,tt+.45)); }); d.rotation.x=k*d.userData.step;
+  d.userData.faces.forEach((m,i)=>{ let a=d.rotation.x-i*d.userData.step; m.opacity=clamp(1-Math.abs(a)/(d.userData.step*.8)); }); }
+function state(t){
+  const [p,l]=camAt(Math.min(t,END)); camera.position.copy(p); camera.lookAt(l);
+  // micro handheld drift (deterministic)
+  camera.rotation.z+=Math.sin(t*1.3)*.004;
+  // hero intro: spins in
+  const s1=ease.out(prog(t,0,1.4)); hero.rotation.y=(1-s1)*-1.2; hero.position.y=0;
+  // print reveal 2.6 -> 4.2
+  const pr=ease.io(prog(t,2.6,4.2)); const yS=4*(1-pr); hero.userData.print.clippingPlanes[0].constant=-(yS);
+  scanBar.visible=t>2.5&&t<4.35; scanBar.position.set(0,yS+.02,.6);
+  // other bags rise
+  const r1=ease.back(prog(t,5.3,6.2)), r2=ease.back(prog(t,5.6,6.5));
+  small.position.y=-3.2*(1-r1); small.visible=t>5.3; large.position.y=-5.2*(1-r2); large.visible=t>5.6;
+  small.rotation.y=(1-r1)*.8; large.rotation.y=-(1-r2)*.8;
+  // cards
+  hinge(cards.c1,t,.55); hideAfter(cards.c1,t,2.2);
+  hinge(cards.c2,t,4.2); hideAfter(cards.c2,t,5.6);
+  hinge(cards.t1,t,6.05); hinge(cards.t2,t,6.8); hinge(cards.t3,t,7.6);
+  [[cards.t1,7.1],[cards.t2,8.0],[cards.t3,8.75]].forEach(([c,te])=>{ hideAfter(c,t,te); c.lookAt(c.position.clone().add(camera.position.clone().sub(c.position).setY(0).normalize())); });
+  hinge(cards.p,t,9.3,.6); hideAfter(cards.p,t,13.3);
+  const PT=[10.3,11.4,12.5];
+  pills.forEach((pl,i)=>{ const a=prog(t,9.7+i*.12,10.0+i*.12); pl.scale.setScalar(.6+.4*ease.back(a)); pl.visible=t>9.7+i*.12;
+    const on=t>=PT[i]&&(i===2||t<PT[i+1]); const press=Math.sin(Math.PI*prog(t,PT[i],PT[i]+.25));
+    pl.position.z=.08-.05*press; pl.userData.m.color.set(on?ACC:0x3a2a44); });
+  setDrum(drumP,t,[11.4,12.5]); setDrum(drumT,t,[11.45,12.55]);
+  drumP.visible=drumT.visible=t>9.9;
+  hinge(cards.m2,t,13.5); hideAfter(cards.m2,t,15.3);
+  hinge(cards.m3,t,14.3); hideAfter(cards.m3,t,15.6);
+  
+  // crowd rises 14.9 -> 17
+  crowd.visible=t>14.8;
+  crowd.userData.pos.forEach(([x,z,r],i)=>{ const d=Math.hypot(x,z+4)/30; const a=ease.back(prog(t,14.9+d*1.2+r*.25,15.6+d*1.2+r*.25));
+    dummy.position.set(x,-3.2*(1-a),z); dummy.rotation.set(0,(r-.5)*.5+(1-a)*1.2,0); dummy.updateMatrix(); crowd.setMatrixAt(i,dummy.matrix); });
+  crowd.instanceMatrix.needsUpdate=true;
+  hinge(cards.v,t,16.0); hideAfter(cards.v,t,17.7);
+  // lock-up 17.7 -> 20
+  const lk=ease.back(prog(t,17.7,18.6)); plate.visible=t>17.6; plate.position.y=4.9-4*(1-lk); plate.rotation.set((1-lk)*-1.4,(1-lk)*.9+Math.sin(t*.8)*.04,0); plate.scale.setScalar(.4+.6*lk);
+  hinge(cards.d,t,18.7);
+  rim.intensity=120+60*Math.sin(t*2);
+  document.getElementById('end').style.display=t>=END?'block':'none';
+  cv.style.visibility=t>=END?'hidden':'visible';
+  renderer.render(scene,camera);
+}
+window.__dur=DUR;
+window.__seek=async t=>{ state(t); await new Promise(r=>requestAnimationFrame(()=>r())); };
+window.__ready=(async()=>{
+  await document.fonts.load('900 40px Alexandria'); await document.fonts.load('900 40px AlexLat'); await document.fonts.load('700 40px AlexLat'); await document.fonts.load('700 40px Alexandria'); await document.fonts.load('700 40px Mono'); await document.fonts.ready;
+  await logoImg.decode();
+  build();
+  await new Promise(r=>{ const i=new Image(); i.onload=r; i.src='assets/logo.jpg'; });
+  await new Promise(r=>setTimeout(r,300));
+  state(0);
+})();
+</script>
+</body>
+</html>
