@@ -3,8 +3,8 @@ Every sound is shaped like a real object: filtered-noise whooshes with a moving 
 stereo pan, glass clinks with inharmonic partials, mechanical drum ticks, sub impacts on landings,
 a reverse swell into the logo, all sent through one shared stereo room. -> out/sfx2.wav"""
 import numpy as np, wave
-SR, DUR = 44100, 23.3
-WARP = [[0,0],[23.3,23.3]]
+SR, DUR = 44100, 29.0
+WARP = [[0,0],[7.7,1.0],[10.0,2.0],[11.7,4.9],[14.0,8.6],[18.35,11.4],[23.3,15.6],[24.6,18.6],[26.3,20.8],[29.0,23.3]]
 def inv(a):  # animation time -> output time
     for (o1, a1), (o2, a2) in zip(WARP, WARP[1:]):
         if a <= a2: return o1 + (o2 - o1) * (a - a1) / (a2 - a1)
@@ -98,13 +98,15 @@ def room_tone(d):
     return y
 
 # ---------------- event list (Lights On) ----------------
+_place=place
+def place(sig,t,g=1.0,pan=0.0,rev=.25): _place(sig,inv(t) if t>0 else 0,g,pan,rev)
 import json
 PAIRS = json.load(open('out/pairs.json'))
-place(room_tone(DUR), 0, 1.0, rev=0)
+_place(room_tone(DUR), 0, 1.0, rev=0)
 def pad(ms, d):
     n=int(d*SR); t=np.arange(n)/SR; y=sum(np.sin(2*np.pi*440*2**((m-69)/12)*t+rng.uniform(0,6)) for m in ms)
     return lowpass(y*np.clip(t/1.5,0,1)*np.clip((d-t)/1.5,0,1),650)/len(ms)
-place(pad([45,52,57,61],8.6), 0, .22, rev=.3)                                 # night air
+_place(pad([45,52,57,61],12.0), 0, .2, rev=.3)                                 # night air
 place(thock(150), 1.0, .7, .2, rev=.25); place(clink(2600,1.0), 1.0, .22, .2, rev=.5)   # the tap
 place(whoosh(1.0, 1800, 300, .2, 0, .4), 1.02, .5)                           # bolt flies into depth
 for k in range(3): place(tick(), 2.0+k/30, .5, (-.2,0,.2)[k], rev=.3)        # windows switch on, 3 frames
@@ -122,7 +124,7 @@ R2=np.random.default_rng(8)
 for k in range(30): place(clink(1500+R2.uniform(0,1600), .6), 9.0+k*.035+R2.uniform(0,.03), .05, R2.uniform(-.9,.9), rev=.5)
 place(impact(42, 2.6, .7), 10.0, 1.0, 0, rev=.55); place(clink(1320, 2.2), 10.02, .3, 0, rev=.7)   # DROP: plates lock
 place(whoosh(.6, 400, 2600, .6, -.4), 11.2, .4)                              # into the footage
-place(svf_bp(rng.standard_normal(int(3.9*SR)), 900, 1.4)*.25*np.minimum(np.arange(int(3.9*SR))/SR/.3,1), 11.5, .35, rev=.15)  # print room air
+place(svf_bp(rng.standard_normal(int(4.6*SR)), 900, 1.4)*.25*np.minimum(np.arange(int(4.6*SR))/SR/.3,1), 11.5, .35, rev=.15)  # print room air
 place(whoosh(.6, 400, 2600, -.5, .5), 15.3, .4)
 for i in range(5): place(clink([1980,2220,2350,2640,2960][i], 1.2), 15.95+i*.18, .2, (-.5,0,.5,-.25,.25)[i], rev=.5)
 place(whoosh(.9, 300, 2600, -.6, .6), 18.45, .4)

@@ -43,11 +43,11 @@ canvas#gl{inset:0;width:100%;height:100%}
 <body>
 <div id="wrap">
   <canvas id="gl"></canvas>
-  <div class="sup glass dk" id="sp1" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">قرّب تيليفونك…</span><span class="fr">approchez votre téléphone</span></div>
-  <div class="sup glass dk" id="sp2" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">…<span class="g">وكلشي يتشعل</span></span></div>
-  <div class="sup glass dk" id="sp3" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">كل لمسة… <span class="g">متابع جديد</span></span></div>
+  <div class="sup glass dk" id="sp1" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">وين يلقاهم <span class="g">الزبون؟</span></span><span class="fr">TikTok · Instagram · Facebook · WhatsApp</span></div>
+  <div class="sup glass dk" id="sp2" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">…<span class="g">وكلشي يتحلّ قدّامو</span></span></div>
+  <div class="sup glass dk" id="sp3" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">كل لمسة… <span class="g">abonné</span> جديد</span></div>
   <div class="sup glass dk" id="sp4" data-x="1" style="top:24cqw"><div class="shine"></div><span class="fr" style="font-size:6.4cqw">TikTok · Instagram</span><span class="fr" style="font-size:6.4cqw">Facebook · WhatsApp</span></div>
-  <div class="sup glass dk" id="sp5" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">لوحة <span class="g">NFC + QR</span></span><span class="fr">plaque personnalisée</span></div>
+  <div class="sup glass dk" id="sp5" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">اللوغو… الحسابات… <span class="g">التصميم</span></span><span class="fr">plaque personnalisée · NFC + QR</span></div>
   <div class="sup glass dk" id="sp6" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">نطبعوها عندنا</span><span class="fr g" style="font-size:7cqw">impression UV</span></div>
   <div class="sup glass dk" id="sp7" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">شعارك… حساباتك… <span class="g">تصميمك</span></span></div>
   <div class="sup glass dk" id="sp8" data-x="1" style="top:24cqw"><div class="shine"></div><span class="ar">قرّب… <span class="g">وتابعنا</span></span></div>
@@ -162,7 +162,7 @@ const helixPts=[]; for(let i=0;i<=200;i++){ const a=i/200*Math.PI*6; helixPts.pu
 const helix=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(helixPts),400,.06,6,false),new THREE.MeshBasicMaterial({color:0xff5aa6,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false})); scene.add(helix);
 
 // ---------------- camera path ----------------
-const KEYS=[[0,[0,1.3,1.35],[0,1.32,-1.5],0],[1.0,[0,1.34,1.1],[0,1.36,-1.5],0],[1.7,[0,2.6,1.2],[0,12,-40],0],[2.6,[0,9,-14],[0,20,HZ],0],[3.6,[1.5,12,-22],[0,20,HZ],0],
+const KEYS=[[0,[.55,1.7,2.3],[0,1.32,-1.5],0],[1.0,[0,1.34,1.1],[0,1.36,-1.5],0],[1.7,[0,2.6,1.2],[0,12,-40],0],[2.6,[0,9,-14],[0,20,HZ],0],[3.6,[1.5,12,-22],[0,20,HZ],0],
  [4.6,[14,26,-40],[0,16,-120],0],[5.8,[6,22,-80],[0,14,-160],0],[6.6,[0,30,-112],[0,30,-150],0],[7.3,[0,30,-140],[0,28,-190],0],[8.5,[-6,34,-175],[0,18,-240],0],
  [9.4,[0,36,-196],[0,30,-232],0],[11.4,[0,36,-200],[0,30,-232],0]];
 const kT=KEYS.map(k=>k[0]); const pC=new THREE.CatmullRomCurve3(KEYS.map(k=>new THREE.Vector3(...k[1])),false,'centripetal'); const lC=new THREE.CatmullRomCurve3(KEYS.map(k=>new THREE.Vector3(...k[2])),false,'centripetal');
@@ -243,7 +243,7 @@ function state(t){
   shards.visible=t>18.5; shardData.forEach((s,i)=>{ const k=E.io(prog(t,18.6+s.d*.35,19.4+s.d*.2)); dummy.position.lerpVectors(s.from,s.to,k); dummy.rotation.set((1-k)*9*s.d,(1-k)*7,(1-k)*5*s.d); dummy.scale.setScalar(1-prog(t,19.5,19.75)); dummy.updateMatrix(); shards.setMatrixAt(i,dummy.matrix); }); shards.instanceMatrix.needsUpdate=true;
   const lk=E.back(prog(t,19.35,19.9)); logo.visible=logoRim.visible=t>19.35; logo.position.set(0,2.45,0); logoRim.position.set(0,2.45,-.06); logo.rotation.y=logoRim.rotation.y=(1-lk)*-1.6; logo.scale.setScalar(.7+.3*lk); logoRim.scale.copy(logo.scale);
   // ---- DOM: supers, footage, end card
-  sup('#sp1',.15,1.15); sup('#sp2',2.3,4.2); sup('#sp3',4.9,6.4); sup('#sp4',7.5,8.6); sup('#sp5',10.15,11.4); sup('#sp6',11.8,15.4); sup('#sp7',16.4,18.4); sup('#sp8',19.6,END);
+  sup('#sp1',.15,1.15); sup('#sp2',2.3,4.2); sup('#sp3',4.9,6.4); $('#sp4').style.opacity=0; sup('#sp5',9.0,11.4); sup('#sp6',11.8,15.4); $('#sp7').style.opacity=0; sup('#sp8',19.6,END);
   const fo=$('#foot'); const fk=Math.min(prog(t,11.4,11.75),1-prog(t,15.25,15.6)); fo.style.opacity=fk; $('#footTag').style.opacity=fk;
   fo.style.transform=`perspective(160cqw) rotateY(${(1-E.out(prog(t,11.4,12.0)))*-25+Math.sin(t*.6)*4}deg) rotateX(${Math.sin(t*.5)*3}deg) scale(${.9+.1*E.out(prog(t,11.4,12))})`;
   cv.style.visibility=t>=END+.4?'hidden':'visible';
@@ -259,8 +259,10 @@ function state(t){
 let cur=-1;
 async function footFrame(t){ const i=Math.max(0,Math.min(131,Math.floor((t-11.4)*30))); if(i===cur) return; cur=i; const im=$('#fimg'); im.src='frames/f'+String(i).padStart(4,'0')+'.jpg'; try{ await im.decode(); }catch(e){} }
 window.__pairs=pairs.map(p=>+p.t0.toFixed(3));
-window.__dur=DUR;
-window.__seek=async t=>{ if(t>=11.2&&t<15.7) await footFrame(t); state(t); await new Promise(r=>requestAnimationFrame(()=>r())); };
+const WARP=[[0,0],[7.7,1.0],[10.0,2.0],[11.7,4.9],[14.0,8.6],[18.35,11.4],[23.3,15.6],[24.6,18.6],[26.3,20.8],[29.0,23.3]];
+function warp(t){ for(let i=1;i<WARP.length;i++){ const [o1,a1]=WARP[i-1],[o2,a2]=WARP[i]; if(t<=o2) return a1+(a2-a1)*(t-o1)/(o2-o1); } return DUR; }
+window.__dur=29.0;
+window.__seek=async t=>{ t=Math.min(DUR,warp(t)); if(t>=11.2&&t<15.7) await footFrame(t); state(t); await new Promise(r=>requestAnimationFrame(()=>r())); };
 window.__ready=(async()=>{
   await document.fonts.load('900 40px Alexandria'); await document.fonts.load('700 40px Osw'); await document.fonts.load('600 40px Osw'); await document.fonts.load('700 40px Mono'); await document.fonts.ready;
   await new Promise(r=>setTimeout(r,800)); state(0);
