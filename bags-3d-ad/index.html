@@ -263,6 +263,10 @@ function state(t){
 }
 const WARP=[[0,0],[2.95,2.4],[7.9,5.5],[8.3,5.7],[12.4,9.25],[12.96,10.3],[13.47,11.4],[14.6,12.5],[15.7,13.4],[17.7,17.3],[18.3,17.6],[21.1,20.0],[23.6,22.5]];
 function warp(t){ for(let i=1;i<WARP.length;i++){ const [o1,a1]=WARP[i-1],[o2,a2]=WARP[i]; if(t<=o2) return a1+(a2-a1)*(t-o1)/(o2-o1); } return DUR; }
+window.__cover=()=>{ state(8.9);
+  small.position.set(-1.7,0,2.0); small.rotation.y=.35; hero.position.set(0,0,0); hero.rotation.y=-.12; large.position.set(1.9,0,-1.7); large.rotation.y=-.35;
+  Object.values(cards).forEach(c=>c.visible=false); scanBar.visible=false; crowd.visible=false; plate.visible=false;
+  camera.position.set(0.1,4.2,16.5); camera.lookAt(0.1,4.6,0); renderer.render(scene,camera); };
 window.__dur=23.6;
 window.__seek=async t=>{ state(warp(t)); await new Promise(r=>requestAnimationFrame(()=>r())); };
 window.__ready=(async()=>{
