@@ -261,8 +261,10 @@ function state(t){
   cv.style.visibility=t>=END?'hidden':'visible';
   renderer.render(scene,camera);
 }
-window.__dur=DUR;
-window.__seek=async t=>{ state(t); await new Promise(r=>requestAnimationFrame(()=>r())); };
+const WARP=[[0,0],[2.95,2.4],[7.9,5.5],[8.3,5.7],[12.4,9.25],[12.96,10.3],[13.47,11.4],[14.6,12.5],[15.7,13.4],[17.7,17.3],[18.3,17.6],[21.1,20.0],[23.6,22.5]];
+function warp(t){ for(let i=1;i<WARP.length;i++){ const [o1,a1]=WARP[i-1],[o2,a2]=WARP[i]; if(t<=o2) return a1+(a2-a1)*(t-o1)/(o2-o1); } return DUR; }
+window.__dur=23.6;
+window.__seek=async t=>{ state(warp(t)); await new Promise(r=>requestAnimationFrame(()=>r())); };
 window.__ready=(async()=>{
   await document.fonts.load('900 40px Alexandria'); await document.fonts.load('900 40px AlexLat'); await document.fonts.load('700 40px AlexLat'); await document.fonts.load('700 40px Alexandria'); await document.fonts.load('700 40px Mono'); await document.fonts.ready;
   await logoImg.decode();
