@@ -10,7 +10,7 @@ for i, (a, b, t) in enumerate(CH):
     f.append(f"[0:a]atrim={a:.3f}:{b:.3f},asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st={d-0.05:.3f}:d=0.05,adelay={int(t*1000)}:all=1[c{i}]")
 f.append("".join(f"[c{i}]" for i in range(len(CH))) + f"amix=inputs={len(CH)}:normalize=0,aresample=44100,apad=whole_dur=23.6,highpass=f=80,"
          "equalizer=f=3000:t=q:w=1:g=2,acompressor=threshold=0.1:ratio=3:attack=5:release=120,pan=stereo|c0=c0|c1=c0,asplit[vo][sc]")
-f.append(f"[1:a]volume={SFX}[m0];[m0][sc]sidechaincompress=threshold=0.04:ratio=4:attack=15:release=350[md]")
+f.append(f"[1:a]volume={SFX}[m0];[m0][sc]sidechaincompress=threshold=0.03:ratio=8:attack=10:release=300[md]")
 f.append(f"[vo]volume=1.6[v];[v][md]amix=inputs=2:normalize=0,volume={VOL},alimiter=limit=0.89:level=false[a]")
 subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', f'{P}/assets/vo.wav', '-i', f'{P}/out/sfx2.wav', '-i', f'{P}/out/silent.mp4', '-filter_complex', ';'.join(f),
                 '-map', '2:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', '23.6', '-movflags', '+faststart',
